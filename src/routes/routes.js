@@ -1,8 +1,10 @@
 const express = require('express');
-const { routeBarInitial } = require('../controllers/user');
+const { registerUser } = require('../controllers/users/user');
+const { middlewareRegisterUser } = require('../middlewares/validateJoi');
+const schemaAuth = require('../schemas/schamaUserAuth');
 
 const route = express();
 
-route.get('/', routeBarInitial);
+route.get('/register', middlewareRegisterUser(schemaAuth), registerUser);
 
 module.exports = route;
