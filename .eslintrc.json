@@ -1,4 +1,4 @@
-{
+ {
     "env": {
         "commonjs": true,
         "es2021": true,
@@ -12,6 +12,14 @@
         "no-console": "off",
         "consistent-return": "off",
         "camelcase": "off",
-        "no-unused-vars": "off"
+        "no-unused-vars": "off",
+        "no-shadow": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "always"
+            }
+        ],
     }
 }
