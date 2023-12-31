@@ -1,6 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const knex = require("../../database/connection");
+const transport = require("../../service/mail/connectionEmail.js");
+const compileHtml = require("../../helpers/sendMail/compile.js");
+const crypto = require("crypto");
 const {
   queryEmail,
   queryNick,
@@ -24,7 +27,12 @@ const registerUser = async (req, res) => {
         .json({ message: "O campo nick_name precisa ser único" });
     }
 
-    const registerUser = await knex("dateusers").insert({
+    const tokenMail = crypto.randomBytes(3).toString("hex");
+
+    const now = new Date();
+    now.setHours(now.getHours() + 1); // Salvar no Banco de Dados
+
+    await knex("dateusers").insert({
       name,
       nick_name,
       email,
@@ -32,9 +40,19 @@ const registerUser = async (req, res) => {
       password: passEncrypted,
     });
 
-    return res
-      .status(201)
-      .json({ message: "Usuário registrado com sucesso! " });
+    const html = await compileHtml("./src/templates/register.html", {
+      name: name,
+      token: tokenMail,
+    });
+
+    transport.sendMail({
+      from: `${process.env.EMAIL_NAME} <${process.env.EMAIL_FROM}`,
+      to: `${name} <${email}>`,
+      subject: `Solicitação de Cadastro no Start Study`,
+      html,
+    });
+
+    return res.status(201).json({ message: "Usuário registrado com sucesso!" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
