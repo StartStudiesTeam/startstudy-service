@@ -2,8 +2,9 @@ const joi = require("joi");
 
 const schemaLogin = joi.object({
   email: joi.string().email().empty().messages({
-    "string.empty": "O campo nome não pode ser nulo",
-    "string.base": "O campo nome precisa ser do tipo string",
+    "string.email": "O campo email precisa está em um formato válido",
+    "string.empty": "O campo email não pode ser nulo",
+    "string.base": "O campo email precisa ser do tipo string",
   }),
 
   nick_name: joi.string().empty().messages({
