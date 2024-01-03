@@ -38,6 +38,7 @@ const registerUser = async (req, res) => {
       email,
       phone_number,
       password: passEncrypted,
+      token_user: tokenMail,
     });
 
     const html = await compileHtml("./src/templates/register.html", {
