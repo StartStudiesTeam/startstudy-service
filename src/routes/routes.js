@@ -10,10 +10,14 @@ const schemaMailUser = require("../schemas/schemaMail");
 
 const route = express();
 
-route.post("/register", middlewareRegisterUser(schemaAuth), registerUser);
-route.post("/login", middlewareRegisterUser(schemaLogin), loginUser);
+route.post("/SignUp", middlewareRegisterUser(schemaAuth), registerUser);
+route.post("/SignIn", middlewareRegisterUser(schemaLogin), loginUser);
 route.use(authenticationUser);
 
-route.get("/mail", middlewareRegisterUser(schemaMailUser), queryValidationMail);
+route.get(
+  "/ConfirmEmail",
+  middlewareRegisterUser(schemaMailUser),
+  queryValidationMail
+);
 
 module.exports = route;
