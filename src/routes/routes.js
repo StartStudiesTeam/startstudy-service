@@ -14,10 +14,6 @@ route.post("/register", middlewareRegisterUser(schemaAuth), registerUser);
 route.post("/login", middlewareRegisterUser(schemaLogin), loginUser);
 route.use(authenticationUser);
 
-route.get(
-  "/validation_mail",
-  middlewareRegisterUser(schemaMailUser),
-  queryValidationMail
-);
+route.get("/mail", middlewareRegisterUser(schemaMailUser), queryValidationMail);
 
 module.exports = route;
