@@ -12,12 +12,12 @@ const route = express();
 
 route.post("/SignUp", middlewareRegisterUser(schemaAuth), registerUser);
 route.post("/SignIn", middlewareRegisterUser(schemaLogin), loginUser);
-route.use(authenticationUser);
-
 route.get(
   "/ConfirmEmail",
   middlewareRegisterUser(schemaMailUser),
   queryCheckEmail
 );
+
+route.use(authenticationUser);
 
 module.exports = route;

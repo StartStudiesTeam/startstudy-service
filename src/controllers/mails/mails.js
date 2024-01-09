@@ -11,6 +11,8 @@ const queryCheckEmail = async (req, res) => {
         message: "Email inválido!",
       });
     }
+
+    return res.json({ message: "Teste Mensagem" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

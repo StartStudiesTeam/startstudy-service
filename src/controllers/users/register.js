@@ -39,24 +39,20 @@ const registerUser = async (req, res) => {
       created_at: new Date(),
     };
 
-    await knex
-      .transaction((trx) => {
-        return trx("dateusers")
-          .insert(newUser)
-          .then(({ insertedRowIds }) => {
-            const userId = insertedRowIds[0];
-            codeToken.user_id = userId;
-            return trx("token_confirmation").insert(codeToken);
-          })
-          .then(() => trx.commit())
-          .catch(trx.rollback);
-      })
-      .then(() => {
-        mailSendUserResgistered(name, email, codeToken.code_token);
-      })
-      .catch((error) => {
-        return res.status(500).json({ message: "Erro interno do servidsor!" });
-      });
+    let userId;
+
+    await knex.transaction(async (trx) => {
+      const [insertedRow] = await trx("dateusers")
+        .insert(newUser)
+        .returning("*");
+      userId = insertedRow.id;
+      codeToken.user_id = userId;
+
+      await trx("token_confirmation").insert(codeToken);
+      await trx.commit();
+    });
+
+    mailSendUserResgistered(name, email, codeToken.code_token);
 
     return res.status(201).json({ message: "Usuário registrado com sucesso!" });
   } catch (error) {
