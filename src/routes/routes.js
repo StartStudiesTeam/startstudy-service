@@ -20,4 +20,6 @@ route.get(
 
 route.use(authenticationUser);
 
+route.post("/UpdatePassword"); // Implementar controlador responsável por tal ação.
+
 module.exports = route;
