@@ -22,4 +22,6 @@ route.post("/ForgetPassword"); // Implementar controlador responsável por tal a
 
 route.use(authenticationUser);
 
+route.post("/UpdatePassword"); // Implementar controlador responsável por tal ação.
+
 module.exports = route;
