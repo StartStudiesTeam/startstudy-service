@@ -18,6 +18,8 @@ route.get(
   queryCheckEmail
 );
 
+route.post("/ForgetPassword"); // Implementar controlador responsável por tal ação.
+
 route.use(authenticationUser);
 
 module.exports = route;
