@@ -1,11 +1,10 @@
-const knex = require("../../database/connection");
-const { queryEmail } = require("../../helpers/users/validateUsers");
+const { mailUserQuery } = require("../../helpers/users/helpersUsers");
 
 const queryCheckEmail = async (req, res) => {
   const { email } = req.body;
 
   try {
-    const queryEmailExist = await queryEmail(email);
+    const queryEmailExist = await mailUserQuery(email);
     if (!queryEmailExist) {
       return res.status(400).json({
         message: "Email inválido!",

@@ -1,11 +1,11 @@
 const bcrypt = require("bcrypt");
 const knex = require("../../database/connection");
+const mailSendUserResgistered = require("../mails/sendEmail");
 const crypto = require("crypto");
 const {
-  queryEmail,
-  queryNick,
-} = require("../../helpers/users/validateUsers.js");
-const mailSendUserResgistered = require("../mails/sendEmail");
+  nickUserQuery,
+  mailUserQuery,
+} = require("../../helpers/users/helpersUsers");
 
 const registerUser = async (req, res) => {
   const { name, nick_name, email, password, phone_number } = req.body;
@@ -13,13 +13,13 @@ const registerUser = async (req, res) => {
   try {
     const passEncrypted = await bcrypt.hash(password, 10);
 
-    if (await queryEmail(email)) {
+    if (await mailUserQuery(email)) {
       return res.status(400).json({
         message: "Já existe usuário cadastrado com o e-mail informado.",
       });
     }
 
-    if (await queryNick(nick_name)) {
+    if (await nickUserQuery(nick_name)) {
       return res
         .status(400)
         .json({ message: "O campo nick_name precisa ser único" });
@@ -38,8 +38,6 @@ const registerUser = async (req, res) => {
       code_token: crypto.randomBytes(3).toString("hex"),
       created_at: new Date(),
     };
-
-    let userId;
 
     await knex.transaction(async (trx) => {
       const [insertedRow] = await trx("dateusers")
