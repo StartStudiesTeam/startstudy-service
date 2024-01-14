@@ -6,8 +6,8 @@ const {
   nickUserQuery,
   mailUserQuery,
 } = require("../../helpers/users/helpersUsers");
-const errorMessages = require("../../helpers/yup/errorMessages");
-const sucessMessages = require("../../helpers/yup/sucessMessages");
+const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 
 const registerUser = async (req, res) => {
   const { name, nick_name, email, password, phone_number } = req.body;

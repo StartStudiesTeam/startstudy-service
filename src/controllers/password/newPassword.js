@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
 const knex = require("../../database/connection");
 const crypto = require("crypto");
-const errorMessages = require("../../helpers/yup/errorMessages");
-const sucessMessages = require("../../helpers/yup/sucessMessages");
+const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 
 const newPassword = async (req, res) => {
   const { password, newPassword } = req.body;

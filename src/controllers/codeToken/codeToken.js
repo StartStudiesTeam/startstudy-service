@@ -1,6 +1,6 @@
 const knex = require("../../database/connection");
 const { mailUserQuery } = require("../../helpers/users/helpersUsers");
-const errorMessages = require("../../helpers/yup/errorMessages");
+const errorMessages = require("../../helpers/codeMessages/errorMessages");
 
 const queryValidationToken = async (req, res) => {
   const { email, codeToken } = req.body;
