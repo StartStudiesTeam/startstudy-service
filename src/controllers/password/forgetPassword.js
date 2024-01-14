@@ -1,6 +1,6 @@
 const knex = require("../../database/connection");
-const errorMessages = require("../../helpers/yup/errorMessages");
-const sucessMessages = require("../../helpers/yup/sucessMessages");
+const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 
 const passwordForget = async (req, res) => {
   const { newPassword } = req.body;

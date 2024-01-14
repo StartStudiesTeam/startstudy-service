@@ -1,5 +1,5 @@
 const { mailUserQuery } = require("../../helpers/users/helpersUsers");
-const errorMessages = require("../../helpers/yup/errorMessages");
+const errorMessages = require("../../helpers/codeMessages/errorMessages");
 
 const queryCheckEmail = async (req, res) => {
   const { email } = req.body;
