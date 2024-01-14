@@ -10,7 +10,17 @@ const nickUserQuery = async (nick_name) => {
   return nickValidate[0];
 };
 
+const validationTokenQuery = async (code) => {
+  const tokenQuery = await "token_confirmation"
+    .select("code_token")
+    .where({ code_token: code })
+    .first();
+
+  return tokenQuery;
+};
+
 module.exports = {
   mailUserQuery,
   nickUserQuery,
+  validationTokenQuery,
 };

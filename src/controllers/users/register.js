@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const knex = require("../../database/connection");
-const mailSendUserResgistered = require("../mails/sendEmail");
+const mailSendUserResgistered = require("../mails/sendMails");
 const crypto = require("crypto");
 const {
   nickUserQuery,

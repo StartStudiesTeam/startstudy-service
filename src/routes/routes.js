@@ -6,17 +6,13 @@ const schemaLogin = require("../schemas/schemaLogin");
 const schemaMailUser = require("../schemas/schemaMail");
 const registerUser = require("../controllers/users/register");
 const loginUser = require("../controllers/users/login");
-const queryCheckEmail = require("../controllers/mails/mails");
+const mailCheckQuery = require("../controllers/mails/mails");
 
 const route = express();
 
 route.post("/SignUp", middlewareRegisterUser(schemaAuth), registerUser);
 route.post("/SignIn", middlewareRegisterUser(schemaLogin), loginUser);
-route.get(
-  "/ConfirmEmail",
-  middlewareRegisterUser(schemaMailUser),
-  queryCheckEmail
-);
+route.get("/MailCheck", middlewareRegisterUser(schemaMailUser), mailCheckQuery);
 
 route.post("/ForgetPassword"); // Implementar controlador responsável por tal ação.
 
