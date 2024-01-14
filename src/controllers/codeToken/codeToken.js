@@ -2,15 +2,13 @@ const knex = require("../../database/connection");
 const { mailUserQuery } = require("../../helpers/users/helpersUsers");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 
-const queryValidationToken = async (req, res) => {
+const validationTokenQuery = async (req, res) => {
   const { email, codeToken } = req.body;
 
   const currentTime = new Date();
   currentTime.setHours(currentTime.getHours() - 1);
 
   try {
-    const user = await mailUserQuery(email);
-
     const queryToken = await knex("dateusers")
       .innerJoin(
         "token_confirmation",
@@ -42,4 +40,4 @@ const queryValidationToken = async (req, res) => {
   }
 };
 
-module.exports = queryValidationToken;
+module.exports = validationTokenQuery;
