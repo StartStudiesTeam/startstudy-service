@@ -1,13 +1,15 @@
 const knex = require("../../database/connection");
-const { queryEmail } = require("../../helpers/users/validateUsers");
+const { mailUserQuery } = require("../../helpers/users/helpersUsers");
 
 const queryValidationToken = async (req, res) => {
   const { email, codeToken } = req.body;
-  const user = await queryEmail(email);
+
   const currentTime = new Date();
   currentTime.setHours(currentTime.getHours() - 1);
 
   try {
+    const user = await mailUserQuery(email);
+
     const queryToken = await knex("dateusers")
       .innerJoin(
         "token_confirmation",
@@ -15,7 +17,7 @@ const queryValidationToken = async (req, res) => {
         "=",
         "token_confirmation.user_id"
       )
-      .where({ email, code_token });
+      .where({ email, code_token: codeToken });
 
     if (!queryToken[0]) {
       return res.status(404).json({ message: "Token inválido(a)!" });
@@ -26,7 +28,7 @@ const queryValidationToken = async (req, res) => {
     }
 
     const token = jwt.sign({ sub: nick.id }, process.env.SECRET_KEY, {
-      expiresIn: "10m",
+      expiresIn: 60 * 10,
     });
 
     const { password: _, ...userValid } = nick;
