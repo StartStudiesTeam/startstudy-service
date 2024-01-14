@@ -1,4 +1,6 @@
 const knex = require("../../database/connection");
+const errorMessages = require("../../helpers/yup/errorMessages");
+const sucessMessages = require("../../helpers/yup/sucessMessages");
 
 const passwordForget = async (req, res) => {
   const { newPassword } = req.body;
@@ -7,8 +9,10 @@ const passwordForget = async (req, res) => {
   try {
     await knex("dateusers").update({ password: newPassword }).where({ id });
 
-    res.status(200).json({ message: "Senha redefinida com sucesso!" });
+    res.status(200).json({ message: sucessMessages.passworReset });
   } catch (error) {
-    return res.status(500).json({ message: "Erro interno no servidor" });
+    return res
+      .status(500)
+      .json({ message: errorMessages.InternalServerError, error: message });
   }
 };

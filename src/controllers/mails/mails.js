@@ -1,4 +1,5 @@
 const { mailUserQuery } = require("../../helpers/users/helpersUsers");
+const errorMessages = require("../../helpers/yup/errorMessages");
 
 const queryCheckEmail = async (req, res) => {
   const { email } = req.body;
@@ -7,13 +8,15 @@ const queryCheckEmail = async (req, res) => {
     const queryEmailExist = await mailUserQuery(email);
     if (!queryEmailExist) {
       return res.status(400).json({
-        message: "Email inválido!",
+        message: errorMessages.invalidEmail,
       });
     }
 
     return res.json({ message: "Teste Mensagem" });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res
+      .status(500)
+      .json({ message: errorMessages.InternalServerError, error: message });
   }
 };
 

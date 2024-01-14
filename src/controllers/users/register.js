@@ -6,6 +6,8 @@ const {
   nickUserQuery,
   mailUserQuery,
 } = require("../../helpers/users/helpersUsers");
+const errorMessages = require("../../helpers/yup/errorMessages");
+const sucessMessages = require("../../helpers/yup/sucessMessages");
 
 const registerUser = async (req, res) => {
   const { name, nick_name, email, password, phone_number } = req.body;
@@ -15,14 +17,12 @@ const registerUser = async (req, res) => {
 
     if (await mailUserQuery(email)) {
       return res.status(400).json({
-        message: "Já existe usuário cadastrado com o e-mail informado.",
+        message: errorMessages.existingUser,
       });
     }
 
     if (await nickUserQuery(nick_name)) {
-      return res
-        .status(400)
-        .json({ message: "O campo nick_name precisa ser único" });
+      return res.status(400).json({ message: errorMessages.uniqueNickName });
     }
 
     const newUser = {
@@ -52,9 +52,13 @@ const registerUser = async (req, res) => {
 
     mailSendUserResgistered(name, email, codeToken.code_token);
 
-    return res.status(201).json({ message: "Usuário registrado com sucesso!" });
+    return res
+      .status(201)
+      .json({ message: sucessMessages.successfullyRegisteredUser });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res
+      .status(500)
+      .json({ message: errorMessages.InternalServerError, error: message });
   }
 };
 

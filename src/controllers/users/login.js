@@ -4,6 +4,7 @@ const {
   nickUserQuery,
   mailUserQuery,
 } = require("../../helpers/users/helpersUsers.js");
+const errorMessages = require("../../helpers/yup/errorMessages");
 
 const loginUser = async (req, res) => {
   const { nick_name, email, password } = req.body;
@@ -12,13 +13,17 @@ const loginUser = async (req, res) => {
       const existingUser = await mailUserQuery(email);
 
       if (!existingUser) {
-        return res.status(404).json({ message: "Email ou senha inválido(a)!" });
+        return res.status(404).json({
+          message: errorMessages.invalidEmailOrPassword,
+        });
       }
 
       const correctPass = await bcrypt.compare(password, existingUser.password);
 
       if (!correctPass) {
-        return res.status(404).json({ message: "Email ou senha inválido(a)!" });
+        return res.status(404).json({
+          message: errorMessages.invalidEmailOrPassword,
+        });
       }
 
       const token = jwt.sign({ sub: existingUser.id }, process.env.JWT_SECRET, {
@@ -33,17 +38,17 @@ const loginUser = async (req, res) => {
       const existingNick = await nickUserQuery(nick_name);
 
       if (!existingNick) {
-        return res
-          .status(404)
-          .json({ message: "Nick-name ou senha inválido(a)!" });
+        return res.status(404).json({
+          message: errorMessages.invalidNickNameOrPassword,
+        });
       }
 
       const correctPass = await bcrypt.compare(password, existingNick.password);
 
       if (!correctPass) {
-        return res
-          .status(404)
-          .json({ message: "Nick-name ou senha inválido(a)!" });
+        return res.status(404).json({
+          message: errorMessages.invalidNickNameOrPassword,
+        });
       }
 
       const token = jwt.sign({ sub: existingNick.id }, process.env.JWT_SECRET, {
@@ -55,7 +60,9 @@ const loginUser = async (req, res) => {
       return res.status(200).json({ token });
     }
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res
+      .status(500)
+      .json({ message: errorMessages.InternalServerError, error: message });
   }
 };
 
