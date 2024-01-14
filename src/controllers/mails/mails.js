@@ -1,18 +1,19 @@
-const { mailUserQuery } = require("../../helpers/users/helpersUsers");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const { mailUserQuery } = require("../../helpers/users/helpersUsers");
 
-const queryCheckEmail = async (req, res) => {
+const mailCheckQuery = async (req, res, next) => {
   const { email } = req.body;
 
   try {
-    const queryEmailExist = await mailUserQuery(email);
-    if (!queryEmailExist) {
-      return res.status(400).json({
+    const mailExistingQuery = await mailUserQuery(email);
+
+    if (!mailExistingQuery) {
+      return res.status(404).json({
         message: errorMessages.invalidEmail,
       });
     }
 
-    return res.json({ message: "Teste Mensagem" });
+    next();
   } catch (error) {
     return res
       .status(500)
@@ -20,4 +21,4 @@ const queryCheckEmail = async (req, res) => {
   }
 };
 
-module.exports = queryCheckEmail;
+module.exports = mailCheckQuery;
