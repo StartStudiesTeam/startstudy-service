@@ -9,10 +9,8 @@ const passwordForget = async (req, res) => {
   try {
     await knex("dateusers").update({ password: newPassword }).where({ id });
 
-    res.status(200).json({ message: sucessMessages.passworReset });
+    return res.status(200).json({ message: sucessMessages.passworReset });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: errorMessages.InternalServerError, error: message });
+    return res.status(500).json({ message: errorMessages.InternalServerError });
   }
 };
