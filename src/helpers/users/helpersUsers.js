@@ -10,11 +10,15 @@ const nickUserQuery = async (nick_name) => {
   return nickValidate[0];
 };
 
-const validationTokenQuery = async (code) => {
-  const tokenQuery = await "token_confirmation"
-    .select("code_token")
-    .where({ code_token: code })
-    .first();
+const validationTokenDatabaseQuery = async (email, code) => {
+  const tokenQuery = await knex("dateusers")
+    .innerJoin(
+      "token_confirmation",
+      "dateusers.id",
+      "=",
+      "token_confirmation.user_id"
+    )
+    .where({ email, code_token: code });
 
   return tokenQuery;
 };
@@ -22,5 +26,5 @@ const validationTokenQuery = async (code) => {
 module.exports = {
   mailUserQuery,
   nickUserQuery,
-  validationTokenQuery,
+  validationTokenDatabaseQuery,
 };

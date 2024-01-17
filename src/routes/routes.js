@@ -1,23 +1,30 @@
 const express = require("express");
+
 const { middlewareRegisterUser } = require("../middlewares/validateJoi");
 const { authenticationUser } = require("../middlewares/token");
+
 const schemaAuth = require("../schemas/schemaUserAuth");
 const schemaLogin = require("../schemas/schemaLogin");
 const schemaMailUser = require("../schemas/schemaMail");
+
 const registerUser = require("../controllers/users/register");
 const loginUser = require("../controllers/users/login");
 const mailCheckQuery = require("../controllers/mails/mails");
+const deleteUser = require("../controllers/users/delete");
+const passwordForget = require("../controllers/password/forgetPassword");
+const newPassword = require("../controllers/password/newPassword");
 
 const route = express();
 
 route.post("/SignUp", middlewareRegisterUser(schemaAuth), registerUser);
 route.post("/SignIn", middlewareRegisterUser(schemaLogin), loginUser);
 route.get("/MailCheck", middlewareRegisterUser(schemaMailUser), mailCheckQuery);
-
-route.post("/ForgetPassword"); // Implementar controlador responsável por tal ação.
+route.put("/ForgetPassword", passwordForget);
 
 route.use(authenticationUser);
 
-route.post("/UpdatePassword"); // Implementar controlador responsável por tal ação.
+route.put("/UpdatePassword", newPassword);
+
+route.put("/DeleteUser", deleteUser);
 
 module.exports = route;

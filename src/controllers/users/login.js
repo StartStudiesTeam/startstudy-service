@@ -18,6 +18,12 @@ const loginUser = async (req, res) => {
         });
       }
 
+      if (existingUser.deleted_at !== null) {
+        return res.status(404).json({
+          message: errorMessages.invalidEmailOrPassword,
+        });
+      }
+
       const correctPass = await bcrypt.compare(password, existingUser.password);
 
       if (!correctPass) {
@@ -34,10 +40,17 @@ const loginUser = async (req, res) => {
 
       return res.status(200).json({ token });
     }
+
     if (nick_name) {
       const existingNick = await nickUserQuery(nick_name);
 
       if (!existingNick) {
+        return res.status(404).json({
+          message: errorMessages.invalidNickNameOrPassword,
+        });
+      }
+
+      if (existingNick.deleted_at !== null) {
         return res.status(404).json({
           message: errorMessages.invalidNickNameOrPassword,
         });
