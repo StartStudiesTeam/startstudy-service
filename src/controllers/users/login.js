@@ -60,9 +60,7 @@ const loginUser = async (req, res) => {
       return res.status(200).json({ token });
     }
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: errorMessages.InternalServerError, error: message });
+    return res.status(500).json({ message: errorMessages.InternalServerError });
   }
 };
 

@@ -56,9 +56,7 @@ const registerUser = async (req, res) => {
       .status(201)
       .json({ message: sucessMessages.successfullyRegisteredUser });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: errorMessages.InternalServerError, error: message });
+    return res.status(500).json({ message: errorMessages.InternalServerError });
   }
 };
 
