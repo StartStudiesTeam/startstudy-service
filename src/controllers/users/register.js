@@ -8,6 +8,7 @@ const {
 } = require("../../helpers/users/helpersUsers");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
+const currentTime = require("../../helpers/helpersData/data");
 
 const registerUser = async (req, res) => {
   const { name, nick_name, email, password, phone_number } = req.body;
@@ -31,12 +32,12 @@ const registerUser = async (req, res) => {
       password: passEncrypted,
       nick_name,
       phone_number,
-      created_at: new Date(),
+      created_at: currentTime,
     };
 
     const codeToken = {
       code_token: crypto.randomBytes(3).toString("hex"),
-      created_at: new Date(),
+      created_at: currentTime,
     };
 
     await knex.transaction(async (trx) => {

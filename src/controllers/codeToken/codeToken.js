@@ -1,36 +1,30 @@
-const knex = require("../../database/connection");
-const { mailUserQuery } = require("../../helpers/users/helpersUsers");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const currentTime = require("../../helpers/helpersData/data");
+const {
+  validationTokenDatabaseQuery,
+} = require("../../helpers/users/helpersUsers");
 
 const validationTokenQuery = async (req, res) => {
   const { email, codeToken } = req.body;
 
-  const currentTime = new Date();
   currentTime.setHours(currentTime.getHours() - 1);
 
   try {
-    const queryToken = await knex("dateusers")
-      .innerJoin(
-        "token_confirmation",
-        "dateusers.id",
-        "=",
-        "token_confirmation.user_id"
-      )
-      .where({ email, code_token: codeToken });
+    const tokenQuery = await validationTokenDatabaseQuery(email, codeToken);
 
-    if (!queryToken[0]) {
+    if (!tokenQuery) {
       return res.status(404).json({ message: errorMessages.invalidToken });
     }
 
-    if (queryToken[0].created_at < currentTime) {
+    if (tokenQuery.created_at < currentTime) {
       return res.status(404).json({ message: errorMessages.tokenExpired });
     }
 
-    const token = jwt.sign({ sub: nick.id }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ sub: tokenQuery.id }, process.env.SECRET_KEY, {
       expiresIn: 60 * 10,
     });
 
-    const { password: _, ...userValid } = nick;
+    const { password: _, ...userValid } = tokenQuery;
 
     return res.status(200).json({ token });
   } catch (error) {

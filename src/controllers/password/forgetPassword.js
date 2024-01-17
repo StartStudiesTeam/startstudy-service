@@ -14,3 +14,5 @@ const passwordForget = async (req, res) => {
     return res.status(500).json({ message: errorMessages.InternalServerError });
   }
 };
+
+module.exports = passwordForget;
