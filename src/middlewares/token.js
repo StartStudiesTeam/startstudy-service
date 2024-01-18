@@ -1,11 +1,12 @@
 const knex = require("../database/connection");
 const jwt = require("jsonwebtoken");
+const errorMessages = require("../helpers/codeMessages/errorMessages");
 
 const authenticationUser = async (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
-    return res.status(401).json({ message: "Não autorizado" });
+    return res.status(401).json({ message: errorMessages.unauthorizedUser });
   }
 
   const token = authorization.split(" ")[1];
@@ -19,7 +20,7 @@ const authenticationUser = async (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: errorMessages.InternalServerError });
   }
 };
 
