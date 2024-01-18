@@ -24,7 +24,6 @@ route.put("/ForgetPassword", passwordForget);
 route.use(authenticationUser);
 
 route.put("/UpdatePassword", newPassword);
-
-route.put("/DeleteUser", deleteUser);
+route.delete("/DeleteUser", deleteUser);
 
 module.exports = route;
