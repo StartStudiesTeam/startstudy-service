@@ -13,6 +13,7 @@ const mailCheckQuery = require("../controllers/mails/mails");
 const deleteUser = require("../controllers/users/delete");
 const passwordForget = require("../controllers/password/forgetPassword");
 const newPassword = require("../controllers/password/newPassword");
+const updateUser = require("../controllers/users/update");
 
 const route = express();
 
@@ -24,6 +25,7 @@ route.put("/ForgetPassword", passwordForget);
 route.use(authenticationUser);
 
 route.put("/UpdatePassword", newPassword);
+route.put("/UpdateUser", updateUser);
 route.delete("/DeleteUser", deleteUser);
 
 module.exports = route;
