@@ -1,13 +1,13 @@
 const errorMessages = {
-  invalidToken: "Token inválido!",
-  tokenExpired: "Token expirado!",
-  invalidEmail: "Email inválido!",
-  passwordInvalid: "Senha atual invalida!",
-  invalidEmailOrPassword: "Email ou senha inválido(a)!",
-  invalidNickNameOrPassword: "Nick-name ou senha inválido(a)!",
-  InternalServerError: "Erro interno no servidor",
-  existingUser: "Já existe usuário cadastrado com o e-mail informado.",
-  uniqueNickName: "O campo nick_name precisa ser único",
+  invalidToken: "Token Inválido!",
+  tokenExpired: "Token Expirado!",
+  invalidEmail: "Email Inválido!",
+  passwordInvalid: "Senha Atual Inválida!",
+  invalidCredentials: "Credenciais de Acesso Inválidas!",
+  InternalServerError: "Erro Interno no Servidor",
+  existingUser: "Já Existe Usuário Cadastrado Com o E-mail Informado.",
+  uniqueNickName: "O Nick Name Precisa Ser Único",
+  unauthorizedUser: "Usuário Não Autorizado",
 };
 
 module.exports = errorMessages;

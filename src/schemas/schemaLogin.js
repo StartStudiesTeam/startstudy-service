@@ -9,8 +9,8 @@ const schemaLogin = joi.object({
 
   nick_name: joi.string().empty().messages({
     "any.required": "O campo nick_name é obrigatório",
-    "string.empty": "O campo senha não pode ser nulo",
-    "string.base": "O campo senha precisa ser do tipo string",
+    "string.empty": "O campo nick_name não pode ser nulo",
+    "string.base": "O campo nick_name precisa ser do tipo string",
   }),
 
   password: joi.string().empty().required().messages({

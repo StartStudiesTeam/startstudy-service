@@ -1,7 +1,7 @@
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const { mailUserQuery } = require("../../helpers/users/helpersUsers");
 
-const mailCheckQuery = async (req, res, next) => {
+const mailCheckQuery = async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -13,7 +13,7 @@ const mailCheckQuery = async (req, res, next) => {
       });
     }
 
-    next();
+    return res.json({ message: errorMessages.validatedEmail });
   } catch (error) {
     return res.status(500).json({ message: errorMessages.InternalServerError });
   }
