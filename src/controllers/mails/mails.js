@@ -12,7 +12,6 @@ const mailCheckQuery = async (req, res) => {
         message: errorMessages.invalidEmail,
       });
     }
-
     return res.json({ message: errorMessages.validatedEmail });
   } catch (error) {
     return res.status(500).json({ message: errorMessages.InternalServerError });

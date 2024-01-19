@@ -1,7 +1,7 @@
 const knex = require("../../database/connection");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
-const currentTime = require("../../helpers/helpersData/data");
+const { currentTime } = require("../../helpers/helpersData/data");
 
 const deleteUser = async (req, res) => {
   const { id } = req.user;
