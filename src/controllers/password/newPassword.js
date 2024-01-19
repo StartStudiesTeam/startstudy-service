@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt");
 const knex = require("../../database/connection");
-const crypto = require("crypto");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 
@@ -11,7 +10,12 @@ const newPassword = async (req, res) => {
   try {
     const correntPassword = await knex("dateusers").where({ id });
 
-    if (correntPassword.password != password) {
+    const correctPass = await bcrypt.compare(
+      password,
+      correntPassword.password
+    );
+
+    if (!correctPass) {
       return res.status(400).json({ message: errorMessages.passwordInvalid });
     }
     await knex("dateusers").update({ password: newPassword }).where({ id });
