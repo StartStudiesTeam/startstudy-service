@@ -16,7 +16,7 @@ const newPassword = async (req, res) => {
     );
 
     if (!correctPass) {
-      return res.status(400).json({ message: errorMessages.passwordInvalid });
+      return res.status(401).json({ message: errorMessages.passwordInvalid });
     }
     await knex("dateusers").update({ password: newPassword }).where({ id });
 
