@@ -20,8 +20,11 @@ const route = express();
 
 route.post("/signup", middlewareRegisterUser(schemaAuth), registerUser);
 route.post("/signin", middlewareRegisterUser(schemaLogin), loginUser);
-
-route.get("/mailcheck", middlewareRegisterUser(schemaMailUser), mailCheckQuery);
+route.post(
+  "/mailcheck",
+  middlewareRegisterUser(schemaMailUser),
+  mailCheckQuery
+);
 
 route.patch("/confirmationtoken", validationCodeTokenQuery);
 route.put("/forgetpassword", passwordForget);
