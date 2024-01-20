@@ -18,16 +18,22 @@ const validationCodeTokenQuery = require("../controllers/codeToken/codeToken");
 
 const route = express();
 
-route.post("/SignUp", middlewareRegisterUser(schemaAuth), registerUser);
-route.post("/SignIn", middlewareRegisterUser(schemaLogin), loginUser);
-route.get("/MailCheck", middlewareRegisterUser(schemaMailUser), mailCheckQuery);
-route.put("/ForgetPassword", passwordForget);
-route.patch("/ConfirmationToken", validationCodeTokenQuery);
+route.post("/signup", middlewareRegisterUser(schemaAuth), registerUser);
+route.post("/signin", middlewareRegisterUser(schemaLogin), loginUser);
+route.post(
+  "/mailcheck",
+  middlewareRegisterUser(schemaMailUser),
+  mailCheckQuery
+);
+
+route.patch("/confirmationtoken", validationCodeTokenQuery);
+route.put("/forgetpassword", passwordForget);
 
 route.use(authenticationUser);
 
-route.put("/UpdatePassword", newPassword);
-route.patch("/UpdateUser", updateUser);
-route.delete("/DeleteUser", deleteUser);
+route.put("/updatepassword", newPassword);
+route.patch("/updateuser", updateUser);
+
+route.delete("/deleteuser", deleteUser);
 
 module.exports = route;

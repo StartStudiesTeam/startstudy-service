@@ -6,7 +6,7 @@ const swaggerDocs = require("./documentation/swagger/swagger.json");
 
 const app = express();
 app.use(express.json());
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use(route);
+app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use("/api/v1", route);
 
 app.listen(process.env.PORT);
