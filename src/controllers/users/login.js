@@ -41,7 +41,9 @@ const loginUser = async (req, res) => {
 
     return res.status(200).json({ token });
   } catch (error) {
-    return res.status(500).json({ message: errorMessages.InternalServerError });
+    return res
+      .status(404)
+      .json({ message: errorMessages.errorProcessingThisRequest });
   }
 };
 

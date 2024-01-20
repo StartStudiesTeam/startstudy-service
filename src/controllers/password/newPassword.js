@@ -22,7 +22,9 @@ const newPassword = async (req, res) => {
 
     res.status(200).json({ message: sucessMessages.passworReset });
   } catch (error) {
-    return res.status(500).json({ message: errorMessages.InternalServerError });
+    return res
+      .status(404)
+      .json({ message: errorMessages.errorProcessingThisRequest });
   }
 };
 

@@ -12,7 +12,7 @@ const authenticationUser = async (req, res, next) => {
   const token = authorization.split(" ")[1];
 
   try {
-    const { sub } = jwt.verify(token, process.env.SECRET_KEY);
+    const { sub } = jwt.verify(token, process.env.JWT_SECRET);
 
     req.user = {
       id: sub,
@@ -20,7 +20,7 @@ const authenticationUser = async (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(500).json({ message: errorMessages.InternalServerError });
+    return res.status(401).json({ message: errorMessages.unauthorizedUser });
   }
 };
 

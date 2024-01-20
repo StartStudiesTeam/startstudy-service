@@ -28,7 +28,9 @@ const updateUser = async (req, res) => {
 
     return res.status(204).json({ message: sucessMessages.successUpdateUser });
   } catch (error) {
-    return res.status(500).json({ message: errorMessages.InternalServerError });
+    return res
+      .status(404)
+      .json({ message: errorMessages.errorProcessingThisRequest });
   }
 };
 
