@@ -31,4 +31,6 @@ jobs:
         port: 22
         script: |
           cd /home/startstudies/workspace-startstudies/startstudy-server/
+          npm install
+          npm run doc
           docker compose restart
