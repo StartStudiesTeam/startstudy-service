@@ -11,17 +11,17 @@ const validationCodeTokenQuery = async (req, res) => {
     const tokenQuery = await validationCodeTokenDatabaseQuery(email, codeToken);
 
     if (!tokenQuery) {
-      return res.status(404).json({ message: errorMessages.invalidToken });
+      return res.status(400).json({ message: errorMessages.invalidToken });
     }
 
     if (tokenQuery.created_at < validTime) {
-      return res.status(404).json({ message: errorMessages.tokenExpired });
+      return res.status(403).json({ message: errorMessages.tokenExpired });
     }
 
     await knex("dateusers").update({ verify_mail: true }).where({ email });
 
     const token = jwt.sign({ sub: tokenQuery.id }, process.env.SECRET_KEY, {
-      expiresIn: "8h",
+      expiresIn: process.env.JWT_EXPIRES_IN,
     });
 
     const { password: _, ...userValid } = tokenQuery;

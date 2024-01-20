@@ -26,7 +26,7 @@ const updateUser = async (req, res) => {
       .update({ name, nick_name, email, phone_number, updated_at: currentTime })
       .where({ id });
 
-    return res.status(201).json({ message: sucessMessages.successUpdateUser });
+    return res.status(204).json({ message: sucessMessages.successUpdateUser });
   } catch (error) {
     return res.status(500).json({ message: errorMessages.InternalServerError });
   }

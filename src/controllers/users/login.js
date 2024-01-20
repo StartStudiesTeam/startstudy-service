@@ -14,13 +14,13 @@ const loginUser = async (req, res) => {
       : await nickUserQuery(nick_name);
 
     if (!existingUser) {
-      return res.status(404).json({
+      return res.status(401).json({
         message: errorMessages.invalidCredentials,
       });
     }
 
     if (existingUser.deleted_at !== null) {
-      return res.status(404).json({
+      return res.status(403).json({
         message: errorMessages.invalidCredentials,
       });
     }
@@ -28,7 +28,7 @@ const loginUser = async (req, res) => {
     const correctPass = await bcrypt.compare(password, existingUser.password);
 
     if (!correctPass) {
-      return res.status(404).json({
+      return res.status(401).json({
         message: errorMessages.invalidCredentials,
       });
     }
