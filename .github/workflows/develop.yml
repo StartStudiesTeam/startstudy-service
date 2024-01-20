@@ -1,0 +1,34 @@
+name: 🚀 Deploy Develop StartStudies
+on:
+  pull_request:
+    branches:
+    - development
+    types: [closed]
+jobs:
+  web-deploy:
+    name: 🎉 Deploy Development
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+
+    - name: 📂 Sync files
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.DEPLOY_HOST }}
+        username: ${{ secrets.DEPLOY_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        source: .
+        target: ${{ secrets.DEPLOY_TARGET }}
+
+    - name: Build docker
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.DEPLOY_HOST }}
+        username: ${{ secrets.DEPLOY_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /home/startstudies/startstudies
+          docker compose restart
