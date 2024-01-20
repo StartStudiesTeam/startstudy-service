@@ -20,14 +20,17 @@ const route = express();
 
 route.post("/signup", middlewareRegisterUser(schemaAuth), registerUser);
 route.post("/signin", middlewareRegisterUser(schemaLogin), loginUser);
+
 route.get("/mailcheck", middlewareRegisterUser(schemaMailUser), mailCheckQuery);
-route.put("/forgetpassword", passwordForget);
+
 route.patch("/confirmationtoken", validationCodeTokenQuery);
+route.put("/forgetpassword", passwordForget);
 
 route.use(authenticationUser);
 
 route.put("/updatepassword", newPassword);
 route.patch("/updateuser", updateUser);
+
 route.delete("/deleteuser", deleteUser);
 
 module.exports = route;
