@@ -8,7 +8,7 @@ const {
 } = require("../../helpers/users/helpersUsers");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
-const currentTime = require("../../helpers/helpersData/data");
+const { currentTime } = require("../../helpers/helpersData/data");
 
 const registerUser = async (req, res) => {
   const { name, nick_name, email, password, phone_number } = req.body;

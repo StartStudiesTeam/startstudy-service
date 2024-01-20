@@ -1,3 +1,5 @@
 const currentTime = new Date();
 
-module.exports = currentTime;
+const validTime = currentTime.setHours(currentTime.getHours() - 1);
+
+module.exports = { currentTime, validTime };

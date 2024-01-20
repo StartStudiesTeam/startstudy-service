@@ -1,27 +1,27 @@
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const currentTime = require("../../helpers/helpersData/data");
+const { validTime } = require("../../helpers/helpersData/data");
 const {
-  validationTokenDatabaseQuery,
+  validationCodeTokenDatabaseQuery,
 } = require("../../helpers/users/helpersUsers");
 
-const validationTokenQuery = async (req, res) => {
+const validationCodeTokenQuery = async (req, res) => {
   const { email, codeToken } = req.body;
 
-  currentTime.setHours(currentTime.getHours() - 1);
-
   try {
-    const tokenQuery = await validationTokenDatabaseQuery(email, codeToken);
+    const tokenQuery = await validationCodeTokenDatabaseQuery(email, codeToken);
 
     if (!tokenQuery) {
       return res.status(404).json({ message: errorMessages.invalidToken });
     }
 
-    if (tokenQuery.created_at < currentTime) {
+    if (tokenQuery.created_at < validTime) {
       return res.status(404).json({ message: errorMessages.tokenExpired });
     }
 
+    await knex("dateusers").update({ verify_mail: true }).where({ email });
+
     const token = jwt.sign({ sub: tokenQuery.id }, process.env.SECRET_KEY, {
-      expiresIn: 60 * 10,
+      expiresIn: "8h",
     });
 
     const { password: _, ...userValid } = tokenQuery;
@@ -32,4 +32,4 @@ const validationTokenQuery = async (req, res) => {
   }
 };
 
-module.exports = validationTokenQuery;
+module.exports = validationCodeTokenQuery;

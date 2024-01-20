@@ -10,7 +10,7 @@ const nickUserQuery = async (nick_name) => {
   return nickValidate[0];
 };
 
-const validationTokenDatabaseQuery = async (email, code) => {
+const validationCodeTokenDatabaseQuery = async (email, code) => {
   const tokenQuery = await knex("dateusers")
     .innerJoin(
       "token_confirmation",
@@ -26,5 +26,5 @@ const validationTokenDatabaseQuery = async (email, code) => {
 module.exports = {
   mailUserQuery,
   nickUserQuery,
-  validationTokenDatabaseQuery,
+  validationCodeTokenDatabaseQuery,
 };
