@@ -3,6 +3,8 @@ const { validTime } = require("../../helpers/helpersData/data");
 const {
   validationCodeTokenDatabaseQuery,
 } = require("../../helpers/users/helpersUsers");
+const knex = require("../../database/connection");
+const jwt = require("jsonwebtoken");
 
 const validationCodeTokenQuery = async (req, res) => {
   const { email, codeToken } = req.body;
@@ -20,7 +22,7 @@ const validationCodeTokenQuery = async (req, res) => {
 
     await knex("dateusers").update({ verify_mail: true }).where({ email });
 
-    const token = jwt.sign({ sub: tokenQuery.id }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ sub: tokenQuery.id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
 
@@ -28,7 +30,9 @@ const validationCodeTokenQuery = async (req, res) => {
 
     return res.status(200).json({ token });
   } catch (error) {
-    return res.status(500).json({ message: errorMessages.InternalServerError });
+    return res
+      .status(404)
+      .json({ message: errorMessages.errorProcessingThisRequest });
   }
 };
 
