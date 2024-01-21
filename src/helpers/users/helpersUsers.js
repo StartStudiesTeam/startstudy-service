@@ -23,8 +23,22 @@ const validationCodeTokenDatabaseQuery = async (email, code) => {
   return tokenQuery;
 };
 
+const emailValidLoginQuery = async (userAcess) => {
+  const loginQuery = await knex("dateusers")
+    .select("verify_mail")
+    .where({
+      email: userAcess,
+      verify_mail: false,
+    })
+    .orWhere({ nick_name: userAcess, verify_mail: false })
+    .first();
+
+  return loginQuery;
+};
+
 module.exports = {
   mailUserQuery,
   nickUserQuery,
   validationCodeTokenDatabaseQuery,
+  emailValidLoginQuery,
 };
