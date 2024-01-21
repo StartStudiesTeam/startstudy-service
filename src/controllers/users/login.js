@@ -2,8 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
   nickUserQuery,
-  mailUserQuery,
-  emailValidLoginQuery,
+  mailValidLoginQuery,
 } = require("../../helpers/users/helpersUsers.js");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 
@@ -29,7 +28,7 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const emailQueryLogin = await emailValidLoginQuery(userAcess);
+    const emailQueryLogin = await mailValidLoginQuery(userAcess);
 
     if (emailQueryLogin) {
       return res.json({ message: errorMessages.loginErrorEmailNotValidated });
