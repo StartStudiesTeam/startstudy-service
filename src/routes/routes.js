@@ -5,7 +5,7 @@ const { authenticationUser } = require("../middlewares/token");
 
 const schemaAuth = require("../schemas/schemaUserAuth");
 const schemaLogin = require("../schemas/schemaLogin");
-const schemaMailUser = require("../schemas/schemaMail");
+const schemaMailCheck = require("../schemas/schemaMailCheck");
 
 const registerUser = require("../controllers/users/register");
 const loginUser = require("../controllers/users/login");
@@ -22,7 +22,7 @@ route.post("/signup", middlewareRegisterUser(schemaAuth), registerUser);
 route.post("/signin", middlewareRegisterUser(schemaLogin), loginUser);
 route.post(
   "/mailcheck",
-  middlewareRegisterUser(schemaMailUser),
+  middlewareRegisterUser(schemaMailCheck),
   mailCheckQuery
 );
 
