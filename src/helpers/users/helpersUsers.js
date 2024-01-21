@@ -18,7 +18,10 @@ const validationCodeTokenDatabaseQuery = async (email, code) => {
       "=",
       "token_confirmation.user_id"
     )
-    .where({ email, code_token: code });
+    .where({ email, code_token: code })
+    .first();
+
+  console.log(tokenQuery);
 
   return tokenQuery;
 };
