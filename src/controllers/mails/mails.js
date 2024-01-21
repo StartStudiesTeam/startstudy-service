@@ -1,4 +1,5 @@
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 const { mailUserQuery } = require("../../helpers/users/helpersUsers");
 
 const mailCheckQuery = async (req, res) => {
@@ -12,7 +13,8 @@ const mailCheckQuery = async (req, res) => {
         message: errorMessages.invalidEmail,
       });
     }
-    return res.status(200).json({ message: errorMessages.validatedEmail });
+
+    return res.status(204).send();
   } catch (error) {
     return res
       .status(404)
