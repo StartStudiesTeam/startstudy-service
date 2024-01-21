@@ -2,6 +2,7 @@ const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const { validTime } = require("../../helpers/helpersData/data");
 const {
   validationCodeTokenDatabaseQuery,
+  verifyEmailColumnUpdate,
 } = require("../../helpers/users/helpersUsers");
 const knex = require("../../database/connection");
 const jwt = require("jsonwebtoken");
@@ -20,7 +21,7 @@ const validationCodeTokenQuery = async (req, res) => {
       return res.status(403).json({ message: errorMessages.tokenExpired });
     }
 
-    await knex("dateusers").update({ verify_mail: true }).where({ email });
+    const emailUpdateQuery = await verifyEmailColumnUpdate(email);
 
     const token = jwt.sign({ sub: tokenQuery.id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,
@@ -30,9 +31,7 @@ const validationCodeTokenQuery = async (req, res) => {
 
     return res.status(200).json({ token });
   } catch (error) {
-    return res
-      .status(404)
-      .json({ message: errorMessages.errorProcessingThisRequest });
+    return res.status(404).json({ message: error.message });
   }
 };
 
