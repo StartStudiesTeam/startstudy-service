@@ -6,7 +6,6 @@ const {
   emailValidLoginQuery,
 } = require("../../helpers/users/helpersUsers.js");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const e = require("express");
 
 const loginUser = async (req, res) => {
   const { nick_name, email, password } = req.body;
