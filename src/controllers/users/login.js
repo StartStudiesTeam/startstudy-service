@@ -3,11 +3,16 @@ const jwt = require("jsonwebtoken");
 const {
   nickUserQuery,
   mailUserQuery,
+  emailValidLoginQuery,
 } = require("../../helpers/users/helpersUsers.js");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const e = require("express");
 
 const loginUser = async (req, res) => {
   const { nick_name, email, password } = req.body;
+
+  const userAcess = nick_name ?? email;
+
   try {
     const existingUser = email
       ? await mailUserQuery(email)
@@ -23,6 +28,12 @@ const loginUser = async (req, res) => {
       return res.status(403).json({
         message: errorMessages.invalidCredentials,
       });
+    }
+
+    const emailQueryLogin = await emailValidLoginQuery(userAcess);
+
+    if (emailQueryLogin) {
+      return res.json({ message: errorMessages.loginErrorEmailNotValidated });
     }
 
     const correctPass = await bcrypt.compare(password, existingUser.password);
