@@ -1,4 +1,4 @@
-const middlewareRegisterUser = (joiSchema) => async (req, res, next) => {
+const middlewareSchema = (joiSchema) => async (req, res, next) => {
   try {
     await joiSchema.validateAsync(req.body);
     next();
@@ -8,5 +8,5 @@ const middlewareRegisterUser = (joiSchema) => async (req, res, next) => {
 };
 
 module.exports = {
-  middlewareRegisterUser,
+  middlewareSchema,
 };
