@@ -16,7 +16,7 @@ const deleteUser = require("../controllers/users/delete");
 const newPassword = require("../controllers/password/newPassword");
 const updatePassword = require("../controllers/password/updatePassword");
 const updateUser = require("../controllers/users/update");
-const validationCodeTokenQuery = require("../controllers/codeToken/codeToken");
+const validationCodeToken = require("../controllers/codeToken/codeToken");
 
 const route = express();
 
@@ -27,7 +27,7 @@ route.post("/mailcheck", middlewareSchema(schemaMailCheck), mailCheckQuery);
 route.patch(
   "/confirmationtoken",
   middlewareSchema(schemanCodeToken),
-  validationCodeTokenQuery
+  validationCodeToken
 );
 route.put("/newpassword", middlewareSchema(schemanNewPassword), newPassword);
 
