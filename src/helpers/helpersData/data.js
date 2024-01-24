@@ -1,5 +1,7 @@
 const currentTime = new Date();
 
-const validTime = currentTime.setHours(currentTime.getHours() - 1);
+const expireTime = currentTime.setHours(currentTime.getHours() + 1);
 
-module.exports = { currentTime, validTime };
+const formattedDate = currentTime.toDateString();
+
+module.exports = { currentTime, formattedDate };
