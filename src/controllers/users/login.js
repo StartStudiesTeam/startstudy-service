@@ -1,11 +1,12 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
-  nickUserQuery,
-  mailUserQuery,
-  mailValidLoginQuery,
+  getByNickname,
+  getByMail,
+  getVerifyMail,
 } = require("../../helpers/users/helpersUsers.js");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const sucessMessages = require("../../helpers/codeMessages/sucessMessages.js");
 
 const loginUser = async (req, res) => {
   const { nick_name, email, password } = req.body;
@@ -14,8 +15,8 @@ const loginUser = async (req, res) => {
 
   try {
     const existingUser = email
-      ? await mailUserQuery(email)
-      : await nickUserQuery(nick_name);
+      ? await getByMail(email)
+      : await getByNickname(nick_name);
 
     if (!existingUser) {
       return res.status(401).json({
@@ -29,7 +30,7 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const emailQueryLogin = await mailValidLoginQuery(userAcess);
+    const emailQueryLogin = await getVerifyMail(userAcess);
 
     if (emailQueryLogin) {
       return res.json({ message: errorMessages.loginErrorEmailNotValidated });
@@ -43,15 +44,20 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ sub: existingUser.id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    });
+    const accessToken = jwt.sign(
+      { sub: existingUser.id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRES_IN,
+      }
+    );
 
     const { password: _, ...userValid } = existingUser;
 
-    return res.status(200).json({ token });
+    return res
+      .status(200)
+      .json({ message: sucessMessages.userAcessLogin, body: { accessToken } });
   } catch (error) {
-    console.log(error);
     return res
       .status(404)
       .json({ message: errorMessages.errorProcessingThisRequest });

@@ -1,7 +1,7 @@
 const knex = require("../../database/connection");
 const {
-  nickUserQuery,
-  mailUserQuery,
+  getByNickname,
+  getByMail,
 } = require("../../helpers/users/helpersUsers");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
@@ -12,13 +12,13 @@ const updateUser = async (req, res) => {
   const { id } = req.user;
 
   try {
-    if (await mailUserQuery(email)) {
+    if (await getByMail(email)) {
       return res.status(400).json({
         message: errorMessages.existingUser,
       });
     }
 
-    if (await nickUserQuery(nick_name)) {
+    if (await getByNickname(nick_name)) {
       return res.status(400).json({ message: errorMessages.uniqueNickName });
     }
 
