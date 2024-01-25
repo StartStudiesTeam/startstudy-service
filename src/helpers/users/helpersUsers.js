@@ -22,8 +22,6 @@ const getByMailAndCode = async (email, code) => {
     .where({ email, code_token: code })
     .first();
 
-  console.log(codeToken);
-
   return codeToken;
 };
 
