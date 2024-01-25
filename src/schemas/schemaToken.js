@@ -6,10 +6,11 @@ const schemanCodeToken = joi.object({
     "string.empty": "O campo Email não pode está vazio!",
     "string.base": "O campo Email precisa ser do tipo String!",
   }),
-  codeToken: joi.string().empty().required().messages({
+  codeToken: joi.string().min(6).empty().required().messages({
     "any.required": "O campo Token é obrigatório!",
     "string.empty": "O campo Token não pode está vazio!",
     "string.base": "O campo Token precisa ser do tipo String!",
+    "string.min": "O campo Token precisa ter 6 caracteres.",
   }),
 });
 
