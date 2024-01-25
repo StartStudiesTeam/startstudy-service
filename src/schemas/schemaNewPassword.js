@@ -6,10 +6,11 @@ const schemanNewPassword = joi.object({
     "string.empty": "O campo email não pode está vazio!",
     "string.base": "O campo email precisa ser do tipo String!",
   }),
-  password: joi.string().empty().required().messages({
+  password: joi.string().min(8).empty().required().messages({
     "any.required": "O campo Senha é obrigatório!",
     "string.empty": "O campo Senha não pode está vazio!",
     "string.base": "O campo Senha precisa ser do tipo String!",
+    "string.min": "O campo Senha precisa ter 8 caracteres.",
   }),
 });
 
