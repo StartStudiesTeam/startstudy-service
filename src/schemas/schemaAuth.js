@@ -14,10 +14,11 @@ const schemaAuth = joi.object({
     "string.base": "O campo Email precisa ser do tipo String!",
   }),
 
-  password: joi.string().empty().required().messages({
+  password: joi.string().min(8).empty().required().messages({
     "any.required": "O campo Senha é obrigatório!",
     "string.empty": "O campo Senha não pode está vazio!",
     "string.base": "O campo Senha precisa ser do tipo String!",
+    "string.min": "O campo Senha precisa ter 8 caracteres.",
   }),
 
   nick_name: joi.string().empty().required().messages({
