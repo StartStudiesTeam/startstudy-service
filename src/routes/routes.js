@@ -29,9 +29,10 @@ route.patch(
   middlewareSchema(schemanCodeToken),
   validationCodeToken
 );
-route.put("/newpassword", middlewareSchema(schemanNewPassword), newPassword);
 
 route.use(authenticationUser);
+
+route.put("/newpassword", middlewareSchema(schemanNewPassword), newPassword);
 
 route.put("/updatepassword", updatePassword);
 route.patch("/updateuser", updateUser);
