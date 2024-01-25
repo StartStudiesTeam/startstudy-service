@@ -1,14 +1,22 @@
+const bcrypt = require("bcrypt");
 const knex = require("../../database/connection");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
+const { currentTime } = require("../../helpers/helpersData/data");
 
 const newPassword = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    await knex("dateusers").update({ password: password }).where({ email });
+    const passEncrypted = await bcrypt.hash(password, 10);
 
-    return res.status(200).json({ message: sucessMessages.passworReset });
+    await knex("dateusers")
+      .update({ password: passEncrypted, updated_at: currentTime })
+      .where({ email });
+
+    return res
+      .status(200)
+      .json({ message: "OK", body: sucessMessages.passworReset });
   } catch (error) {
     return res
       .status(404)
