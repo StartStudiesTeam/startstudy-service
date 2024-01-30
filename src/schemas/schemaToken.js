@@ -1,6 +1,6 @@
 const joi = require("joi");
 
-const schemanCodeToken = joi.object({
+const schemaCodeToken = joi.object({
   email: joi.string().email().empty().messages({
     "string.email": "O campo Email precisa está em um formato válido!",
     "string.empty": "O campo Email não pode está vazio!",
@@ -14,4 +14,4 @@ const schemanCodeToken = joi.object({
   }),
 });
 
-module.exports = schemanCodeToken;
+module.exports = schemaCodeToken;

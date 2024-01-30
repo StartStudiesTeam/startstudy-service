@@ -6,8 +6,8 @@ const { authenticationUser } = require("../middlewares/token");
 const schemaAuth = require("../schemas/schemaAuth");
 const schemaLogin = require("../schemas/schemaLogin");
 const schemaMailCheck = require("../schemas/schemaMail");
-const schemanNewPassword = require("../schemas/schemaNewPassword");
-const schemanCodeToken = require("../schemas/schemaToken");
+const schemaNewPassword = require("../schemas/schemaNewPassword");
+const schemaCodeToken = require("../schemas/schemaToken");
 
 const registerUser = require("../controllers/users/register");
 const loginUser = require("../controllers/users/login");
@@ -26,13 +26,13 @@ route.post("/mailcheck", middlewareSchema(schemaMailCheck), mailCheckQuery);
 
 route.patch(
   "/confirmationtoken",
-  middlewareSchema(schemanCodeToken),
+  middlewareSchema(schemaCodeToken),
   validationCodeToken
 );
 
 route.use(authenticationUser);
 
-route.put("/newpassword", middlewareSchema(schemanNewPassword), newPassword);
+route.put("/newpassword", middlewareSchema(schemaNewPassword), newPassword);
 
 route.put("/updatepassword", updatePassword);
 route.patch("/updateuser", updateUser);

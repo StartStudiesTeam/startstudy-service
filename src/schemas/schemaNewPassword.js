@@ -1,6 +1,6 @@
 const joi = require("joi");
 
-const schemanNewPassword = joi.object({
+const schemaNewPassword = joi.object({
   email: joi.string().email().empty().messages({
     "string.email": "O campo email precisa está em um formato válido!",
     "string.empty": "O campo email não pode está vazio!",
@@ -14,4 +14,4 @@ const schemanNewPassword = joi.object({
   }),
 });
 
-module.exports = schemanNewPassword;
+module.exports = schemaNewPassword;
