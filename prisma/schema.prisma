@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id           String      @id @default(uuid())
+  name         String
+  email        String      @unique
+  password     String
+  nick_name    String      @unique
+  phone_number String?
+  image        String?
+  created_at   DateTime    @db.Timestamp(6)
+  updated_at   DateTime?   @db.Timestamp(6)
+  deleted_at   DateTime?   @db.Timestamp(6)
+  verify_mail  Boolean?
+  CodeToken    CodeToken[]
+
+  @@map("users")
+}
+
+model CodeToken {
+  id              String    @id @default(uuid())
+  user_id         String
+  code_token      String    @db.VarChar(6)
+  confirmation_at DateTime? @db.Timestamp(6)
+  created_at      DateTime  @db.Timestamp(6)
+  updated_at      DateTime? @db.Timestamp(6)
+  deleted_at      DateTime? @db.Timestamp(6)
+  Users           Users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("code_token")
+}

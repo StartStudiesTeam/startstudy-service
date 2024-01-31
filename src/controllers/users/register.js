@@ -1,14 +1,11 @@
 const bcrypt = require("bcrypt");
-const knex = require("../../database/connection");
-const mailSendUserResgistered = require("../mails/sendMails");
-const crypto = require("crypto");
-const {
-  getByNickname,
-  getByMail,
-} = require("../../helpers/users/helpersUsers");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const prisma = require("../../database/prisma");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
+const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const codeToken = require("../../helpers/users/token");
+const mailSendUserResgistered = require("../mails/sendMails");
 const { currentTime } = require("../../helpers/helpersData/data");
+const { findUserMail, findUserNick } = require("../../model/User");
 
 const registerUser = async (req, res) => {
   const { name, nick_name, email, password, phone_number } = req.body;
@@ -16,39 +13,41 @@ const registerUser = async (req, res) => {
   try {
     const passEncrypted = await bcrypt.hash(password, 10);
 
-    if (await getByMail(email)) {
+    if (await findUserMail(email)) {
       return res.status(400).json({
         message: errorMessages.existingUser,
       });
     }
 
-    if (await getByNickname(nick_name)) {
+    if (await findUserNick(nick_name)) {
       return res.status(400).json({ message: errorMessages.uniqueNickName });
     }
 
-    const newUser = {
-      name,
-      email,
-      password: passEncrypted,
-      nick_name,
-      phone_number,
-      created_at: currentTime,
-    };
+    await prisma.$transaction(async () => {
+      const user = await prisma.users.create({
+        data: {
+          name,
+          email,
+          password: passEncrypted,
+          nick_name,
+          phone_number,
+          created_at: currentTime,
+        },
+      });
 
-    const codeToken = {
-      code_token: crypto.randomBytes(3).toString("hex"),
-      created_at: currentTime,
-    };
+      const userId = user.id;
 
-    await knex.transaction(async (trx) => {
-      const [insertedRow] = await trx("dateusers")
-        .insert(newUser)
-        .returning("*");
-      userId = insertedRow.id;
-      codeToken.user_id = userId;
-
-      await trx("token_confirmation").insert(codeToken);
-      await trx.commit();
+      await prisma.codeToken.create({
+        data: {
+          Users: {
+            connect: {
+              id: userId,
+            },
+          },
+          code_token: codeToken.code_token,
+          created_at: currentTime,
+        },
+      });
     });
 
     mailSendUserResgistered(name, email, codeToken.code_token);
