@@ -1,7 +1,7 @@
 const express = require("express");
 
-const { middlewareSchema } = require("../middlewares/validateJoi");
-const { authenticationUser } = require("../middlewares/token");
+const { middlewareSchema } = require("../middlewares/validationJoi");
+const { authenticationUser } = require("../middlewares/authenticate");
 
 const schemaAuth = require("../schemas/schemaAuth");
 const schemaLogin = require("../schemas/schemaLogin");
