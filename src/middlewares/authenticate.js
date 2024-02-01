@@ -1,4 +1,3 @@
-const knex = require("../database/connection");
 const jwt = require("jsonwebtoken");
 const errorMessages = require("../helpers/codeMessages/errorMessages");
 
@@ -14,9 +13,7 @@ const authenticationUser = async (req, res, next) => {
   try {
     const { sub } = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = {
-      id: sub,
-    };
+    req.user = { id: sub };
 
     next();
   } catch (error) {
