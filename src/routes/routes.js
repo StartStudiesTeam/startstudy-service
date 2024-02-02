@@ -17,6 +17,7 @@ const newPassword = require("../controllers/password/newPassword");
 const updatePassword = require("../controllers/password/updatePassword");
 const updateUser = require("../controllers/users/update");
 const validationCodeToken = require("../controllers/codeToken/codeToken");
+const refreshTokenUser = require("../controllers/users/refresh");
 
 const route = express();
 
@@ -29,6 +30,8 @@ route.patch(
   middlewareSchema(schemaCodeToken),
   validationCodeToken
 );
+
+route.post("/refreshtoken", refreshTokenUser);
 
 route.use(authenticationUser);
 
