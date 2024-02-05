@@ -3,7 +3,8 @@ const errorMessages = {
   tokenExpired: "Token expirado!",
   invalidEmail: "Email inválido!",
   passwordInvalid: "Senha atual inválida!",
-  invalidCredentials: "Credenciais de acesso inválidas!",
+  invalidUser:
+    "Credenciais de acesso inválidas! Entre em contato com o suporte.",
   InternalServerError: "Erro interno no Servidor!",
   existingUser: "Já existe usuário cadastrado com o email informado!",
   uniqueNickName: "O Nick Name precisa ser único!",
@@ -13,6 +14,7 @@ const errorMessages = {
   loginErrorEmailNotValidated:
     "Para realizar o Login, o seu email precisa está validado.",
   invalidRefreshToken: "Refresh token inválido.",
+  invalidCredentials: "Credenciais de acesso inválidas!",
 };
 
 module.exports = errorMessages;
