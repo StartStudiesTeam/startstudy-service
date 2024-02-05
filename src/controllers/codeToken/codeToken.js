@@ -1,5 +1,3 @@
-const knex = require("../../database/connection");
-const jwt = require("jsonwebtoken");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 const {
@@ -10,6 +8,7 @@ const {
   getByMailAndCode,
   updateVerifyMail,
 } = require("../../helpers/users/helpersUsers");
+const { generateToken } = require("../../helpers/authenticate/generateToken");
 
 const validationCodeToken = async (req, res) => {
   const { email, codeToken } = req.body;
@@ -27,13 +26,7 @@ const validationCodeToken = async (req, res) => {
 
     const emailUpdateQuery = await updateVerifyMail(email, currentTime);
 
-    const accessToken = jwt.sign(
-      { sub: tokenQuery.id },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: process.env.JWT_EXPIRES_IN,
-      }
-    );
+    const accessToken = await generateToken(tokenQuery);
 
     const { password: _, ...userValid } = tokenQuery;
 
