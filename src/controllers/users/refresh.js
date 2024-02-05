@@ -12,7 +12,7 @@ const refreshTokenUser = async (req, res) => {
 
     if (!validateRefresh) {
       return res
-        .status(401)
+        .status(400)
         .json({ message: errorMessages.invalidRefreshToken });
     }
 
