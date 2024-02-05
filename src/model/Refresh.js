@@ -13,13 +13,12 @@ const createRefresh = async (usersId) => {
   return refresh;
 };
 
-const validRefresh = async (refresh_token) => {
+const validRefresh = async (id) => {
   const refresh = await prisma.refreshToken.findFirst({
     where: {
-      id: refresh_token,
+      id,
     },
   });
-  console.log(refresh);
   return refresh;
 };
 
