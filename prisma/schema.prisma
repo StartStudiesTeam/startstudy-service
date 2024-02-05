@@ -8,18 +8,19 @@ datasource db {
 }
 
 model Users {
-  id           String      @id @default(uuid())
-  name         String
-  email        String      @unique
-  password     String
-  nick_name    String      @unique
-  phone_number String?
-  image        String?
-  created_at   DateTime    @db.Timestamp(6)
-  updated_at   DateTime?   @db.Timestamp(6)
-  deleted_at   DateTime?   @db.Timestamp(6)
-  verify_mail  Boolean?
-  CodeToken    CodeToken[]
+  id            String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  password      String
+  nick_name     String         @unique
+  phone_number  String?
+  image         String?
+  created_at    DateTime       @db.Timestamp(6)
+  updated_at    DateTime?      @db.Timestamp(6)
+  deleted_at    DateTime?      @db.Timestamp(6)
+  verify_mail   Boolean?
+  code_token    CodeToken[]
+  refresh_token RefreshToken[]
 
   @@map("users")
 }
@@ -32,7 +33,16 @@ model CodeToken {
   created_at      DateTime  @db.Timestamp(6)
   updated_at      DateTime? @db.Timestamp(6)
   deleted_at      DateTime? @db.Timestamp(6)
-  Users           Users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users           Users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("code_token")
+}
+
+model RefreshToken {
+  id        String @id @default(uuid())
+  expiresIn Int
+  user      Users  @relation(fields: [usersId], references: [id])
+  usersId   String
+
+  @@map("refresh_token")
 }

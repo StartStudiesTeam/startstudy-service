@@ -12,6 +12,7 @@ const errorMessages = {
     "Erro ao processar esta solicitação. Tente novamente ou entre em contato com suporte.",
   loginErrorEmailNotValidated:
     "Para realizar o Login, o seu email precisa está validado.",
+  invalidRefreshToken: "Refresh token inválido.",
 };
 
 module.exports = errorMessages;

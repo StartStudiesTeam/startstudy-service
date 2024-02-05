@@ -2,17 +2,17 @@ const knex = require("../../database/connection");
 const { currentTime } = require("../helpersData/data");
 
 const getByMail = async (email) => {
-  const emailValidate = await knex("dateusers").where({ email });
+  const emailValidate = await knex("users").where({ email });
   return emailValidate[0];
 };
 
 const getByNickname = async (nick_name) => {
-  const nickValidate = await knex("dateusers").where({ nick_name });
+  const nickValidate = await knex("users").where({ nick_name });
   return nickValidate[0];
 };
 
 const getByMailAndCode = async (email, code) => {
-  const codeToken = await knex("dateusers")
+  const codeToken = await knex("users")
     .innerJoin(
       "token_confirmation",
       "dateusers.id",
@@ -26,7 +26,7 @@ const getByMailAndCode = async (email, code) => {
 };
 
 const getVerifyMail = async (userAcess) => {
-  const loginQuery = await knex("dateusers")
+  const loginQuery = await knex("users")
     .select("verify_mail")
     .where({
       email: userAcess,
