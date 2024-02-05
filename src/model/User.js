@@ -25,22 +25,45 @@ const deleteUser = async (where) => {
   });
 };
 
-const findUserMail = async (data) => {
+const findUserMail = async (email) => {
   const find = await prisma.users.findUnique({
     where: {
-      email: data,
+      email,
     },
   });
   return find;
 };
 
-const findUserNick = async (data) => {
+const findUserNick = async (nick) => {
   const find = await prisma.users.findUnique({
     where: {
-      nick_name: data,
+      nick_name: nick,
     },
   });
   return find;
+};
+
+const findDeletedFieldUser = async (id) => {
+  const find = await prisma.users.findFirst({
+    where: {
+      id,
+      deleted_at: null,
+    },
+  });
+  return find;
+};
+
+const updateNewPassword = async (email, password, date) => {
+  const update = prisma.users.update({
+    where: {
+      email,
+    },
+    data: {
+      password,
+      updated_at: date,
+    },
+  });
+  return update;
 };
 
 module.exports = {
@@ -50,4 +73,6 @@ module.exports = {
   deleteUser,
   findUserMail,
   findUserNick,
+  findDeletedFieldUser,
+  updateNewPassword,
 };
