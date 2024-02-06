@@ -12,13 +12,13 @@ model Users {
   name          String
   email         String         @unique
   password      String
-  nick_name     String         @unique
-  phone_number  String?
+  nickName      String         @unique @map("nick_name")
+  phoneNumber   String?        @map("phone_number")
   createdAt     DateTime       @default(now()) @map("created_at")
   updatedAt     DateTime?      @map("updated_at") @db.Timestamp(6)
   deletedAt     DateTime?      @map("deleted_at") @db.Timestamp(6)
   verifyMail    Boolean?       @map("verify_mail")
-  code_token    CodeToken[]
+  codeToken     CodeToken[]
   refresh_token RefreshToken[]
 
   @@map("users")
@@ -26,13 +26,13 @@ model Users {
 
 model CodeToken {
   id              String    @id @default(uuid())
-  user_id         String
-  code_token      String    @db.VarChar(6)
+  userId          String    @map("user_id")
+  codeToken       String    @map("code_token") @db.VarChar(6)
   confirmation_at DateTime? @db.Timestamp(6)
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime? @map("updated_at")
   deletedAt       DateTime? @map("deleted_at") @db.Timestamp(6)
-  users           Users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users           Users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("code_token")
 }
