@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const { currentTime } = require("../helpersData/data");
+const { currentTime } = require("../helpersData/date");
 
 const codeToken = {
   code_token: crypto.randomBytes(3).toString("hex"),
