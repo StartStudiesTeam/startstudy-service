@@ -1,8 +1,8 @@
-const dayjs = require("dayjs");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const { validRefresh, deleteRefresh } = require("../../model/Refresh");
 const { generateToken } = require("../../helpers/authenticate/generateToken");
+const { afterDate } = require("../../helpers/helpersData/date");
 
 const refreshTokenUser = async (req, res) => {
   const { refresh_token } = req.body;
@@ -16,9 +16,7 @@ const refreshTokenUser = async (req, res) => {
         .json({ message: errorMessages.invalidRefreshToken });
     }
 
-    const verifyDateAccess = dayjs().isAfter(
-      dayjs.unix(refresh_token.expiresIn)
-    );
+    const verifyDateAccess = await afterDate(refresh_token.expiresIn);
 
     const accessToken = await generateToken(refresh_token);
 
