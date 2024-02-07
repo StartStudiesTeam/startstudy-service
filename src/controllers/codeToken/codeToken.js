@@ -1,34 +1,29 @@
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
-const {
-  formattedDate,
-  currentTime,
-} = require("../../helpers/helpersData/data");
-const {
-  getByMailAndCode,
-  updateVerifyMail,
-} = require("../../helpers/users/helpersUsers");
+const { currentTime } = require("../../helpers/helpersData/date");
 const { generateToken } = require("../../helpers/authenticate/generateToken");
+const { getMailAndCode, updatedCodeTokenField } = require("../../model/Code");
 
 const validationCodeToken = async (req, res) => {
   const { email, codeToken } = req.body;
 
   try {
-    const tokenQuery = await getByMailAndCode(email, codeToken);
+    const codeUser = await getMailAndCode(email, codeToken);
 
-    if (!tokenQuery) {
+    if (!codeUser) {
       return res.status(400).json({ message: errorMessages.invalidToken });
     }
 
-    if (tokenQuery.created_at < formattedDate) {
-      return res.status(403).json({ message: errorMessages.tokenExpired });
+    const verifyDate = codeUser.createdAt < currentTime;
+
+    if (verifyDate) {
+      return res.status(400).json({ message: errorMessages.tokenExpired });
     }
 
-    const emailUpdateQuery = await updateVerifyMail(email, currentTime);
+    const updatedField = await updatedCodeTokenField(codeUser.id, currentTime);
+    const accessToken = await generateToken(codeUser);
 
-    const accessToken = await generateToken(tokenQuery);
-
-    const { password: _, ...userValid } = tokenQuery;
+    const { password: _, ...userValid } = codeUser;
 
     return res
       .status(200)
