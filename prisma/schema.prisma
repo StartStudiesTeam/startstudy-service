@@ -25,14 +25,14 @@ model Users {
 }
 
 model CodeToken {
-  id              String    @id @default(uuid())
-  userId          String    @map("user_id")
-  codeToken       String    @map("code_token") @db.VarChar(6)
-  confirmation_at DateTime? @db.Timestamp(6)
-  createdAt       DateTime  @default(now()) @map("created_at")
-  updatedAt       DateTime? @map("updated_at")
-  deletedAt       DateTime? @map("deleted_at") @db.Timestamp(6)
-  users           Users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id             String    @id @default(uuid())
+  userId         String    @map("user_id")
+  codeToken      String    @map("code_token") @db.VarChar(6)
+  confirmationAt DateTime? @map("confirmation_at") @db.Timestamp(6)
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime? @map("updated_at")
+  deletedAt      DateTime? @map("deleted_at") @db.Timestamp(6)
+  users          Users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("code_token")
 }

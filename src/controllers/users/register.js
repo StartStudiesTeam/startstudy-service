@@ -4,7 +4,6 @@ const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const codeToken = require("../../helpers/users/token");
 const mailSendUserResgistered = require("../mails/sendMails");
-const { currentTime } = require("../../helpers/helpersData/data");
 const { findUserMail, findUserNick } = require("../../model/User");
 
 const registerUser = async (req, res) => {
@@ -29,9 +28,8 @@ const registerUser = async (req, res) => {
           name,
           email,
           password: passEncrypted,
-          nick_name,
-          phone_number,
-          created_at: currentTime,
+          nickName: nick_name,
+          phoneNumber: phone_number,
         },
       });
 
@@ -44,8 +42,7 @@ const registerUser = async (req, res) => {
               id: userId,
             },
           },
-          code_token: codeToken.code_token,
-          created_at: currentTime,
+          codeToken: codeToken.code_token,
         },
       });
     });

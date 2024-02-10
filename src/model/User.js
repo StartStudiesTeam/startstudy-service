@@ -6,14 +6,8 @@ const createUser = async (data) => {
   });
 };
 
-const readUser = async (data) => {
-  await prisma.users.findUnique({
-    where: data,
-  });
-};
-
 const updateUser = async (where, data) => {
-  await prisma.user.update({
+  await prisma.users.update({
     where,
     data,
   });
@@ -26,7 +20,7 @@ const deleteUser = async (where) => {
 };
 
 const findUserMail = async (email) => {
-  const find = await prisma.users.findUnique({
+  const find = await prisma.users.findFirst({
     where: {
       email,
     },
@@ -35,9 +29,9 @@ const findUserMail = async (email) => {
 };
 
 const findUserNick = async (nick) => {
-  const find = await prisma.users.findUnique({
+  const find = await prisma.users.findFirst({
     where: {
-      nick_name: nick,
+      nickName: nick,
     },
   });
   return find;
@@ -47,7 +41,7 @@ const findDeletedFieldUser = async (id) => {
   const find = await prisma.users.findFirst({
     where: {
       id,
-      deleted_at: null,
+      deletedAt: null,
     },
   });
   return find;
@@ -60,7 +54,7 @@ const updateNewPassword = async (email, password, date) => {
     },
     data: {
       password,
-      updated_at: date,
+      updatedAt: date,
     },
   });
   return update;
@@ -68,7 +62,6 @@ const updateNewPassword = async (email, password, date) => {
 
 module.exports = {
   createUser,
-  readUser,
   updateUser,
   deleteUser,
   findUserMail,
