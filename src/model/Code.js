@@ -34,8 +34,27 @@ const updateCodeTokenById = async (id, code, date, value) => {
   });
   return update;
 };
+
+const updateVerifyField = async (id, date, verify) => {
+  const update = await prisma.codeToken.update({
+    where: {
+      id,
+    },
+    data: {
+      confirmationAt: date,
+      users: {
+        update: {
+          verifyMail: verify,
+        },
+      },
+    },
+  });
+  return update;
+};
+
 module.exports = {
   getMailAndCode,
   getUserIDByID,
   updateCodeTokenById,
+  updateVerifyField,
 };
