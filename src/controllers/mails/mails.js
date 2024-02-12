@@ -2,9 +2,9 @@ const codeToken = require("../../helpers/users/token");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 const mailSendUserResgistered = require("../mails/sendMails");
-const { findUserMail } = require("../../model/User");
 const { currentTime } = require("../../helpers/helpersData/date");
-const { codeUpdateSentByMail } = require("../../model/Code");
+const { findUserMail } = require("../../model/User");
+const { getUserIDByID, updateCodeTokenById } = require("../../model/Code");
 
 const mailCheckQuery = async (req, res) => {
   const { email } = req.body;
@@ -18,9 +18,17 @@ const mailCheckQuery = async (req, res) => {
       });
     }
 
-    const updatedCode = await codeUpdateSentByMail(findMail);
+    const getDateById = await getUserIDByID(findMail.id);
 
-    mailSendUserResgistered(findMail.name, email, updatedCode.code_token);
+    const updatedTokenField = await updateCodeTokenById(
+      getDateById.id,
+      codeToken.code_token,
+      currentTime,
+      null
+    );
+    console.log(updatedTokenField);
+
+    mailSendUserResgistered(findMail.name, email, updatedTokenField.codeToken);
 
     return res.status(200).json({ message: sucessMessages.checkMailUser });
   } catch (error) {
