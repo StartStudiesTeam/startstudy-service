@@ -26,7 +26,6 @@ const mailCheckQuery = async (req, res) => {
       currentTime,
       null
     );
-    console.log(updatedTokenField);
 
     mailSendUserResgistered(findMail.name, email, updatedTokenField.codeToken);
 
