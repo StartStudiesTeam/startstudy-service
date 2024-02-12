@@ -18,7 +18,6 @@ const getUserIDByID = async (id) => {
       userId: id,
     },
   });
-  console.log(find);
   return find;
 };
 
