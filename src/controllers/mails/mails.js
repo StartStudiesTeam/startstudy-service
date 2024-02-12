@@ -3,8 +3,8 @@ const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 const mailSendUserResgistered = require("../mails/sendMails");
 const { currentTime } = require("../../helpers/helpersData/date");
-const { findUserMail } = require("../../model/User");
-const { getUserIDByID, updateCodeTokenById } = require("../../model/Code");
+const { findUserMail } = require("../../models/User");
+const { getUserIDByID, updateCodeTokenById } = require("../../models/Code");
 
 const mailCheckQuery = async (req, res) => {
   const { email } = req.body;

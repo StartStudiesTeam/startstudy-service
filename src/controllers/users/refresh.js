@@ -4,7 +4,7 @@ const {
   validRefresh,
   deleteRefresh,
   createRefresh,
-} = require("../../model/Refresh");
+} = require("../../models/Refresh");
 const { generateToken } = require("../../helpers/authenticate/generateToken");
 const { afterDate } = require("../../helpers/helpersData/date");
 

@@ -4,7 +4,7 @@ const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const codeToken = require("../../helpers/users/token");
 const mailSendUserResgistered = require("../mails/sendMails");
-const { findUserMail, findUserNick } = require("../../model/User");
+const { findUserMail, findUserNick } = require("../../models/User");
 
 const registerUser = async (req, res) => {
   const { name, nick_name, email, password, phone_number } = req.body;

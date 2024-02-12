@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages.js");
-const { createRefresh } = require("../../model/Refresh.js");
+const { createRefresh } = require("../../models/Refresh.js");
 const {
   generateToken,
 } = require("../../helpers/authenticate/generateToken.js");
@@ -9,7 +9,7 @@ const {
   findUserMail,
   findUserNick,
   findDeletedFieldUser,
-} = require("../../model/User.js");
+} = require("../../models/User.js");
 
 const loginUser = async (req, res) => {
   const { nick_name, email, password } = req.body;

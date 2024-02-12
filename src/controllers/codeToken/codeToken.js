@@ -2,7 +2,7 @@ const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 const { currentTime } = require("../../helpers/helpersData/date");
 const { generateToken } = require("../../helpers/authenticate/generateToken");
-const { getMailAndCode, updateVerifyField } = require("../../model/Code");
+const { getMailAndCode, updateVerifyField } = require("../../models/Code");
 
 const validationCodeToken = async (req, res) => {
   const { email, codeToken } = req.body;
