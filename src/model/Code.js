@@ -12,20 +12,31 @@ const getMailAndCode = async (email, code) => {
   return find;
 };
 
-const updatedCodeTokenField = async (id, date) => {
-  const update = await prisma.codeToken.update({
+const getUserIDByID = async (id) => {
+  const find = await prisma.codeToken.findFirst({
     where: {
       userId: id,
     },
+  });
+  console.log(find);
+  return find;
+};
+
+const updateCodeTokenById = async (id, code, date, value) => {
+  const update = await prisma.codeToken.update({
+    where: {
+      id,
+    },
     data: {
-      confirmation_at: date,
+      codeToken: code,
       updatedAt: date,
+      confirmationAt: value,
     },
   });
   return update;
 };
-
 module.exports = {
   getMailAndCode,
-  updatedCodeTokenField,
+  getUserIDByID,
+  updateCodeTokenById,
 };
