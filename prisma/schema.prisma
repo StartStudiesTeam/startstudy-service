@@ -17,7 +17,7 @@ model Users {
   createdAt     DateTime       @default(now()) @map("created_at")
   updatedAt     DateTime?      @map("updated_at") @db.Timestamp(6)
   deletedAt     DateTime?      @map("deleted_at") @db.Timestamp(6)
-  verifyMail    Boolean?       @map("verify_mail")
+  verifyMail    Boolean        @default(false) @map("verify_mail")
   codeToken     CodeToken[]
   refresh_token RefreshToken[]
 
