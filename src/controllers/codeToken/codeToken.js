@@ -2,7 +2,7 @@ const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
 const { currentTime } = require("../../helpers/helpersData/date");
 const { generateToken } = require("../../helpers/authenticate/generateToken");
-const { getMailAndCode, updatedCodeTokenField } = require("../../model/Code");
+const { getMailAndCode, updateVerifyField } = require("../../model/Code");
 
 const validationCodeToken = async (req, res) => {
   const { email, codeToken } = req.body;
@@ -20,9 +20,13 @@ const validationCodeToken = async (req, res) => {
       return res.status(400).json({ message: errorMessages.tokenExpired });
     }
 
-    const updatedField = await updatedCodeTokenField(codeUser.id, currentTime);
-    const accessToken = await generateToken(codeUser);
+    const updatedField = await updateVerifyField(
+      codeUser.id,
+      currentTime,
+      true
+    );
 
+    const accessToken = await generateToken(codeUser);
     const { password: _, ...userValid } = codeUser;
 
     return res
