@@ -1,9 +1,9 @@
 const dayjs = require("dayjs");
 const prisma = require("../database/prisma");
 
-const expiresIn = dayjs().add(15, "second").unix();
-
 const createRefresh = async (usersId) => {
+  const expiresIn = dayjs().add(15, "second").unix();
+
   const refresh = await prisma.refreshToken.create({
     data: {
       usersId,
@@ -13,10 +13,10 @@ const createRefresh = async (usersId) => {
   return refresh;
 };
 
-const validRefresh = async (id) => {
+const validRefresh = async (ref) => {
   const refresh = await prisma.refreshToken.findFirst({
     where: {
-      id,
+      id: ref,
     },
   });
   return refresh;
