@@ -8,26 +8,22 @@ const validationCodeToken = async (req, res) => {
   const { email, codeToken } = req.body;
 
   try {
-    const codeUser = await getMailAndCode(email, codeToken);
+    const user = await getMailAndCode(email, codeToken);
 
-    if (!codeUser) {
+    if (!user) {
       return res.status(400).json({ message: errorMessages.invalidToken });
     }
 
-    const verifyDate = codeUser.createdAt < currentTime;
+    const verifyDate = user.createdAt < currentTime;
 
     if (verifyDate) {
       return res.status(400).json({ message: errorMessages.tokenExpired });
     }
 
-    const updatedField = await updateVerifyField(
-      codeUser.id,
-      currentTime,
-      true
-    );
+    const updatedField = await updateVerifyField(user.id, currentTime, true);
 
-    const accessToken = await generateToken(codeUser);
-    const { password: _, ...userValid } = codeUser;
+    const accessToken = await generateToken(user);
+    const { password: _, ...userValid } = user;
 
     return res
       .status(200)
