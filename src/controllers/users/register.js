@@ -5,6 +5,8 @@ const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const codeToken = require("../../helpers/users/token");
 const mailSendUserResgistered = require("../mails/sendMails");
 const { findUserMail, findUserNick } = require("../../models/User");
+const { generateToken } = require("../../helpers/authenticate/generateToken");
+const { createRefresh } = require("../../models/Refresh");
 
 const registerUser = async (req, res) => {
   const { name, nick_name, email, password, phone_number } = req.body;
@@ -22,7 +24,7 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: errorMessages.uniqueNickName });
     }
 
-    await prisma.$transaction(async () => {
+    const user = await prisma.$transaction(async () => {
       const user = await prisma.users.create({
         data: {
           name,
@@ -45,13 +47,20 @@ const registerUser = async (req, res) => {
           codeToken: codeToken.code_token,
         },
       });
+      return user;
     });
 
     mailSendUserResgistered(name, email, codeToken.code_token);
 
-    return res
-      .status(201)
-      .json({ message: sucessMessages.successfullyRegisteredUser });
+    const accessToken = await generateToken(user.id);
+    const refreshToken = await createRefresh(user.id);
+
+    const { password: _, ...userValid } = user;
+
+    return res.status(201).json({
+      message: sucessMessages.successfullyRegisteredUser,
+      body: { accessToken, refreshToken },
+    });
   } catch (error) {
     return res
       .status(404)
