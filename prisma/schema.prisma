@@ -8,19 +8,20 @@ datasource db {
 }
 
 model Users {
-  id            String         @id @default(uuid())
-  name          String
-  email         String         @unique
-  password      String
-  nickName      String         @unique @map("nick_name")
-  phoneNumber   String?        @map("phone_number")
-  createdAt     DateTime       @default(now()) @map("created_at")
-  updatedAt     DateTime?      @map("updated_at") @db.Timestamp(6)
-  deletedAt     DateTime?      @map("deleted_at") @db.Timestamp(6)
-  verifyMail    Boolean        @default(false) @map("verify_mail")
-  videos        Videos[]
-  codeToken     CodeToken[]
-  refresh_token RefreshToken[]
+  id           String         @id @default(uuid())
+  name         String
+  email        String         @unique
+  password     String
+  nickName     String         @unique @map("nick_name")
+  phoneNumber  String?        @map("phone_number")
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime?      @map("updated_at") @db.Timestamp(6)
+  deletedAt    DateTime?      @map("deleted_at") @db.Timestamp(6)
+  verifyMail   Boolean        @default(false) @map("verify_mail")
+  Videos       Videos[]
+  CodeToken    CodeToken[]
+  RefreshToken RefreshToken[]
+  Roadmap      Roadmap[]
 
   @@map("users")
 }
@@ -60,4 +61,17 @@ model Videos {
   user        Users     @relation(fields: [userOwnerID], references: [id])
 
   @@map("videos")
+}
+
+model Roadmap {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  userId      String    @map("user_id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamp(6)
+  user        Users     @relation(fields: [userId], references: [id])
+
+  @@map("road_map")
 }
