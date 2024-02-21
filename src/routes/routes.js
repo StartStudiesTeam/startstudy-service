@@ -34,4 +34,10 @@ route.use(authenticationUser);
 
 route.put("/newpassword", middlewareSchema(schemaNewPassword), newPassword);
 
+route.get("/roadmap");
+route.get("/videos");
+
+route.post("/newroadmap");
+route.post("/newvideos");
+
 module.exports = route;
