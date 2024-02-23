@@ -13,4 +13,4 @@ app.use(cors());
 app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use("/api/v1", route);
 
-app.listen(process.env.PORT);
+module.exports = app;
