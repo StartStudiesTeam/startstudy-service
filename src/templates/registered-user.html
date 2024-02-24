@@ -31,208 +31,21 @@
     line-height: inherit;
     color: inherit;
   }
-
-  /* Fonts */
-  .ubuntu-light {
-    font-family: "Ubuntu", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-  }
-
-  .ubuntu-regular {
-    font-family: "Ubuntu", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-
-  .ubuntu-medium {
-    font-family: "Ubuntu", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-  }
-
-  .ubuntu-bold {
-    font-family: "Ubuntu", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-
-  .ubuntu-light-italic {
-    font-family: "Ubuntu", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-  }
-
-  .ubuntu-regular-italic {
-    font-family: "Ubuntu", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-
-  .ubuntu-medium-italic {
-    font-family: "Ubuntu", sans-serif;
-    font-weight: 500;
-    font-style: italic;
-  }
-
-  .ubuntu-bold-italic {
-    font-family: "Ubuntu", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-
-  /* Layoyt */
-
-  .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    max-width: 760px;
-    padding: 24px;
-    height: 110px;
-    border-radius: 16px 16px 0 0;
-    background: var(--Default5, #2B85A2);
-  }
-
-  .header .brand {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .header .text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .header .brand-name {
-    font-size: 32px;
-    line-height: 100%;
-    color: var(--Tom08, #F3EFE5);
-  }
-
-  .header .brand-slogan {
-    text-align: center;
-    font-size: 12px;
-    line-height: 100%;
-    color: var(--Tom08, #F3EFE5);
-  }
-
-  .body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 760px;
-    padding: 24px 0px;
-    gap: 16px;
-    border: 1px solid var(--Default1, #264F75);
-  }
-
-  .body .title {
-    text-align: center;
-    max-width: 632px;
-    font-size: 24px;
-    line-height: 100%;
-    color: #000;
-  }
-
-  .body .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-    max-width: 632px;
-    font-size: 12px;
-    line-height: 120%;
-    color: #000;
-  }
-
-  .body .session-code-confirm {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 758px;
-    height: 44px;
-    background: var(--Default1, #264F75);
-  }
-
-  .body .session-code-confirm .title {
-    text-align: center;
-    font-size: 24px;
-    line-height: 100%;
-    color: var(--Tom8, #F3EFE5);
-  }
-
-  .body .session-code-confirm-text {
-    text-align: center;
-    font-size: 16px;
-    line-height: 120%;
-    color: #000;
-  }
-
-  .body .session-code-confirm-code {
-    text-align: center;
-    font-size: 16px;
-    line-height: 100%;
-    color: #000;
-  }
-
-  .body .session-code-confirm-code span {
-    font-size: 20px;
-  }
-
-  .footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 0 0 16px 16px;
-    gap: 32px;
-    max-width: 760px;
-    padding: 16px 32px;
-    background: var(--Default7, #549DB4);
-  }
-
-  .footer .content {
-    display: flex;
-    flex-direction: column;
-    max-width: 705px;
-    gap: 12px;
-  }
-
-  .footer .content .text {
-    font-size: 12px;
-    line-height: 150%;
-    color: var(--Tom8, #F3EFE5);
-  }
-
-  .footer .content .signature {
-    font-size: 16px;
-    line-height: 100%;
-    color: var(--Tom8, #F3EFE5);
-  }
-
-  .footer .contacts {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .footer .contacts span {
-    text-align: center;
-    font-size: 12px;
-    line-height: 100%;
-    color: #000;
-  }
 </style>
 
 <body>
-  <header class="header">
-    <div class="brand">
+  <header style="display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  text-align: center;
+                  max-width: 760px;
+                  padding: 24px;
+                  height: 110px;
+                  border-radius: 16px 16px 0 0;
+                  background: var(--Default5, #2B85A2);">
+    <div style="display: flex;
+                align-items: center; 
+                gap: 16px;">
       <div class="logo">
         <svg width="53" height="56" viewBox="0 0 53 56" fill="none" xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -274,59 +87,186 @@
           </defs>
         </svg>
       </div>
-      <div class="text">
-        <h1 class="brand-name ubuntu-medium">Start Studies</h1>
-        <p class="brand-slogan ubuntu-light">Sua trilha do conhecimento</p>
+      <div style="display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  gap: 12px;">
+        <h1 style="font-size: 32px;
+                  line-height: 100%;
+                  color: var(--Tom08, #F3EFE5);    
+                  font-family: 'Ubuntu', sans-serif;
+                  font-weight: 500;
+                  font-style: normal;
+                  ">
+          Start Studies
+        </h1>
+        <p style="text-align: center;
+                  font-size: 12px;
+                  line-height: 100%;
+                  color: var(--Tom08, #F3EFE5);
+                  font-family: 'Ubuntu', sans-serif;
+                  font-weight: 300;
+                  font-style: normal;">
+          Sua trilha do conhecimento
+        </p>
       </div>
     </div>
   </header>
-  <section class="body">
-    <div class="title">
-      <h1 class="ubuntu-light-italic">Agora você faz parte da maior trilha de conhecimento do mundo 💫</h1>
+  <section style="display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  max-width: 760px;
+                  padding: 24px 0px;
+                  gap: 16px;
+                  border: 1px solid var(--Default1, #264F75);" class="body">
+    <div style="text-align: center;
+                max-width: 632px;
+                font-size: 24px;
+                line-height: 100%;
+                color: #000;" class="title">
+      <h1 style=" font-family: 'Ubuntu', sans-serif;
+                  font-weight: 300;
+                  font-style: italic;">
+        Agora você faz parte da maior trilha de conhecimento do mundo 💫
+      </h1>
     </div>
-    <div class="content">
-      <p class="ubuntu-light-italic">Olá {{name}},</p>
-      <p class="ubuntu-bold-italic">Seja bem-vindo(a) ao StartStudies! Estamos animados por tê-lo(a) conosco.</p>
-      <p class="ubuntu-light-italic">
+    <div style="display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 16px;
+                max-width: 632px;
+                font-size: 12px;
+                line-height: 120%;
+                color: #000;" class="content">
+      <p style="font-family: 'Ubuntu', sans-serif;
+                font-weight: 300;
+                font-style: italic;">Olá {{name}},</p>
+      <p style="font-family: 'Ubuntu', sans-serif;
+                font-weight: 700;
+                font-style: italic;">
+        Seja bem-vindo(a) ao StartStudies! Estamos animados por tê-lo(a) conosco.
+      </p>
+      <p style="font-family: 'Ubuntu', sans-serif;
+                font-weight: 300;
+                font-style: italic;">
         Estamos em festa porque valorizamos profundamente aqueles que têm sede de conhecimento! Sabemos que a
         chave do sucesso está em manter-se sempre atualizado, e é por isso que construímos uma plataforma onde
         você pode encontrar uma infinidade de conteúdos para aprimorar seu aprendizado.
       </p>
-      <p class="ubuntu-light-italic">
+      <p style="font-family: 'Ubuntu', sans-serif;
+      font-weight: 300;
+      font-style: italic;">
         Mas não é só isso! Aqui no StartStudies, você também tem a oportunidade de compartilhar seu conhecimento
         com outros usuários. Acreditamos na comunidade colaborativa e estamos empolgados para ver como você pode
         contribuir para enriquecer ainda mais nossa plataforma.
       </p>
-      <p class="ubuntu-light-italic">
+      <p style="font-family: 'Ubuntu', sans-serif;
+                font-weight: 300;
+                font-style: italic;">
         Explore todas as funcionalidades, personalize seu perfil e compartilhe seus feedbacks conosco. Queremos
         garantir que sua experiência seja a melhor possível. Além disso, não se esqueça da importância de uma
         trilha de conhecimento bem estruturada. Ela irá guiá-lo(a) em sua jornada de aprendizado, ajudando-o(a)
         a progredir de forma consistente e eficaz.
       </p>
-      <p class="ubuntu-light-italic">Explore, aprenda, compartilhe e celebre o conhecimento conosco!</p>
-      <p class="ubuntu-light-italic">Agradecemos por se juntar a esta jornada de aprendizado e crescimento!</p>
+      <p style="font-family: 'Ubuntu', sans-serif;
+                font-weight: 300;
+                font-style: italic;">
+        Explore, aprenda, compartilhe e celebre o conhecimento conosco!
+      </p>
+      <p style="font-family: 'Ubuntu', sans-serif;
+      font-weight: 300;
+      font-style: italic;">Agradecemos por se juntar a esta jornada de aprendizado e
+        crescimento!</p>
     </div>
-    <section class="session-code-confirm">
-      <h2 class="title ubuntu-light">Confirmation Code</h2>
+    <section style="display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 758px;
+                    height: 44px;
+                    background: var(--Default1, #264F75);" class="session-code-confirm">
+      <h2 style=" text-align: center;
+                  font-size: 24px;
+                  line-height: 100%;
+                  color: var(--Tom8, #F3EFE5);
+                  font-family: 'Ubuntu', sans-serif;
+                  font-weight: 300;
+                  font-style: normal;" class="title">Confirmation Code</h2>
     </section>
-    <p class="session-code-confirm-text ubuntu-light">Aqui está seu codigo para confirmação da conta:</p>
-    <p class="session-code-confirm-code ubuntu-light">Code: <span class=" ubuntu-bold">{{codeToken}}</span></p>
+    <p style="text-align: center;
+              font-size: 16px;
+              line-height: 120%;
+              color: #000;
+              font-family: 'Ubuntu', sans-serif;
+              font-weight: 300;
+              font-style: normal;" class="session-code-confirm-text ">Aqui está seu codigo para confirmação da
+      conta:</p>
+    <p style="text-align: center;
+              font-size: 16px;
+              line-height: 100%;
+              color: #000;
+              font-family: 'Ubuntu', sans-serif;
+              font-weight: 300;
+              font-style: normal;" class="session-code-confirm-code">Code:
+      <span style="font-size: 20px; 
+                   font-family: 'Ubuntu', sans-serif;
+                   font-weight: 700;
+                   font-style: normal;">
+        {{codeToken}}
+      </span>
+    </p>
   </section>
-  <footer class="footer">
-    <div class="content">
-      <p class="text ubuntu-light">
+  <footer style=" display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  border-radius: 0 0 16px 16px;
+                  gap: 32px;
+                  max-width: 760px;
+                  padding: 16px 32px;
+                  background: var(--Default7, #549DB4);" class="footer">
+    <div style="display: flex;
+                flex-direction: column;
+                max-width: 705px;
+                gap: 12px;" class="content">
+      <p style="font-size: 12px;
+                line-height: 150%;
+                color: var(--Tom8, #F3EFE5);
+                font-family: 'Ubuntu', sans-serif;
+                font-weight: 300;
+                font-style: normal;" class="text">
         Você está na nossa lista de contatos. Caso prefira não receber os nossos e-mails, solicite o
         cancelamento da inscrição [aqui]. Para falar conosco, clique [aqui] e confira nossos canais de
         atendimento.
       </p>
-      <p class="signature ubuntu-light">StartStudy, 2024 www.startstudy.com.br</p>
+      <p style="font-size: 16px;
+                line-height: 100%;
+                color: var(--Tom8, #F3EFE5);
+                font-family: 'Ubuntu', sans-serif;
+                font-weight: 300;
+                font-style: normal;">
+        StartStudy, 2024 www.startstudy.com.br
+      </p>
     </div>
-    <div class="contacts">
+    <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
       <div class="instagram">
-        <span class="icon">
+        <span style="text-align: center;
+                      font-size: 12px;
+                      line-height: 100%;
+                      color: #000;">
           <i class="fa-brands fa-instagram fa-xl"></i>
         </span>
-        <span class="ubuntu-light">@startstudies</span>
+        <span style="text-align: center;
+                    font-size: 12px;
+                    line-height: 100%;
+                    color: #000;
+                    font-family: 'Ubuntu', sans-serif;
+                    font-weight: 300;
+                    font-style: normal;">
+          @startstudies
+        </span>
       </div>
     </div>
   </footer>
