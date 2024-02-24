@@ -4,7 +4,7 @@ const regexMail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 const regexSpace = /^\S+$/;
 
 const schemaLogin = joi.object({
-  email: joi.string().regex(regexMail).email().messages({
+  email: joi.string().regex(regexMail).email().empty().messages({
     "any.required": "O campo email é obrigatório!",
     "string.empty": "O campo email não pode está vazio!",
     "string.email": "O campo email precisa está em um formato válido!",
