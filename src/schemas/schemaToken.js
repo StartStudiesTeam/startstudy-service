@@ -1,16 +1,20 @@
 const joi = require("joi");
 
+const regexMail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
 const schemaCodeToken = joi.object({
-  email: joi.string().email().empty().messages({
-    "string.email": "O campo Email precisa está em um formato válido!",
-    "string.empty": "O campo Email não pode está vazio!",
-    "string.base": "O campo Email precisa ser do tipo String!",
+  email: joi.string().regex(regexMail).email().required().messages({
+    "any.required": "O campo email é obrigatório!",
+    "string.empty": "O campo email não pode está vazio!",
+    "string.email": "O campo email precisa está em um formato válido!",
+    "string.base": "O campo email precisa ser do tipo String!",
+    "string.pattern.base": "O campo email precisa ser minúsculas",
   }),
   codeToken: joi.string().min(6).empty().required().messages({
-    "any.required": "O campo Token é obrigatório!",
-    "string.empty": "O campo Token não pode está vazio!",
-    "string.base": "O campo Token precisa ser do tipo String!",
-    "string.min": "O campo Token precisa ter 6 caracteres.",
+    "any.required": "O campo token é obrigatório!",
+    "string.empty": "O campo token não pode está vazio!",
+    "string.base": "O campo token precisa ser do tipo String!",
+    "string.min": "O campo token precisa ter 6 caracteres.",
   }),
 });
 

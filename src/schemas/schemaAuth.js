@@ -1,36 +1,43 @@
 const joi = require("joi");
 
+const regexMail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+const regexSpace = /^\S+$/;
+
 const schemaAuth = joi.object({
-  name: joi.string().empty().required().messages({
-    "any.required": "O campo Nome é obrigatório!",
-    "string.empty": "O campo Nome não pode está vazio!",
-    "string.base": "O campo Nome precisa ser do tipo String!",
+  name: joi.string().empty().min(2).required().messages({
+    "any.required": "O campo nome é obrigatório!",
+    "string.empty": "O campo nome não pode está vazio!",
+    "string.base": "O campo nome precisa ser do tipo String!",
+    "string.min": "O campo nome precisa ter no mínimo 2 caracteres.",
   }),
 
-  email: joi.string().email().required().messages({
-    "any.required": "O campo Email é obrigatório!",
-    "string.empty": "O campo Email não pode está vazio!",
-    "string.email": "O campo Email precisa está em um formato válido!",
-    "string.base": "O campo Email precisa ser do tipo String!",
+  email: joi.string().regex(regexMail).email().required().messages({
+    "any.required": "O campo email é obrigatório!",
+    "string.empty": "O campo email não pode está vazio!",
+    "string.email": "O campo email precisa está em um formato válido!",
+    "string.base": "O campo email precisa ser do tipo String!",
+    "string.pattern.base": "O campo email precisa ser minúsculas",
   }),
 
-  password: joi.string().min(8).empty().required().messages({
-    "any.required": "O campo Senha é obrigatório!",
-    "string.empty": "O campo Senha não pode está vazio!",
-    "string.base": "O campo Senha precisa ser do tipo String!",
-    "string.min": "O campo Senha precisa ter 8 caracteres.",
+  password: joi.string().regex(regexSpace).min(8).empty().required().messages({
+    "any.required": "O campo senha é obrigatório!",
+    "string.empty": "O campo senha não pode está vazio!",
+    "string.base": "O campo senha precisa ser do tipo String!",
+    "string.min": "O campo senha precisa ter 8 caracteres.",
+    "string.pattern.base": "O campo senha não é permitido espaços",
   }),
 
-  nick_name: joi.string().empty().required().messages({
-    "any.required": "O campo Nick Name é obrigatório!",
-    "string.empty": "O campo Nick Name não pode está vazio!",
-    "string.base": "O campo Nick Name precisa ser do tipo String!",
+  nick_name: joi.string().regex(regexSpace).empty().required().messages({
+    "any.required": "O campo nick name é obrigatório!",
+    "string.empty": "O campo nick name não pode está vazio!",
+    "string.base": "O campo nick name precisa ser do tipo String!",
+    "string.pattern.base": "O campo nick name não é permitido espaços",
   }),
 
   phone_number: joi.string().empty().messages({
-    "any.required": "O campo Phone Number é obrigatório!",
-    "string.empty": "O campo Phone Number não pode está vazio!",
-    "string.base": "O campo Phone Number precisa ser do tipo String!",
+    "any.required": "O campo Telefone é obrigatório!",
+    "string.empty": "O campo Telefone não pode está vazio!",
+    "string.base": "O campo Telefone precisa ser do tipo String!",
   }),
 });
 
