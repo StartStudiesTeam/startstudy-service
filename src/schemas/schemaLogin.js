@@ -1,23 +1,28 @@
 const joi = require("joi");
 
+const regexMail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+const regexSpace = /^\S+$/;
+
 const schemaLogin = joi.object({
-  email: joi.string().email().empty().messages({
-    "string.email": "O campo Email precisa está em um formato válido!",
-    "string.empty": "O campo Email não pode está vazio!",
-    "string.base": "O campo Email precisa ser do tipo String!",
+  email: joi.string().regex(regexMail).email().empty().messages({
+    "any.required": "O campo email é obrigatório!",
+    "string.empty": "O campo email não pode está vazio!",
+    "string.email": "O campo email precisa está em um formato válido!",
+    "string.base": "O campo email precisa ser do tipo String!",
+    "string.pattern.base": "O campo email precisa ser minúsculas",
   }),
-
-  nick_name: joi.string().empty().messages({
-    "any.required": "O campo Nick Name é obrigatório!",
-    "string.empty": "O campo Nick Name não pode está vazio!",
-    "string.base": "O campo Nick Name precisa ser do tipo String!",
+  nick_name: joi.string().regex(regexSpace).empty().messages({
+    "any.required": "O campo nick name é obrigatório!",
+    "string.empty": "O campo nick name não pode está vazio!",
+    "string.base": "O campo nick name precisa ser do tipo String!",
+    "string.pattern.base": "O campo nick name não é permitido espaços",
   }),
-
-  password: joi.string().min(8).empty().required().messages({
-    "any.required": "O campo Senha é obrigatório!",
-    "string.empty": "O campo Senha não pode está vazio!",
-    "string.base": "O campo Senha precisa ser do tipo String!",
-    "string.min": "O campo Senha precisa ter 8 caracteres.",
+  password: joi.string().regex(regexSpace).min(8).empty().required().messages({
+    "any.required": "O campo senha é obrigatório!",
+    "string.empty": "O campo senha não pode está vazio!",
+    "string.base": "O campo senha precisa ser do tipo String!",
+    "string.min": "O campo senha precisa ter 8 caracteres.",
+    "string.pattern.base": "O campo senha não é permitido espaços",
   }),
 });
 
