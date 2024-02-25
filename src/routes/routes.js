@@ -15,6 +15,9 @@ const mailCheckQuery = require("../controllers/mails/mails");
 const newPassword = require("../controllers/password/newPassword");
 const validationCodeToken = require("../controllers/codeToken/codeToken");
 const refreshTokenUser = require("../controllers/users/refresh");
+const createdRoadmap = require("../controllers/roadmap/create");
+const updateRoadmap = require("../controllers/roadmap/update");
+const deleteRoadmap = require("../controllers/roadmap/delete");
 
 const route = express();
 
@@ -34,10 +37,11 @@ route.use(authenticationUser);
 
 route.put("/newpassword", middlewareSchema(schemaNewPassword), newPassword);
 
-route.get("/roadmap");
-route.get("/videos");
+route.post("/roadmap", createdRoadmap);
+route.put("/roadmap", updateRoadmap);
+route.delete("/roadmap", deleteRoadmap);
 
-route.post("/newroadmap");
-route.post("/newvideos");
+route.get("/videos");
+route.route("/videos");
 
 module.exports = route;
