@@ -1,0 +1,16 @@
+module.exports = {
+  port: process.env.PORT,
+  dbHost: process.env.DB_HOST,
+  dbPort: process.env.DB_PORT,
+  dbUser: process.env.DB_USER,
+  dbPass: process.env.DB_PASSWORD,
+  dbData: process.env.DB_DATABASE,
+  mailHost: process.env.EMAIL_HOST,
+  mailPort: process.env.EMAIL_PORT,
+  mailUser: process.env.EMAIL_USER,
+  mailPass: process.env.EMAIL_PASS,
+  mailName: process.env.EMAIL_NAME,
+  mailFrom: process.env.EMAIL_FROM,
+  jwtSecret: process.env.JWT_SECRET,
+  jwtExpires: process.env.JWT_EXPIRES_IN,
+};
