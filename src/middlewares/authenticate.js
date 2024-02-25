@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const errorMessages = require("../helpers/codeMessages/errorMessages");
-const { jwtSecret } = require("../../config/env.config");
 
 const authenticationUser = async (req, res, next) => {
   const { authorization } = req.headers;
@@ -12,7 +11,7 @@ const authenticationUser = async (req, res, next) => {
   const token = authorization.split(" ")[1];
 
   try {
-    const { sub } = jwt.verify(token, jwtSecret);
+    const { sub } = jwt.verify(token, process.env.JWT_SECRET);
 
     req.user = { id: sub };
 
