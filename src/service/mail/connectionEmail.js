@@ -1,17 +1,11 @@
 const nodemailer = require("nodemailer");
-const {
-  dbHost,
-  dbPort,
-  dbUser,
-  dbPass,
-} = require("../../../config/env.config");
 
 const transport = nodemailer.createTransport({
-  host: dbHost,
-  port: dbPort,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
   auth: {
-    user: dbUser,
-    pass: dbPass,
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASSWORD,
   },
 });
 
