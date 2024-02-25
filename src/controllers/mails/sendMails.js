@@ -1,6 +1,5 @@
 const transport = require("../../service/mail/connectionEmail.js");
 const compileHtml = require("../../helpers/sendMail/compile.js");
-const { mailName, mailFrom } = require("../../../config/env.config.js");
 
 const mailSendUserResgistered = async (name, email, codeToken) => {
   const html = await compileHtml("./src/templates/registered-user.html", {
@@ -9,7 +8,7 @@ const mailSendUserResgistered = async (name, email, codeToken) => {
   });
 
   transport.sendMail({
-    from: `${mailName} <${mailFrom}`,
+    from: `${process.env.EMAIL_NAME} <${process.env.EMAIL_FROM}`,
     to: `${name} <${email}>`,
     subject: `Bem vindo(a) ao StartStudies!`,
     html,
