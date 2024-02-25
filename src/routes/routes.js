@@ -42,6 +42,6 @@ route.put("/roadmap", updateRoadmap);
 route.delete("/roadmap", deleteRoadmap);
 
 route.get("/videos");
-route.route("/videos");
+route.post("/videos");
 
 module.exports = route;
