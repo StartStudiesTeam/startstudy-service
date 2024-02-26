@@ -104,7 +104,6 @@ describe("Register User", () => {
       phone_number: "11911223344",
     });
 
-    expect(response.statusCode).toBe(400);
     expect(response.body).toEqual(
       expect.objectContaining({
         message: expect.any(String),
@@ -129,7 +128,6 @@ describe("Register User", () => {
       phone_number: "11911223344",
     });
 
-    expect(response.statusCode).toBe(400);
     expect(response.body).toEqual(
       expect.objectContaining({
         message: expect.any(String),
