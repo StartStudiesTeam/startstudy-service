@@ -1,7 +1,7 @@
 const joi = require("joi");
 
 const schemaRoadmap = joi.object({
-  id: joi.string().empty().min(10).required().messages({
+  id: joi.string().empty().min(10).messages({
     "string.empty": "O campo id não pode está vazio!",
     "string.base": "O campo id precisa ser do tipo String!",
     "string.min": "O campo id precisa ter no mínimo 10 caracteres.",
