@@ -3,11 +3,11 @@ const express = require("express");
 const { middlewareSchema } = require("../middlewares/validationJoi");
 const { authenticationUser } = require("../middlewares/authenticate");
 
-const schemaAuth = require("../schemas/schemaAuth");
-const schemaLogin = require("../schemas/schemaLogin");
-const schemaMailCheck = require("../schemas/schemaMail");
-const schemaNewPassword = require("../schemas/schemaNewPassword");
-const schemaCodeToken = require("../schemas/schemaToken");
+const Auth = require("../schemas/Auth");
+const Login = require("../schemas/Login");
+const MailCheck = require("../schemas/Mail");
+const NewPassword = require("../schemas/NewPassword");
+const CodeToken = require("../schemas/Token");
 
 const registerUser = require("../controllers/users/register");
 const loginUser = require("../controllers/users/login");
@@ -21,21 +21,16 @@ const deleteRoadmap = require("../controllers/roadmap/delete");
 
 const route = express();
 
-route.post("/signup", middlewareSchema(schemaAuth), registerUser);
-route.post("/signin", middlewareSchema(schemaLogin), loginUser);
-route.post("/mailcheck", middlewareSchema(schemaMailCheck), mailCheckQuery);
+route.post("/signup", middlewareSchema(Auth), registerUser);
+route.post("/signin", middlewareSchema(Login), loginUser);
+route.post("/mailcheck", middlewareSchema(MailCheck), mailCheckQuery);
 
-route.patch(
-  "/confirmationtoken",
-  middlewareSchema(schemaCodeToken),
-  validationCodeToken
-);
-
+route.patch("/codetoken", middlewareSchema(CodeToken), validationCodeToken);
 route.post("/refreshtoken", refreshTokenUser);
 
 route.use(authenticationUser);
 
-route.put("/newpassword", middlewareSchema(schemaNewPassword), newPassword);
+route.put("/newpassword", middlewareSchema(NewPassword), newPassword);
 
 route.post("/roadmap", createdRoadmap);
 route.put("/roadmap", updateRoadmap);
