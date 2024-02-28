@@ -18,6 +18,7 @@ const refreshTokenUser = require("../controllers/users/refresh");
 const createdRoadmap = require("../controllers/roadmap/create");
 const updateRoadmap = require("../controllers/roadmap/update");
 const deleteRoadmap = require("../controllers/roadmap/delete");
+const createVideos = require("../controllers/videos/create");
 
 const route = express();
 
@@ -37,6 +38,6 @@ route.put("/roadmap", updateRoadmap);
 route.delete("/roadmap", deleteRoadmap);
 
 route.get("/videos");
-route.post("/videos");
+route.post("/videos", createVideos);
 
 module.exports = route;
