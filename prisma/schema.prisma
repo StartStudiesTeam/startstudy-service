@@ -8,20 +8,22 @@ datasource db {
 }
 
 model Users {
-  id           String         @id @default(uuid())
-  name         String
-  email        String         @unique
-  password     String
-  nickName     String         @unique @map("nick_name")
-  phoneNumber  String?        @map("phone_number")
-  createdAt    DateTime       @default(now()) @map("created_at")
-  updatedAt    DateTime?      @map("updated_at") @db.Timestamp(6)
-  deletedAt    DateTime?      @map("deleted_at") @db.Timestamp(6)
-  verifyMail   Boolean        @default(false) @map("verify_mail")
-  CodeToken    CodeToken[]
-  RefreshToken RefreshToken[]
-  Roadmap      Roadmap[]
-  Videos       Videos[]
+  id               String             @id @default(uuid())
+  name             String
+  email            String             @unique
+  password         String
+  nickName         String             @unique @map("nick_name")
+  phoneNumber      String?            @map("phone_number")
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime?          @map("updated_at") @db.Timestamp(6)
+  deletedAt        DateTime?          @map("deleted_at") @db.Timestamp(6)
+  verifyMail       Boolean            @default(false) @map("verify_mail")
+  CodeToken        CodeToken[]
+  RefreshToken     RefreshToken[]
+  Roadmap          Roadmap[]
+  Videos           Videos[]
+  Comments         Comments[]
+  CommentsComments CommentsComments[]
 
   @@map("users")
 }
@@ -60,6 +62,7 @@ model Videos {
   deletedAt     DateTime?       @map("deleted_at") @db.Timestamp(6)
   user          Users           @relation(fields: [userOwnerID], references: [id])
   VideosRoadmap VideosRoadmap[]
+  Comments      Comments[]
 
   @@map("videos")
 }
@@ -74,6 +77,7 @@ model Roadmap {
   deletedAt     DateTime?       @map("deleted_at") @db.Timestamp(6)
   user          Users           @relation(fields: [userId], references: [id])
   VideosRoadmap VideosRoadmap[]
+  Comments      Comments[]
 
   @@map("roadmap")
 }
@@ -89,4 +93,33 @@ model VideosRoadmap {
   videos    Videos    @relation(fields: [videoId], references: [id])
 
   @@map("videos_roadmap")
+}
+
+model Comments {
+  id               String             @id @default(uuid())
+  userId           String             @map("user_id")
+  videoId          String             @map("video_id")
+  roadmapId        String             @map("roadmap_id")
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime?          @map("updated_at")
+  deletedAt        DateTime?          @map("deleted_at") @db.Timestamp(6)
+  user             Users              @relation(fields: [userId], references: [id])
+  videos           Videos             @relation(fields: [videoId], references: [id])
+  roadmap          Roadmap            @relation(fields: [roadmapId], references: [id])
+  CommentsComments CommentsComments[]
+
+  @@map("comments")
+}
+
+model CommentsComments {
+  id         String    @id @default(uuid())
+  userId     String    @map("user_id")
+  commentsId String    @map("comments_id")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime? @map("updated_at")
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamp(6)
+  user       Users     @relation(fields: [userId], references: [id])
+  comments   Comments  @relation(fields: [commentsId], references: [id])
+
+  @@map("comments_comments")
 }
