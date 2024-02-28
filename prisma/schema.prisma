@@ -24,6 +24,7 @@ model Users {
   Videos           Videos[]
   Comments         Comments[]
   CommentsComments CommentsComments[]
+  Likes            Likes[]
 
   @@map("users")
 }
@@ -63,6 +64,7 @@ model Videos {
   user          Users           @relation(fields: [userOwnerID], references: [id])
   VideosRoadmap VideosRoadmap[]
   Comments      Comments[]
+  Likes         Likes[]
 
   @@map("videos")
 }
@@ -78,6 +80,7 @@ model Roadmap {
   user          Users           @relation(fields: [userId], references: [id])
   VideosRoadmap VideosRoadmap[]
   Comments      Comments[]
+  Likes         Likes[]
 
   @@map("roadmap")
 }
@@ -107,6 +110,7 @@ model Comments {
   videos           Videos             @relation(fields: [videoId], references: [id])
   roadmap          Roadmap            @relation(fields: [roadmapId], references: [id])
   CommentsComments CommentsComments[]
+  Likes            Likes[]
 
   @@map("comments")
 }
@@ -120,6 +124,26 @@ model CommentsComments {
   deletedAt  DateTime? @map("deleted_at") @db.Timestamp(6)
   user       Users     @relation(fields: [userId], references: [id])
   comments   Comments  @relation(fields: [commentsId], references: [id])
+  Likes      Likes[]
 
   @@map("comments_comments")
+}
+
+model Likes {
+  id                 String           @id @default(uuid())
+  userId             String           @map("user_id")
+  videoId            String           @map("video_id")
+  roadmapId          String           @map("roadmap_id")
+  commentsId         String           @map("comments_id")
+  commentscommentsId String           @map("comments_comments_id")
+  createdAt          DateTime         @default(now()) @map("created_at")
+  updatedAt          DateTime?        @map("updated_at")
+  deletedAt          DateTime?        @map("deleted_at") @db.Timestamp(6)
+  user               Users            @relation(fields: [userId], references: [id])
+  videos             Videos           @relation(fields: [videoId], references: [id])
+  roadmap            Roadmap          @relation(fields: [roadmapId], references: [id])
+  comments           Comments         @relation(fields: [commentsId], references: [id])
+  commentscomments   CommentsComments @relation(fields: [commentscommentsId], references: [id])
+
+  @@map("likes")
 }
