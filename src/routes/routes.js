@@ -19,6 +19,8 @@ const createdRoadmap = require("../controllers/roadmap/create");
 const updateRoadmap = require("../controllers/roadmap/update");
 const deleteRoadmap = require("../controllers/roadmap/delete");
 const createVideos = require("../controllers/videos/create");
+const updateVideos = require("../controllers/videos/update");
+const deleteVideo = require("../controllers/videos/delete");
 
 const route = express();
 
@@ -37,7 +39,8 @@ route.post("/roadmap", createdRoadmap);
 route.put("/roadmap", updateRoadmap);
 route.delete("/roadmap", deleteRoadmap);
 
-route.get("/videos");
 route.post("/videos", createVideos);
+route.put("/videos", updateVideos);
+route.delete("/videos", deleteVideo);
 
 module.exports = route;
