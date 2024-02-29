@@ -47,4 +47,8 @@ route.post("/likes");
 route.put("/likes");
 route.delete("/likes");
 
+route.post("/bookmarks");
+route.put("/bookmarks");
+route.delete("/bookmarks");
+
 module.exports = route;
