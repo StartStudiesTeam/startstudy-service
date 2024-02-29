@@ -43,4 +43,8 @@ route.post("/videos", createVideos);
 route.put("/videos", updateVideos);
 route.delete("/videos", deleteVideo);
 
+route.post("/likes");
+route.put("/likes");
+route.delete("/likes");
+
 module.exports = route;
