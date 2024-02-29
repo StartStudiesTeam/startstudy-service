@@ -11,7 +11,7 @@ const CodeToken = require("../schemas/Token");
 
 const registerUser = require("../controllers/users/register");
 const loginUser = require("../controllers/users/login");
-const mailCheckQuery = require("../controllers/mails/mails");
+const mailCheck = require("../controllers/mails/mails");
 const newPassword = require("../controllers/password/newPassword");
 const validationCodeToken = require("../controllers/codeToken/codeToken");
 const refreshTokenUser = require("../controllers/users/refresh");
@@ -26,7 +26,7 @@ const route = express();
 
 route.post("/signup", middlewareSchema(Auth), registerUser);
 route.post("/signin", middlewareSchema(Login), loginUser);
-route.post("/mailcheck", middlewareSchema(MailCheck), mailCheckQuery);
+route.post("/mailcheck", middlewareSchema(MailCheck), mailCheck);
 
 route.patch("/codetoken", middlewareSchema(CodeToken), validationCodeToken);
 route.post("/refreshtoken", refreshTokenUser);
