@@ -1,12 +1,12 @@
 const codeToken = require("../../helpers/users/token");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
-const mailSendUserResgistered = require("../mails/sendMails");
+const mailSendUserResgistered = require("../../service/mail/Mails");
 const { currentTime } = require("../../helpers/helpersData/date");
 const { findUserMail } = require("../../models/User");
 const { getUserIDByID, updateCodeTokenById } = require("../../models/Code");
 
-const mailCheckQuery = async (req, res) => {
+const mailCheck = async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -27,14 +27,22 @@ const mailCheckQuery = async (req, res) => {
       null
     );
 
-    mailSendUserResgistered(findMail.name, email, updatedTokenField.codeToken);
+    const responseMail = await mailSendUserResgistered(
+      findMail.name,
+      email,
+      updatedTokenField.codeToken
+    );
 
-    return res.status(200).json({ message: sucessMessages.checkMailUser });
+    return res.status(201).json({
+      statusCode: responseMail,
+      message: sucessMessages.checkMailUser,
+      body: {},
+    });
   } catch (error) {
-    return res
-      .status(404)
-      .json({ message: errorMessages.errorProcessingThisRequest });
+    return res.status(404).json({
+      message: errorMessages.errorProcessingThisRequest,
+    });
   }
 };
 
-module.exports = mailCheckQuery;
+module.exports = mailCheck;
