@@ -21,6 +21,9 @@ const deleteRoadmap = require("../controllers/roadmap/delete");
 const createVideos = require("../controllers/videos/create");
 const updateVideos = require("../controllers/videos/update");
 const deleteVideo = require("../controllers/videos/delete");
+const createLike = require("../controllers/likes/create");
+const updateLike = require("../controllers/likes/update");
+const deleteLike = require("../controllers/likes/delete");
 const updateComments = require("../controllers/comments/update");
 const deleteComments = require("../controllers/comments/delete");
 const createComments = require("../controllers/comments/create");
@@ -49,9 +52,9 @@ route.post("/videos", createVideos);
 route.put("/videos", updateVideos);
 route.delete("/videos", deleteVideo);
 
-route.post("/likes");
-route.put("/likes");
-route.delete("/likes");
+route.post("/likes", createLike);
+route.put("/likes", updateLike);
+route.delete("/likes", deleteLike);
 
 route.post("/bookmarks");
 route.put("/bookmarks");
