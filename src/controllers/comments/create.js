@@ -1,6 +1,6 @@
 const prisma = require("../../database/prisma");
+const sucessMessagesComments = require("../../helpers/codeMessages/commentsSucessMessages");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessMessages");
 const { findUserMail } = require("../../models/User");
 
 const createComments = async (req, res) => {
@@ -23,6 +23,10 @@ const createComments = async (req, res) => {
       });
 
       const { updatedAt, deletedAt: _, ...createdComments } = create;
+      return res.status(201).json({
+        message: sucessMessagesComments.successfullyRegisteredComments,
+        body: { createdComments },
+      });
     }
 
     if (roadmapId) {
@@ -39,12 +43,11 @@ const createComments = async (req, res) => {
       });
 
       const { updatedAt, deletedAt: _, ...createdComments } = create;
+      return res.status(201).json({
+        message: sucessMessagesComments.successfullyRegisteredComments,
+        body: { createdComments },
+      });
     }
-
-    return res.status(201).json({
-      message: sucessMessagesRoadmap.successfullyRegisteredRoadmap,
-      body: { createdComments },
-    });
   } catch (error) {
     return res
       .status(400)
