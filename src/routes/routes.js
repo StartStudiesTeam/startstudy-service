@@ -24,6 +24,9 @@ const deleteVideo = require("../controllers/videos/delete");
 const updateComments = require("../controllers/comments/update");
 const deleteComments = require("../controllers/comments/delete");
 const createComments = require("../controllers/comments/create");
+const createCommentsComments = require("../controllers/commentsComments.js/create");
+const updateCommentsComments = require("../controllers/commentsComments.js/update");
+const deleteCommentsComments = require("../controllers/commentsComments.js/delete");
 
 const route = express();
 
@@ -57,5 +60,9 @@ route.delete("/bookmarks");
 route.post("/comments", createComments);
 route.put("/comments", updateComments);
 route.delete("/comments", deleteComments);
+
+route.post("/commentsOfComments", createCommentsComments);
+route.put("/commentsOfComments", updateCommentsComments);
+route.delete("/commentsOfComments", deleteCommentsComments);
 
 module.exports = route;
