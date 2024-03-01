@@ -21,6 +21,12 @@ const deleteRoadmap = require("../controllers/roadmap/delete");
 const createVideos = require("../controllers/videos/create");
 const updateVideos = require("../controllers/videos/update");
 const deleteVideo = require("../controllers/videos/delete");
+const createComments = require("../controllers/Comments/Create");
+const updateComments = require("../controllers/comments/update");
+const {
+  deletedComments,
+} = require("../helpers/codeMessages/commentsSucessMessages");
+const deleteComments = require("../controllers/comments/delete");
 
 const route = express();
 
@@ -50,5 +56,9 @@ route.delete("/likes");
 route.post("/bookmarks");
 route.put("/bookmarks");
 route.delete("/bookmarks");
+
+route.post("/comments", createComments);
+route.put("/comments", updateComments);
+route.delete("/comments", deleteComments);
 
 module.exports = route;
