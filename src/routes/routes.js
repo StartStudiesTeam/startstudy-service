@@ -21,12 +21,9 @@ const deleteRoadmap = require("../controllers/roadmap/delete");
 const createVideos = require("../controllers/videos/create");
 const updateVideos = require("../controllers/videos/update");
 const deleteVideo = require("../controllers/videos/delete");
-const createComments = require("../controllers/Comments/create");
 const updateComments = require("../controllers/comments/update");
-const {
-  deletedComments,
-} = require("../helpers/codeMessages/commentsSucessMessages");
 const deleteComments = require("../controllers/comments/delete");
+const createComments = require("../controllers/comments/create");
 
 const route = express();
 
