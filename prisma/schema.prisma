@@ -106,6 +106,7 @@ model Comments {
   userId           String             @map("user_id")
   videoId          String             @map("video_id")
   roadmapId        String             @map("roadmap_id")
+  comments         String             @map("comments")
   createdAt        DateTime           @default(now()) @map("created_at")
   updatedAt        DateTime?          @map("updated_at")
   deletedAt        DateTime?          @map("deleted_at") @db.Timestamp(6)
@@ -119,15 +120,16 @@ model Comments {
 }
 
 model CommentsComments {
-  id         String    @id @default(uuid())
-  userId     String    @map("user_id")
-  commentsId String    @map("comments_id")
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @map("updated_at")
-  deletedAt  DateTime? @map("deleted_at") @db.Timestamp(6)
-  user       Users     @relation(fields: [userId], references: [id])
-  comments   Comments  @relation(fields: [commentsId], references: [id])
-  Likes      Likes[]
+  id               String    @id @default(uuid())
+  userId           String    @map("user_id")
+  commentsId       String    @map("comments_id")
+  commentsComments String    @map("comments_comments")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime? @map("updated_at")
+  deletedAt        DateTime? @map("deleted_at") @db.Timestamp(6)
+  user             Users     @relation(fields: [userId], references: [id])
+  comments         Comments  @relation(fields: [commentsId], references: [id])
+  Likes            Likes[]
 
   @@map("comments_comments")
 }
@@ -139,6 +141,7 @@ model Likes {
   roadmapId          String            @map("roadmap_id")
   commentsId         String            @map("comments_id")
   commentscommentsId String            @map("comments_comments_id")
+  likes              Boolean           @default(false) @map("likes")
   createdAt          DateTime          @default(now()) @map("created_at")
   updatedAt          DateTime?         @map("updated_at")
   deletedAt          DateTime?         @map("deleted_at") @db.Timestamp(6)
