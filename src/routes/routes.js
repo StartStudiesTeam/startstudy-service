@@ -27,9 +27,9 @@ const deleteLike = require("../controllers/likes/delete");
 const updateComments = require("../controllers/comments/update");
 const deleteComments = require("../controllers/comments/delete");
 const createComments = require("../controllers/comments/create");
-const createCommentsComments = require("../controllers/commentsComments.js/create");
-const updateCommentsComments = require("../controllers/commentsComments.js/update");
-const deleteCommentsComments = require("../controllers/commentsComments.js/delete");
+const createCommentsComments = require("../controllers/commentsComments/create");
+const updateCommentsComments = require("../controllers/commentsComments/update");
+const deleteCommentsComments = require("../controllers/commentsComments/delete");
 
 const route = express();
 
