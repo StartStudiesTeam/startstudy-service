@@ -39,7 +39,7 @@ const registerUser = async (req, res) => {
 
       await prisma.codeToken.create({
         data: {
-          users: {
+          Users: {
             connect: {
               id: userId,
             },

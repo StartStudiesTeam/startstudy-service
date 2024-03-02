@@ -11,7 +11,7 @@ const createdRoadmap = async (req, res) => {
   try {
     const create = await prisma.roadmap.create({
       data: {
-        user: {
+        Users: {
           connect: {
             id: user.id,
           },
@@ -28,6 +28,7 @@ const createdRoadmap = async (req, res) => {
       body: { createdRoadmap },
     });
   } catch (error) {
+    console.log(error);
     return res
       .status(400)
       .json({ message: errorMessages.errorProcessingThisRequest });

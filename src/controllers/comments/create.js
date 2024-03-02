@@ -11,7 +11,7 @@ const createComments = async (req, res) => {
   try {
     const create = await prisma.comments.create({
       data: {
-        user: {
+        Users: {
           connect: {
             id: user.id,
           },
