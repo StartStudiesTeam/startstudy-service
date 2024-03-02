@@ -9,45 +9,23 @@ const createComments = async (req, res) => {
   const user = await findUserMail(email);
 
   try {
-    if (videoId) {
-      const create = await prisma.comments.create({
-        data: {
-          user: {
-            connect: {
-              id: user.id,
-            },
+    const create = await prisma.comments.create({
+      data: {
+        user: {
+          connect: {
+            id: user.id,
           },
-          comments,
-          videoId,
         },
-      });
+        comments,
+        ...(videoId ? { videoId } : { roadmapId }),
+      },
+    });
 
-      const { updatedAt, deletedAt: _, ...createdComments } = create;
-      return res.status(201).json({
-        message: sucessMessagesComments.successfullyRegisteredComments,
-        body: { createdComments },
-      });
-    }
-
-    if (roadmapId) {
-      const create = await prisma.comments.create({
-        data: {
-          user: {
-            connect: {
-              id: user.id,
-            },
-          },
-          comments,
-          roadmapId,
-        },
-      });
-
-      const { updatedAt, deletedAt: _, ...createdComments } = create;
-      return res.status(201).json({
-        message: sucessMessagesComments.successfullyRegisteredComments,
-        body: { createdComments },
-      });
-    }
+    const { updatedAt, deletedAt: _, ...createdComments } = create;
+    return res.status(201).json({
+      message: sucessMessagesComments.successfullyRegisteredComments,
+      body: { createdComments },
+    });
   } catch (error) {
     return res
       .status(400)
