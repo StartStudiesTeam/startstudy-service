@@ -166,5 +166,5 @@ model Bookmarks {
   Users     Users     @relation(fields: [userId], references: [id])
   Videos    Videos    @relation(fields: [videoId], references: [id])
 
-  @@map("save")
+  @@map("bookmarks")
 }
