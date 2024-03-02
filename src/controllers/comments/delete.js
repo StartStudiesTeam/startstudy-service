@@ -6,10 +6,20 @@ const deleteComments = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const exclude = await prisma.comments.delete({
-      where: {
-        id,
-      },
+    const exclude = await prisma.$transaction(async () => {
+      const exclude = await prisma.comments_comments.deleteMany({
+        where: {
+          commentsId: id,
+        },
+      });
+
+      await prisma.comments.delete({
+        where: {
+          id,
+        },
+      });
+
+      return exclude;
     });
 
     return res
