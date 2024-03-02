@@ -18,7 +18,7 @@ const updateRoadmap = async (req, res) => {
       },
     });
 
-    const { updatedAt, deletedAt: _, ...updatedRoadmap } = roadmap;
+    const { deletedAt: _, ...updatedRoadmap } = roadmap;
 
     return res.status(200).json({
       message: sucessMessagesRoadmap.successUpdateRoadmap,

@@ -19,10 +19,12 @@ const updateLike = async (req, res) => {
       },
     });
 
+    const { deletedAt: _, ...updateBookmark } = likes;
+
     return res.status(200).json({
       statusCode: 200,
       message: sucessMessagesRoadmap.successfullyRegisteredRoadmap,
-      body: { likes },
+      body: { updateBookmark },
     });
   } catch (error) {
     return res
