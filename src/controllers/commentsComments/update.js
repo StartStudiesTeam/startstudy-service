@@ -17,7 +17,7 @@ const updateCommentsComments = async (req, res) => {
       },
     });
 
-    const { updatedAt, deletedAt: _, ...updatedCommentsComments } = comments;
+    const { deletedAt: _, ...updatedCommentsComments } = comments;
 
     return res.status(200).json({
       message: sucessMessagesComments.successUpdateComments,

@@ -4,7 +4,7 @@ const getMailAndCode = async (email, code) => {
   const find = await prisma.codeToken.findFirst({
     where: {
       codeToken: code,
-      users: {
+      Users: {
         email,
       },
     },
@@ -42,7 +42,7 @@ const updateVerifyField = async (id, date, verify) => {
     },
     data: {
       confirmationAt: date,
-      users: {
+      Users: {
         update: {
           verifyMail: verify,
         },

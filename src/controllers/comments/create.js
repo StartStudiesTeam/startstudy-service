@@ -22,6 +22,7 @@ const createComments = async (req, res) => {
     });
 
     const { updatedAt, deletedAt: _, ...createdComments } = create;
+
     return res.status(201).json({
       message: sucessMessagesComments.successfullyRegisteredComments,
       body: { createdComments },
