@@ -3,11 +3,11 @@ const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessMessages");
 const { currentTime } = require("../../helpers/helpersData/date");
 
-const updateLike = async (req, res) => {
+const updateBookmark = async (req, res) => {
   const { id, userId, videoId, roadmapId } = req.body;
 
   try {
-    const likes = await prisma.likes.update({
+    const update = await prisma.bookmarks.update({
       where: {
         id,
       },
@@ -19,11 +19,11 @@ const updateLike = async (req, res) => {
       },
     });
 
-    const { deletedAt: _, ...updateBookmark } = likes;
+    const { deletedAt: _, ...updateBookmark } = update;
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessagesRoadmap.successfullyRegisteredRoadmap,
+      message: sucessMessagesRoadmap.successUpdateRoadmap,
       body: { updateBookmark },
     });
   } catch (error) {
@@ -33,4 +33,4 @@ const updateLike = async (req, res) => {
   }
 };
 
-module.exports = updateLike;
+module.exports = updateBookmark;

@@ -14,7 +14,7 @@ const createVideos = async (req, res) => {
     const videos = await prisma.$transaction(async () => {
       const videos = await prisma.videos.create({
         data: {
-          user: {
+          Users: {
             connect: {
               id: user.id,
             },

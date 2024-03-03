@@ -30,6 +30,9 @@ const createComments = require("../controllers/comments/create");
 const createCommentsComments = require("../controllers/commentsComments/create");
 const updateCommentsComments = require("../controllers/commentsComments/update");
 const deleteCommentsComments = require("../controllers/commentsComments/delete");
+const createBookmark = require("../controllers/bookmarks/create");
+const updateBookmark = require("../controllers/bookmarks/update");
+const deleteBookmark = require("../controllers/bookmarks/delete");
 
 const route = express();
 
@@ -56,9 +59,9 @@ route.post("/likes", createLike);
 route.put("/likes", updateLike);
 route.delete("/likes", deleteLike);
 
-route.post("/bookmarks");
-route.put("/bookmarks");
-route.delete("/bookmarks");
+route.post("/bookmarks", createBookmark);
+route.put("/bookmarks", updateBookmark);
+route.delete("/bookmarks", deleteBookmark);
 
 route.post("/comments", createComments);
 route.put("/comments", updateComments);

@@ -4,7 +4,7 @@ const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessM
 const { currentTime } = require("../../helpers/helpersData/date");
 
 const updateVideos = async (req, res) => {
-  const { id, email, title, description, video, amountLike } = req.body;
+  const { id, title, description, video, amountLike } = req.body;
 
   try {
     const videos = await prisma.videos.update({
@@ -20,7 +20,7 @@ const updateVideos = async (req, res) => {
       },
     });
 
-    const { updatedAt, deletedAt: _, ...updatedVideos } = videos;
+    const { deletedAt: _, ...updatedVideos } = videos;
 
     return res.status(200).json({
       message: sucessMessagesRoadmap.successUpdateRoadmap,
