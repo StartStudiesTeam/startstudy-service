@@ -16,13 +16,17 @@ const newPassword = async (req, res) => {
       currentTime
     );
 
-    return res
-      .status(200)
-      .json({ message: "OK", body: sucessMessages.passworReset });
+    return res.status(200).json({
+      statusCode: 200,
+      message: sucessMessages.passworReset,
+      body: {},
+    });
   } catch (error) {
-    return res
-      .status(404)
-      .json({ message: errorMessages.errorProcessingThisRequest });
+    return res.status(400).json({
+      statusCode: 400,
+      message: errorMessages.errorProcessingThisRequest,
+      body: {},
+    });
   }
 };
 

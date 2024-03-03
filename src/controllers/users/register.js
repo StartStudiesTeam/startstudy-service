@@ -58,13 +58,16 @@ const registerUser = async (req, res) => {
     const { password: _, ...userValid } = user;
 
     return res.status(201).json({
+      statusCode: 201,
       message: sucessMessages.successfullyRegisteredUser,
       body: { accessToken, refreshToken },
     });
   } catch (error) {
-    return res
-      .status(404)
-      .json({ message: errorMessages.errorProcessingThisRequest });
+    return res.status(400).json({
+      statusCode: 400,
+      message: errorMessages.errorProcessingThisRequest,
+      body: {},
+    });
   }
 };
 

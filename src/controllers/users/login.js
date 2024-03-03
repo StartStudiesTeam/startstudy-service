@@ -45,13 +45,16 @@ const loginUser = async (req, res) => {
     const { password: _, ...userValid } = existingUser;
 
     return res.status(200).json({
+      statusCode: 200,
       message: sucessMessages.userAcessLogin,
       body: { accessToken, refreshToken },
     });
   } catch (error) {
-    return res
-      .status(404)
-      .json({ message: errorMessages.errorProcessingThisRequest });
+    return res.status(400).json({
+      statusCode: 400,
+      message: errorMessages.errorProcessingThisRequest,
+      body: {},
+    });
   }
 };
 

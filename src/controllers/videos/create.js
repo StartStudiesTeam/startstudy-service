@@ -40,13 +40,16 @@ const createVideos = async (req, res) => {
     const { updatedAt, deletedAt: _, ...createdVideos } = videos;
 
     return res.status(200).json({
+      statusCode: 200,
       message: sucessMessagesRoadmap.successUpdateRoadmap,
       body: { createdVideos },
     });
   } catch (error) {
-    return res
-      .status(400)
-      .json({ message: errorMessages.errorProcessingThisRequest });
+    return res.status(400).json({
+      statusCode: 400,
+      message: errorMessages.errorProcessingThisRequest,
+      body: {},
+    });
   }
 };
 
