@@ -23,13 +23,16 @@ const updateVideos = async (req, res) => {
     const { deletedAt: _, ...updatedVideos } = videos;
 
     return res.status(200).json({
+      statusCode: 200,
       message: sucessMessagesRoadmap.successUpdateRoadmap,
       body: { updatedVideos },
     });
   } catch (error) {
-    return res
-      .status(400)
-      .json({ message: errorMessages.errorProcessingThisRequest });
+    return res.status(400).json({
+      statusCode: 400,
+      message: errorMessages.errorProcessingThisRequest,
+      body: {},
+    });
   }
 };
 

@@ -25,11 +25,17 @@ const validationCodeToken = async (req, res) => {
     const accessToken = await generateToken(user);
     const { password: _, ...userValid } = user;
 
-    return res
-      .status(200)
-      .json({ message: sucessMessages.userAcessLogin, body: { accessToken } });
+    return res.status(200).json({
+      statusCode: 200,
+      message: sucessMessages.userAcessLogin,
+      body: { accessToken },
+    });
   } catch (error) {
-    return res.status(404).json({ message: error.message });
+    return res.status(400).json({
+      statusCode: 400,
+      message: errorMessages.errorProcessingThisRequest,
+      body: {},
+    });
   }
 };
 

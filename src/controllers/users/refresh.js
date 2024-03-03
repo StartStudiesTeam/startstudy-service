@@ -27,19 +27,23 @@ const refreshTokenUser = async (req, res) => {
       const newRefreshToken = await createRefresh(validateRefresh.usersId);
 
       return res.status(200).json({
+        statusCode: 200,
         message: sucessMessages.userAcessLogin,
         body: { accessToken, newRefreshToken },
       });
     }
 
     return res.status(200).json({
+      statusCode: 200,
       message: sucessMessages.userAcessLogin,
       body: { accessToken },
     });
   } catch (error) {
-    return res
-      .status(404)
-      .json({ message: errorMessages.errorProcessingThisRequest });
+    return res.status(400).json({
+      statusCode: 400,
+      message: errorMessages.errorProcessingThisRequest,
+      body: {},
+    });
   }
 };
 

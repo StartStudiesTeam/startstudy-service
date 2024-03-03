@@ -24,13 +24,16 @@ const createCommentsComments = async (req, res) => {
     const { updatedAt, deletedAt: _, ...createdCommentsComments } = create;
 
     return res.status(201).json({
+      statusCode: 201,
       message: sucessMessagesComments.successfullyRegisteredComments,
       body: { createdCommentsComments },
     });
   } catch (error) {
-    return res
-      .status(400)
-      .json({ message: errorMessages.errorProcessingThisRequest });
+    return res.status(400).json({
+      statusCode: 400,
+      message: errorMessages.errorProcessingThisRequest,
+      body: {},
+    });
   }
 };
 

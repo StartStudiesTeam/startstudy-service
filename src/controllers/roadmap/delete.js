@@ -12,13 +12,17 @@ const deleteRoadmap = async (req, res) => {
       },
     });
 
-    return res
-      .status(204)
-      .json({ message: sucessMessagesRoadmap.deletedRoadmap });
+    return res.status(204).json({
+      statusCode: 204,
+      message: sucessMessagesRoadmap.deletedRoadmap,
+      body: {},
+    });
   } catch (error) {
-    return res
-      .status(400)
-      .json({ message: errorMessages.errorProcessingThisRequest });
+    return res.status(400).json({
+      statusCode: 400,
+      message: errorMessages.errorProcessingThisRequest,
+      body: {},
+    });
   }
 };
 
