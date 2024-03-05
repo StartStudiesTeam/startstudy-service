@@ -1,4 +1,3 @@
-const prisma = require("../../database/prisma");
 const sucessMessagesComments = require("../../helpers/codeMessages/commentsSucessMessages");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 
@@ -6,11 +5,17 @@ const deleteCommentsComments = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const exclude = await prisma.comments_comments.delete({
-      where: {
-        id,
-      },
-    });
+    const findComment = await getCommentComment(id);
+
+    if (!findComment) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: errorMessages.errorProcessingThisRequest,
+        body: {},
+      });
+    }
+
+    const exclude = await deleteCommentsComments(id);
 
     return res.status(204).json({
       statusCode: 204,

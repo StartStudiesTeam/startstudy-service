@@ -1,28 +1,35 @@
-const prisma = require("../../database/prisma");
 const sucessMessagesComments = require("../../helpers/codeMessages/commentsSucessMessages");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const { currentTime } = require("../../helpers/helpersData/date");
+const {
+  getCommentComment,
+  upgradeCommentComment,
+} = require("../../models/CommentComment");
 
 const updateCommentsComments = async (req, res) => {
   const { id, commentsComments } = req.body;
 
   try {
-    const comments = await prisma.comments_comments.update({
-      where: {
-        id,
-      },
-      data: {
-        commentsComments,
-        updatedAt: currentTime,
-      },
-    });
+    const findComment = await getCommentComment(id);
 
-    const { deletedAt: _, ...updatedCommentsComments } = comments;
+    if (!findComment) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: errorMessages.errorProcessingThisRequest,
+        body: {},
+      });
+    }
+
+    const comment = await upgradeCommentComment(
+      id,
+      commentsComments,
+      currentTime
+    );
 
     return res.status(200).json({
       statusCode: 200,
       message: sucessMessagesComments.successUpdateComments,
-      body: { updatedCommentsComments },
+      body: { comment },
     });
   } catch (error) {
     return res.status(400).json({
