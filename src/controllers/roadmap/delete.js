@@ -1,16 +1,22 @@
-const prisma = require("../../database/prisma");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessMessages");
+const { getRoadmap } = require("../../models/Roadmap");
 
 const deleteRoadmap = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const exclude = await prisma.roadmap.delete({
-      where: {
-        id,
-      },
-    });
+    const findRoadmap = await getRoadmap(id);
+
+    if (!findRoadmap) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: errorMessages.errorProcessingThisRequest,
+        body: {},
+      });
+    }
+
+    const exclude = await deleteRoadmap(id);
 
     return res.status(204).json({
       statusCode: 204,

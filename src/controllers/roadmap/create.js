@@ -1,6 +1,6 @@
-const prisma = require("../../database/prisma");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessMessages");
+const { postRoadmap } = require("../../models/Roadmap");
 const { findUserMail } = require("../../models/User");
 
 const createdRoadmap = async (req, res) => {
@@ -9,24 +9,12 @@ const createdRoadmap = async (req, res) => {
   const user = await findUserMail(email);
 
   try {
-    const create = await prisma.roadmap.create({
-      data: {
-        Users: {
-          connect: {
-            id: user.id,
-          },
-        },
-        title,
-        description,
-      },
-    });
-
-    const { updatedAt, deletedAt: _, ...createdRoadmap } = create;
+    const create = postRoadmap(user.id, title, description);
 
     return res.status(201).json({
       statusCode: 201,
       message: sucessMessagesRoadmap.successfullyRegisteredRoadmap,
-      body: { createdRoadmap },
+      body: { create },
     });
   } catch (error) {
     return res.status(400).json({
