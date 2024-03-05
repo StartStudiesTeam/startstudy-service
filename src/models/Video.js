@@ -9,7 +9,7 @@ const getVideo = async (id) => {
   return video;
 };
 
-const upgradeVideo = async (id, title, desc, video, amountLike, time) => {
+const upgradeVideo = async (id, title, desc, midia, amountLike, time) => {
   const video = await prisma.videos.update({
     where: {
       id,
@@ -17,7 +17,7 @@ const upgradeVideo = async (id, title, desc, video, amountLike, time) => {
     data: {
       title,
       description: desc,
-      video,
+      video: midia,
       amountLike,
       updatedAt: time,
     },
