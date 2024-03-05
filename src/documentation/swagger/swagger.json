@@ -62,9 +62,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -101,9 +98,6 @@
           },
           "401": {
             "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -131,9 +125,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -164,9 +155,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -194,9 +182,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -235,9 +220,6 @@
           },
           "401": {
             "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -421,9 +403,6 @@
                 "id": {
                   "example": "any"
                 },
-                "email": {
-                  "example": "any"
-                },
                 "title": {
                   "example": "any"
                 },
@@ -487,6 +466,122 @@
       }
     },
     "/likes": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "any"
+                },
+                "videoId": {
+                  "example": "any"
+                },
+                "roadmapId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "userId": {
+                  "example": "any"
+                },
+                "videoId": {
+                  "example": "any"
+                },
+                "roadmapId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/bookmarks": {
       "post": {
         "description": "",
         "parameters": [
@@ -836,23 +931,23 @@
         },
         "name": {
           "type": "string",
-          "example": "Samuel"
+          "example": "Username"
         },
         "nick_name": {
           "type": "string",
-          "example": "samucajnew"
+          "example": "username"
         },
         "email": {
           "type": "string",
-          "example": "samuel@gmail.com"
+          "example": "user@email.com"
         },
         "phone_number": {
           "type": "string",
-          "example": "71945458585"
+          "example": "XXXXXXXXXXX"
         },
         "password": {
           "type": "string",
-          "example": "HAXXHASAGHDFYDAFDUISGFU177663###"
+          "example": "user@k-vbgauR@$#"
         }
       }
     },
@@ -861,11 +956,11 @@
       "properties": {
         "email": {
           "type": "string",
-          "example": "samuel@gmail.com"
+          "example": "user@email.com"
         },
         "password": {
           "type": "string",
-          "example": "HAXXHASAGHDFYDAFDUISGFU177663###"
+          "example": "user@k-vbgauR@$#"
         }
       }
     },
@@ -874,7 +969,7 @@
       "properties": {
         "email": {
           "type": "string",
-          "example": "samuel@gmail.com"
+          "example": "user@email.com"
         },
         "codeToken": {
           "type": "string",
@@ -887,16 +982,91 @@
       "properties": {
         "email": {
           "type": "string",
-          "example": "samuel@gmail.com"
+          "example": "user@email.com"
         }
       }
     },
     "UserPasswordForget": {
       "type": "object",
       "properties": {
+        "email": {
+          "type": "string",
+          "example": "user@email.com"
+        },
         "newPassword": {
           "type": "string",
           "example": "@lfvkjkj92847"
+        }
+      }
+    },
+    "UserRefreshToken": {
+      "type": "object",
+      "properties": {
+        "refresh_token": {
+          "type": "string",
+          "example": "9fede3d3-eeb4-48f0-9db0-93ea6157fde6"
+        }
+      }
+    },
+    "CreateRoadmap": {
+      "type":"object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Learn JavaScript"
+        },
+        "description": {
+          "type": "string",
+          "example": "The best tutorial to learn to JavaScript"
+        }
+      }
+    },
+    "UpdateRoadmap": {
+      "type":"object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Learn Java"
+        },
+        "description": {
+          "type": "string",
+          "example": "The best tutorial to learn to Java"
+        }
+      }
+    },
+    "CreateComments": {
+      "type":"object",
+      "properties": {
+        "comments": {
+          "type": "string",
+          "example": "Amazing! nice rutorial."
+        }
+      }
+    },
+    "UpdateComments": {
+      "type":"object",
+      "properties": {
+        "comments": {
+          "type": "string",
+          "example": "Amazing! Nice tutorial."
+        }
+      }
+    },
+    "CreateCommentsComments": {
+      "type":"object",
+      "properties": {
+        "comments": {
+          "type": "string",
+          "example": "I agree with you"
+        }
+      }
+    },
+    "UpdateCommentsComments": {
+      "type":"object",
+      "properties": {
+        "comments": {
+          "type": "string",
+          "example": "I don't agree with you anymore"
         }
       }
     }
