@@ -1,31 +1,35 @@
-const prisma = require("../../database/prisma");
 const errorMessages = require("../../helpers/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessMessages");
 const { currentTime } = require("../../helpers/helpersData/date");
+const { upgradeVideo, getVideo } = require("../../models/Video");
 
 const updateVideos = async (req, res) => {
   const { id, title, description, video, amountLike } = req.body;
 
   try {
-    const videos = await prisma.videos.update({
-      where: {
-        id,
-      },
-      data: {
-        title,
-        description,
-        video,
-        amountLike,
-        updatedAt: currentTime,
-      },
-    });
+    const findVideo = getVideo(id);
 
-    const { deletedAt: _, ...updatedVideos } = videos;
+    if (!findVideo) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: errorMessages.errorProcessingThisRequest,
+        body: {},
+      });
+    }
+
+    const videos = await upgradeVideo(
+      id,
+      title,
+      description,
+      video,
+      amountLike,
+      currentTime
+    );
 
     return res.status(200).json({
       statusCode: 200,
       message: sucessMessagesRoadmap.successUpdateRoadmap,
-      body: { updatedVideos },
+      body: { videos },
     });
   } catch (error) {
     return res.status(400).json({
