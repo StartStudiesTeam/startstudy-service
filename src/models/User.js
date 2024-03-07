@@ -1,24 +1,5 @@
 const prisma = require("../database/prisma");
 
-const createUser = async (data) => {
-  await prisma.users.create({
-    data: data,
-  });
-};
-
-const updateUser = async (where, data) => {
-  await prisma.users.update({
-    where,
-    data,
-  });
-};
-
-const deleteUser = async (where) => {
-  const del = await prisma.users.delete({
-    where,
-  });
-};
-
 const findUserMail = async (email) => {
   const find = await prisma.users.findFirst({
     where: {
@@ -47,6 +28,23 @@ const findDeletedFieldUser = async (id) => {
   return find;
 };
 
+const upgradeUser = async (id, name, email, phoneNumber, time) => {
+  const request = await prisma.users.update({
+    where: {
+      id,
+    },
+    data: {
+      name,
+      email,
+      phoneNumber,
+      updatedAt: time,
+      verifyMail: false,
+    },
+  });
+  const { deletedAt, password: _, ...response } = request;
+  return response;
+};
+
 const updateNewPassword = async (email, password, date) => {
   const update = prisma.users.update({
     where: {
@@ -61,11 +59,9 @@ const updateNewPassword = async (email, password, date) => {
 };
 
 module.exports = {
-  createUser,
-  updateUser,
-  deleteUser,
   findUserMail,
   findUserNick,
   findDeletedFieldUser,
+  upgradeUser,
   updateNewPassword,
 };
