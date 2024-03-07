@@ -33,6 +33,7 @@ const deleteCommentsComments = require("../controllers/commentsComments/delete")
 const createBookmark = require("../controllers/bookmarks/create");
 const updateBookmark = require("../controllers/bookmarks/update");
 const deleteBookmark = require("../controllers/bookmarks/delete");
+const updateUser = require("../controllers/users/update");
 
 const route = express();
 
@@ -44,6 +45,8 @@ route.patch("/codetoken", middlewareSchema(CodeToken), validationCodeToken);
 route.post("/refreshtoken", refreshTokenUser);
 
 route.use(authenticationUser);
+
+route.put("/updateuser", updateUser);
 
 route.put("/newpassword", middlewareSchema(NewPassword), newPassword);
 
