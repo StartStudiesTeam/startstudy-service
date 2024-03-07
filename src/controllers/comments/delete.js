@@ -7,7 +7,7 @@ const deleteComments = async (req, res) => {
 
   try {
     const exclude = await prisma.$transaction(async () => {
-      const exclude = await prisma.comments_comments.deleteMany({
+      const exclude = await prisma.commentsComments.deleteMany({
         where: {
           commentsId: id,
         },
