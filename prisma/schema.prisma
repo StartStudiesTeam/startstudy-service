@@ -26,6 +26,7 @@ model Users {
   Roadmap          Roadmap[]
   Bookmarks        Bookmarks[]
   Videos           Videos[]
+  Tags             Tags[]
 
   @@map("users")
 }
@@ -84,6 +85,7 @@ model Roadmap {
   Users         Users           @relation(fields: [userId], references: [id])
   Bookmarks     Bookmarks[]
   VideosRoadmap VideosRoadmap[]
+  Tags          Tags[]
 
   @@map("roadmap")
 }
@@ -167,4 +169,18 @@ model Bookmarks {
   Videos    Videos    @relation(fields: [videoId], references: [id])
 
   @@map("bookmarks")
+}
+
+model Tags {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  roadmapId String    @map("roadmap_id")
+  tag       String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
+  Users     Users     @relation(fields: [userId], references: [id])
+  Roadmap   Roadmap   @relation(fields: [roadmapId], references: [id])
+
+  @@map("tags")
 }
