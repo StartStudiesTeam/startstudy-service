@@ -34,6 +34,7 @@ const createBookmark = require("../controllers/bookmarks/create");
 const updateBookmark = require("../controllers/bookmarks/update");
 const deleteBookmark = require("../controllers/bookmarks/delete");
 const updateUser = require("../controllers/users/update");
+const deleteUser = require("../controllers/users/delete");
 
 const route = express();
 
@@ -47,6 +48,7 @@ route.post("/refreshtoken", refreshTokenUser);
 route.use(authenticationUser);
 
 route.put("/updateuser", updateUser);
+route.put("/deleteuser", deleteUser);
 
 route.put("/newpassword", middlewareSchema(NewPassword), newPassword);
 
