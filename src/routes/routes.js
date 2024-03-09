@@ -48,7 +48,7 @@ route.post("/refreshtoken", refreshTokenUser);
 route.use(authenticationUser);
 
 route.put("/updateuser", updateUser);
-route.put("/deleteuser", deleteUser);
+route.delete("/deleteuser", deleteUser);
 
 route.put("/newpassword", middlewareSchema(NewPassword), newPassword);
 
