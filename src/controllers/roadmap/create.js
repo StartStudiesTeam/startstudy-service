@@ -1,5 +1,5 @@
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessMessages");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
+const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { postRoadmap } = require("../../models/Roadmap");
 const { findUserMail } = require("../../models/User");
 

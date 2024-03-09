@@ -1,12 +1,12 @@
-const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const sucessMessages = require("../../constants/codeMessages/sucessMessages");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
 const {
   validRefresh,
   deleteRefresh,
   createRefresh,
 } = require("../../models/Refresh");
-const { generateToken } = require("../../helpers/authenticate/generateToken");
-const { afterDate } = require("../../helpers/helpersData/date");
+const { createAccessToken } = require("../../utils/authenticate/AccessToken");
+const { afterDate } = require("../../utils/date/date");
 
 const refreshTokenUser = async (req, res) => {
   const { refresh_token } = req.body;
@@ -20,7 +20,7 @@ const refreshTokenUser = async (req, res) => {
     }
 
     const verifyDateAccess = await afterDate(validateRefresh.expiresIn);
-    const accessToken = await generateToken(refresh_token);
+    const accessToken = await createAccessToken(refresh_token);
 
     if (verifyDateAccess) {
       const deleteAllRefresh = await deleteRefresh(validateRefresh.id);

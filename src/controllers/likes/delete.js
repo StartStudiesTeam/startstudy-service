@@ -1,6 +1,5 @@
-const prisma = require("../../database/prisma");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessMessages");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
+const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { getLike, delLike } = require("../../models/Like");
 
 const deleteLike = async (req, res) => {

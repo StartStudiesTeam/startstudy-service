@@ -1,6 +1,6 @@
 const prisma = require("../../database/prisma");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessMessages");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
+const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { getVideo } = require("../../models/Video");
 
 const deleteVideo = async (req, res) => {

@@ -1,5 +1,5 @@
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessMessages");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
+const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { delBookmark, getBookmark } = require("../../models/Bookmark");
 
 const deleteBookmark = async (req, res) => {

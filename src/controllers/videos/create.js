@@ -1,7 +1,7 @@
 const prisma = require("../../database/prisma");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessMessages");
-const getRoadmap = require("../../models/Roadmap");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
+const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
+const { getRoadmap } = require("../../models/Roadmap");
 const { findUserMail } = require("../../models/User");
 
 const createVideos = async (req, res) => {

@@ -1,11 +1,11 @@
 const bcrypt = require("bcrypt");
 const prisma = require("../../database/prisma");
-const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const codeToken = require("../../helpers/users/token");
+const sucessMessages = require("../../constants/codeMessages/sucessMessages");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
+const CodeToken = require("../../utils/user/token");
 const mailSendUserResgistered = require("../../service/mail/Mails");
 const { findUserMail, findUserNick } = require("../../models/User");
-const { generateToken } = require("../../helpers/authenticate/generateToken");
+const { createAccessToken } = require("../../utils/authenticate/AccessToken");
 const { createRefresh } = require("../../models/Refresh");
 
 const registerUser = async (req, res) => {
@@ -44,15 +44,15 @@ const registerUser = async (req, res) => {
               id: userId,
             },
           },
-          codeToken: codeToken.code_token,
+          codeToken: CodeToken.code_token,
         },
       });
       return user;
     });
 
-    mailSendUserResgistered(name, email, codeToken.code_token);
+    mailSendUserResgistered(name, email, CodeToken.code_token);
 
-    const accessToken = await generateToken(user.id);
+    const accessToken = await createAccessToken(user.id);
     const refreshToken = await createRefresh(user.id);
 
     const { password: _, ...userValid } = user;
