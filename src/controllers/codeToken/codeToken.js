@@ -1,7 +1,7 @@
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
-const { currentTime } = require("../../helpers/helpersData/date");
-const { generateToken } = require("../../helpers/authenticate/generateToken");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
+const sucessMessages = require("../../constants/codeMessages/sucessMessages");
+const { currentTime } = require("../../utils/date/date");
+const { createAccessToken } = require("../../utils/authenticate/AccessToken");
 const { getMailAndCode, updateVerifyField } = require("../../models/Code");
 
 const validationCodeToken = async (req, res) => {
@@ -22,7 +22,7 @@ const validationCodeToken = async (req, res) => {
 
     const updatedField = await updateVerifyField(user.id, currentTime, true);
 
-    const accessToken = await generateToken(user);
+    const accessToken = await createAccessToken(user);
     const { password: _, ...userValid } = user;
 
     return res.status(200).json({

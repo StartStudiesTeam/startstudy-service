@@ -1,5 +1,5 @@
-const sucessMessagesComments = require("../../helpers/codeMessages/commentsSucessMessages");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const sucessMessagesComments = require("../../constants/codeMessages/commentsSucessMessages");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
 const { postCommentComment } = require("../../models/CommentComment");
 const { findUserMail } = require("../../models/User");
 

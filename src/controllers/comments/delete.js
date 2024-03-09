@@ -1,6 +1,6 @@
 const prisma = require("../../database/prisma");
-const sucessMessagesComments = require("../../helpers/codeMessages/commentsSucessMessages");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const sucessMessagesComments = require("../../constants/codeMessages/commentsSucessMessages");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
 
 const deleteComments = async (req, res) => {
   const { id } = req.body;

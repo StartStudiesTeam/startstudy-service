@@ -1,8 +1,8 @@
-const codeToken = require("../../helpers/users/token");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
+const CodeToken = require("../../utils/user/token");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
+const sucessMessages = require("../../constants/codeMessages/sucessMessages");
 const mailSendUserResgistered = require("../../service/mail/Mails");
-const { currentTime } = require("../../helpers/helpersData/date");
+const { currentTime } = require("../../utils/date/date");
 const { findUserMail } = require("../../models/User");
 const { getUserIDByID, updateCodeTokenById } = require("../../models/Code");
 
@@ -22,7 +22,7 @@ const mailCheck = async (req, res) => {
 
     const updatedTokenField = await updateCodeTokenById(
       getDateById.id,
-      codeToken.code_token,
+      CodeToken.code_token,
       currentTime,
       null
     );

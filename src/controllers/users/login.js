@@ -1,15 +1,15 @@
 const bcrypt = require("bcrypt");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const sucessMessages = require("../../helpers/codeMessages/sucessMessages.js");
+const errorMessages = require("../../constants/codeMessages/errorMessages.js");
+const sucessMessages = require("../../constants/codeMessages/sucessMessages.js");
 const { createRefresh } = require("../../models/Refresh.js");
-const {
-  generateToken,
-} = require("../../helpers/authenticate/generateToken.js");
 const {
   findUserMail,
   findUserNick,
   findDeletedFieldUser,
 } = require("../../models/User.js");
+const {
+  createAccessToken,
+} = require("../../utils/authenticate/AccessToken.js");
 
 const loginUser = async (req, res) => {
   const { nick_name, email, password } = req.body;
@@ -39,7 +39,7 @@ const loginUser = async (req, res) => {
         .json({ message: errorMessages.invalidCredentials });
     }
 
-    const accessToken = await generateToken(existingUser.id);
+    const accessToken = await createAccessToken(existingUser.id);
     const refreshToken = await createRefresh(existingUser.id);
 
     const { password: _, ...userValid } = existingUser;

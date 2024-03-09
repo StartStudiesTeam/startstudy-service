@@ -1,6 +1,6 @@
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../helpers/codeMessages/roadmapSucessMessages");
-const { currentTime } = require("../../helpers/helpersData/date");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
+const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
+const { currentTime } = require("../../utils/date/date");
 const { upgradeLike } = require("../../models/Like");
 
 const updateLike = async (req, res) => {

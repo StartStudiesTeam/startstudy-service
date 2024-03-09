@@ -1,13 +1,12 @@
-const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
+const sucessMessages = require("../../constants/codeMessages/sucessMessages");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
 const {
   findUserMail,
   findUserNick,
   upgradeUser,
 } = require("../../models/User");
-
-const { generateToken } = require("../../helpers/authenticate/generateToken");
-const { currentTime } = require("../../helpers/helpersData/date");
+const { currentTime } = require("../../utils/date/date");
+const { createAccessToken } = require("../../utils/authenticate/AccessToken");
 
 const updateUser = async (req, res) => {
   const { id, name, nick_name, email, phone_number } = req.body;
@@ -31,7 +30,7 @@ const updateUser = async (req, res) => {
       currentTime
     );
 
-    const accessToken = await generateToken(response.id);
+    const accessToken = await createAccessToken(response.id);
 
     return res.status(200).json({
       statusCode: 200,

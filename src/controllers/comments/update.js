@@ -1,6 +1,6 @@
-const sucessMessagesComments = require("../../helpers/codeMessages/commentsSucessMessages");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const { currentTime } = require("../../helpers/helpersData/date");
+const sucessMessagesComments = require("../../constants/codeMessages/commentsSucessMessages");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
+const { currentTime } = require("../../utils/date/date");
 const { upgradeComment } = require("../../models/Comment");
 
 const updateComments = async (req, res) => {

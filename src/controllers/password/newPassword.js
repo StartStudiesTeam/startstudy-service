@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
-const errorMessages = require("../../helpers/codeMessages/errorMessages");
-const sucessMessages = require("../../helpers/codeMessages/sucessMessages");
-const { currentTime } = require("../../helpers/helpersData/date");
+const errorMessages = require("../../constants/codeMessages/errorMessages");
+const sucessMessages = require("../../constants/codeMessages/sucessMessages");
+const { currentTime } = require("../../utils/date/date");
 const { updateNewPassword } = require("../../models/User");
 
 const newPassword = async (req, res) => {
