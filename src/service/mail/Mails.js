@@ -1,5 +1,5 @@
 const brevo = require("@getbrevo/brevo");
-const compileHtml = require("../../helpers/sendMail/compile");
+const compileHtml = require("../../utils/mail/compile");
 
 const mailSendUserResgistered = async (name, email, codeToken) => {
   const html = await compileHtml("./src/templates/registered-user.html", {

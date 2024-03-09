@@ -1,9 +1,9 @@
 const crypto = require("crypto");
-const { currentTime } = require("../helpersData/date");
+const { currentTime } = require("../date/date");
 
-const codeToken = {
+const CodeToken = {
   code_token: crypto.randomBytes(3).toString("hex"),
   created_at: currentTime,
 };
 
-module.exports = codeToken;
+module.exports = CodeToken;
