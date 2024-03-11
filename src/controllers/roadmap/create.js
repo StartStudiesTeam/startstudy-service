@@ -9,7 +9,7 @@ const createdRoadmap = async (req, res) => {
   const user = await findUserMail(email);
 
   try {
-    const create = postRoadmap(user.id, title, description);
+    const create = await postRoadmap(user.id, title, description);
 
     return res.status(201).json({
       statusCode: 201,
