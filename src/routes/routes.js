@@ -35,6 +35,9 @@ const updateBookmark = require("../controllers/bookmarks/update");
 const deleteBookmark = require("../controllers/bookmarks/delete");
 const updateUser = require("../controllers/users/update");
 const deleteUser = require("../controllers/users/delete");
+const createTag = require("../controllers/tags/create");
+const updateTag = require("../controllers/tags/update");
+const deleteTag = require("../controllers/tags/delete");
 
 const route = express();
 
@@ -56,9 +59,9 @@ route.post("/roadmap", createdRoadmap);
 route.put("/roadmap", updateRoadmap);
 route.delete("/roadmap", deleteRoadmap);
 
-route.post("/tags");
-route.put("/tags");
-route.delete("/tags");
+route.post("/tags", createTag);
+route.put("/tags", updateTag);
+route.delete("/tags", deleteTag);
 
 route.post("/videos", createVideos);
 route.put("/videos", updateVideos);
