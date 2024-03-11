@@ -26,7 +26,6 @@ model Users {
   RefreshToken     RefreshToken[]
   Roadmap          Roadmap[]
   Videos           Videos[]
-  Tags             Tags[]
 
   @@map("users")
 }
@@ -84,8 +83,8 @@ model Roadmap {
   Comments      Comments[]
   Likes         Likes[]
   Users         Users           @relation(fields: [userId], references: [id])
-  VideosRoadmap VideosRoadmap[]
   Tags          Tags[]
+  VideosRoadmap VideosRoadmap[]
 
   @@map("roadmap")
 }
@@ -179,7 +178,6 @@ model Tags {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at")
   deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
-  Users     Users     @relation(fields: [userId], references: [id])
   Roadmap   Roadmap   @relation(fields: [roadmapId], references: [id])
 
   @@map("tags")
