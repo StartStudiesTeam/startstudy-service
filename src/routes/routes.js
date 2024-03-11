@@ -56,6 +56,10 @@ route.post("/roadmap", createdRoadmap);
 route.put("/roadmap", updateRoadmap);
 route.delete("/roadmap", deleteRoadmap);
 
+route.post("/tags");
+route.put("/tags");
+route.delete("/tags");
+
 route.post("/videos", createVideos);
 route.put("/videos", updateVideos);
 route.delete("/videos", deleteVideo);
