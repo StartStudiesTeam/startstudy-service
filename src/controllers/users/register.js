@@ -3,10 +3,10 @@ const prisma = require("../../database/prisma");
 const sucessMessages = require("../../constants/codeMessages/sucessMessages");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const CodeToken = require("../../utils/user/token");
-const mailSendUserResgistered = require("../../service/mail/Mails");
-const { findUserMail, findUserNick } = require("../../models/User");
-const { createAccessToken } = require("../../utils/authenticate/AccessToken");
-const { createRefresh } = require("../../models/Refresh");
+const SendRegisteredUserEmail = require("../../service/mail/Mails");
+const { GetUserByMail, GetUserByNick } = require("../../models/User");
+const { CreateAccessToken } = require("../../utils/authenticate/AccessToken");
+const { CreateRefresh } = require("../../models/Refresh");
 
 const registerUser = async (req, res) => {
   const { name, nick_name, email, password, phone_number } = req.body;
@@ -14,13 +14,13 @@ const registerUser = async (req, res) => {
   try {
     const passEncrypted = await bcrypt.hash(password, 10);
 
-    if (await findUserMail(email)) {
+    if (await GetUserByMail(email)) {
       return res.status(400).json({
         message: errorMessages.existingUser,
       });
     }
 
-    if (await findUserNick(nick_name)) {
+    if (await GetUserByNick(nick_name)) {
       return res.status(400).json({ message: errorMessages.uniqueNickName });
     }
 
@@ -47,20 +47,20 @@ const registerUser = async (req, res) => {
           codeToken: CodeToken.code_token,
         },
       });
-      return user;
+
+      const { updatedAt, deletedAt, password: _, ...response } = user;
+      return response;
     });
 
-    mailSendUserResgistered(name, email, CodeToken.code_token);
+    SendRegisteredUserEmail(name, email, CodeToken.code_token);
 
-    const accessToken = await createAccessToken(user.id);
-    const refreshToken = await createRefresh(user.id);
-
-    const { password: _, ...userValid } = user;
+    const accessToken = await CreateAccessToken(user.id);
+    const refreshToken = await CreateRefresh(user.id);
 
     return res.status(201).json({
       statusCode: 201,
       message: sucessMessages.successfullyRegisteredUser,
-      body: { accessToken, refreshToken },
+      body: { user, accessToken, refreshToken },
     });
   } catch (error) {
     return res.status(400).json({

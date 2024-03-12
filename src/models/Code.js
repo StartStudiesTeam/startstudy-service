@@ -1,7 +1,7 @@
 const prisma = require("../database/prisma");
 
-const getMailAndCode = async (email, code) => {
-  const find = await prisma.codeToken.findFirst({
+const GetTheMailAndCode = async (email, code) => {
+  const request = await prisma.codeToken.findFirst({
     where: {
       codeToken: code,
       Users: {
@@ -9,20 +9,34 @@ const getMailAndCode = async (email, code) => {
       },
     },
   });
-  return find;
+
+  return request;
 };
 
-const getUserIDByID = async (id) => {
-  const find = await prisma.codeToken.findFirst({
+const GetTheUserId = async (id) => {
+  const request = await prisma.codeToken.findFirst({
     where: {
       userId: id,
     },
   });
-  return find;
+  return request;
 };
 
-const updateCodeTokenById = async (id, code, date, value) => {
-  const update = await prisma.codeToken.update({
+const GetFieldVerifyUserById = async (id) => {
+  const request = await prisma.codeToken.findFirst({
+    where: {
+      id,
+      NOT: {
+        confirmationAt: null,
+        updatedAt: null,
+      },
+    },
+  });
+  return request;
+};
+
+const UpdateCodeTokenById = async (id, code, date, value) => {
+  const request = await prisma.codeToken.update({
     where: {
       id,
     },
@@ -32,16 +46,17 @@ const updateCodeTokenById = async (id, code, date, value) => {
       confirmationAt: value,
     },
   });
-  return update;
+  return request;
 };
 
-const updateVerifyField = async (id, date, verify) => {
-  const update = await prisma.codeToken.update({
+const UpdateVerifiedField = async (id, time, verify) => {
+  const request = await prisma.codeToken.update({
     where: {
       id,
     },
     data: {
-      confirmationAt: date,
+      confirmationAt: time,
+      updatedAt: time,
       Users: {
         update: {
           verifyMail: verify,
@@ -49,12 +64,14 @@ const updateVerifyField = async (id, date, verify) => {
       },
     },
   });
-  return update;
+  const { deletedAt: _, ...response } = request;
+  return response;
 };
 
 module.exports = {
-  getMailAndCode,
-  getUserIDByID,
-  updateCodeTokenById,
-  updateVerifyField,
+  GetTheMailAndCode,
+  GetTheUserId,
+  GetFieldVerifyUserById,
+  UpdateCodeTokenById,
+  UpdateVerifiedField,
 };

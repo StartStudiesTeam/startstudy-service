@@ -1,36 +1,36 @@
 const CodeToken = require("../../utils/user/token");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessages = require("../../constants/codeMessages/sucessMessages");
-const mailSendUserResgistered = require("../../service/mail/Mails");
 const { currentTime } = require("../../utils/date/date");
-const { findUserMail } = require("../../models/User");
-const { getUserIDByID, updateCodeTokenById } = require("../../models/Code");
+const { GetUserByMail } = require("../../models/User");
+const { GetTheUserId, UpdateCodeTokenById } = require("../../models/Code");
+const SendRegisteredUserEmail = require("../../service/mail/Mails");
 
 const mailCheck = async (req, res) => {
   const { email } = req.body;
 
   try {
-    const findMail = await findUserMail(email);
+    const user = await GetUserByMail(email);
 
-    if (!findMail) {
+    if (!user) {
       return res.status(400).json({
         message: errorMessages.invalidEmail,
       });
     }
 
-    const getDateById = await getUserIDByID(findMail.id);
+    const gettingDateById = await GetTheUserId(user.id);
 
-    const updatedTokenField = await updateCodeTokenById(
-      getDateById.id,
+    const updatedCodeToken = await UpdateCodeTokenById(
+      gettingDateById.id,
       CodeToken.code_token,
       currentTime,
       null
     );
 
-    const responseMail = await mailSendUserResgistered(
-      findMail.name,
+    const responseMail = await SendRegisteredUserEmail(
+      user.name,
       email,
-      updatedTokenField.codeToken
+      updatedCodeToken.codeToken
     );
 
     return res.status(201).json({
