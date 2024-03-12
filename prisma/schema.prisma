@@ -36,7 +36,7 @@ model CodeToken {
   codeToken      String    @map("code_token") @db.VarChar(6)
   confirmationAt DateTime? @map("confirmation_at") @db.Timestamp(6)
   createdAt      DateTime  @default(now()) @map("created_at")
-  updatedAt      DateTime? @map("updated_at")
+  updatedAt      DateTime? @map("updated_at") @db.Timestamp(6)
   deletedAt      DateTime? @map("deleted_at") @db.Timestamp(6)
   Users          Users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
@@ -60,7 +60,7 @@ model Videos {
   amountLike    Int             @map("amount_like")
   userOwnerID   String          @map("user_owner_id")
   createdAt     DateTime        @default(now()) @map("created_at")
-  updatedAt     DateTime?       @map("updated_at")
+  updatedAt     DateTime?       @map("updated_at") @db.Timestamp(6)
   deletedAt     DateTime?       @map("deleted_at") @db.Timestamp(6)
   Bookmarks     Bookmarks[]
   Comments      Comments[]
@@ -77,7 +77,7 @@ model Roadmap {
   description   String?
   userId        String          @map("user_id")
   createdAt     DateTime        @default(now()) @map("created_at")
-  updatedAt     DateTime?       @map("updated_at")
+  updatedAt     DateTime?       @map("updated_at") @db.Timestamp(6)
   deletedAt     DateTime?       @map("deleted_at") @db.Timestamp(6)
   Bookmarks     Bookmarks[]
   Comments      Comments[]
@@ -94,7 +94,7 @@ model VideosRoadmap {
   roadmapId String    @map("roadmap_id")
   videoId   String    @map("video_id")
   createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @map("updated_at")
+  updatedAt DateTime? @map("updated_at") @db.Timestamp(6)
   deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
   Roadmap   Roadmap   @relation(fields: [roadmapId], references: [id])
   Videos    Videos    @relation(fields: [videoId], references: [id])
@@ -108,7 +108,7 @@ model Comments {
   videoId          String             @map("video_id")
   roadmapId        String             @map("roadmap_id")
   createdAt        DateTime           @default(now()) @map("created_at")
-  updatedAt        DateTime?          @map("updated_at")
+  updatedAt        DateTime?          @map("updated_at") @db.Timestamp(6)
   deletedAt        DateTime?          @map("deleted_at") @db.Timestamp(6)
   comments         String             @map("comments")
   Roadmap          Roadmap            @relation(fields: [roadmapId], references: [id])
@@ -125,7 +125,7 @@ model CommentsComments {
   userId           String    @map("user_id")
   commentsId       String    @map("comments_id")
   createdAt        DateTime  @default(now()) @map("created_at")
-  updatedAt        DateTime? @map("updated_at")
+  updatedAt        DateTime? @map("updated_at") @db.Timestamp(6)
   deletedAt        DateTime? @map("deleted_at") @db.Timestamp(6)
   CommentsComments String    @map("comments_comments")
   Comments         Comments  @relation(fields: [commentsId], references: [id])
@@ -143,7 +143,7 @@ model Likes {
   commentsId         String           @map("comments_id")
   commentscommentsId String           @map("comments_comments_id")
   createdAt          DateTime         @default(now()) @map("created_at")
-  updatedAt          DateTime?        @map("updated_at")
+  updatedAt          DateTime?        @map("updated_at") @db.Timestamp(6)
   deletedAt          DateTime?        @map("deleted_at") @db.Timestamp(6)
   likes              Boolean          @default(false) @map("likes")
   CommentsComments   CommentsComments @relation(fields: [commentscommentsId], references: [id])
@@ -161,7 +161,7 @@ model Bookmarks {
   videoId   String    @map("video_id")
   roadmapId String    @map("roadmap_id")
   createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @map("updated_at")
+  updatedAt DateTime? @map("updated_at") @db.Timestamp(6)
   deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
   Roadmap   Roadmap   @relation(fields: [roadmapId], references: [id])
   Users     Users     @relation(fields: [userId], references: [id])
@@ -176,7 +176,7 @@ model Tags {
   roadmapId String    @map("roadmap_id")
   tag       String
   createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @map("updated_at")
+  updatedAt DateTime? @map("updated_at") @db.Timestamp(6)
   deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
   Roadmap   Roadmap   @relation(fields: [roadmapId], references: [id])
 
