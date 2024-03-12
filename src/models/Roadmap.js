@@ -21,7 +21,7 @@ const postRoadmap = async (id, title, description) => {
       description,
     },
   });
-  const { updatedAt, deletedAt: _, ...response } = create;
+  const { updatedAt, deletedAt: _, ...response } = roadmap;
   return response;
 };
 
