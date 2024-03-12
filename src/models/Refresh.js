@@ -1,7 +1,7 @@
 const dayjs = require("dayjs");
 const prisma = require("../database/prisma");
 
-const createRefresh = async (usersId) => {
+const CreateRefresh = async (usersId) => {
   const expiresIn = dayjs().add(15, "second").unix();
 
   const refresh = await prisma.refreshToken.create({
@@ -13,7 +13,7 @@ const createRefresh = async (usersId) => {
   return refresh;
 };
 
-const validRefresh = async (ref) => {
+const GetRefresh = async (ref) => {
   const refresh = await prisma.refreshToken.findFirst({
     where: {
       id: ref,
@@ -22,7 +22,7 @@ const validRefresh = async (ref) => {
   return refresh;
 };
 
-const deleteRefresh = async (refresh_token) => {
+const DeleteRefresh = async (refresh_token) => {
   const delRefresh = await prisma.refreshToken.deleteMany({
     where: {
       usersId: refresh_token.usersId,
@@ -32,7 +32,7 @@ const deleteRefresh = async (refresh_token) => {
 };
 
 module.exports = {
-  createRefresh,
-  validRefresh,
-  deleteRefresh,
+  CreateRefresh,
+  GetRefresh,
+  DeleteRefresh,
 };
