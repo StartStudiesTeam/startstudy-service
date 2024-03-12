@@ -1,7 +1,7 @@
 const brevo = require("@getbrevo/brevo");
 const compileHtml = require("../../utils/mail/compile");
 
-const mailSendUserResgistered = async (name, email, codeToken) => {
+const SendRegisteredUserEmail = async (name, email, codeToken) => {
   const html = await compileHtml("./src/templates/registered-user.html", {
     name,
     codeToken,
@@ -38,4 +38,4 @@ const mailSendUserResgistered = async (name, email, codeToken) => {
   return responseSendMail;
 };
 
-module.exports = mailSendUserResgistered;
+module.exports = SendRegisteredUserEmail;

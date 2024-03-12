@@ -11,7 +11,7 @@ const schemaAuth = joi.object({
     "string.min": "O campo nome precisa ter no mínimo 2 caracteres.",
   }),
 
-  email: joi.string().regex(regexMail).email().required().messages({
+  email: joi.string().email().regex(regexMail).required().messages({
     "any.required": "O campo email é obrigatório!",
     "string.empty": "O campo email não pode está vazio!",
     "string.email": "O campo email precisa está em um formato válido!",

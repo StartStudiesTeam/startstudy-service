@@ -13,7 +13,7 @@ const registerUser = require("../controllers/users/register");
 const loginUser = require("../controllers/users/login");
 const mailCheck = require("../controllers/mails/mails");
 const newPassword = require("../controllers/password/newPassword");
-const validationCodeToken = require("../controllers/codeToken/codeToken");
+const checkTokenValidity = require("../controllers/codeToken/codeToken");
 const refreshTokenUser = require("../controllers/users/refresh");
 const createdRoadmap = require("../controllers/roadmap/create");
 const updateRoadmap = require("../controllers/roadmap/update");
@@ -45,7 +45,7 @@ route.post("/signup", middlewareSchema(Auth), registerUser);
 route.post("/signin", middlewareSchema(Login), loginUser);
 route.post("/mailcheck", middlewareSchema(MailCheck), mailCheck);
 
-route.patch("/codetoken", middlewareSchema(CodeToken), validationCodeToken);
+route.patch("/codetoken", middlewareSchema(CodeToken), checkTokenValidity);
 route.post("/refreshtoken", refreshTokenUser);
 
 route.use(authenticationUser);
