@@ -1,13 +1,13 @@
 const sucessMessagesComments = require("../../constants/codeMessages/commentsSucessMessages");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const { postComment } = require("../../models/Comment");
-const { findUserMail } = require("../../models/User");
+const { GetUserByMail } = require("../../models/User");
 
 const createComments = async (req, res) => {
   const { email, comments, videoId, roadmapId } = req.body;
 
   try {
-    const user = await findUserMail(email);
+    const user = await GetUserByMail(email);
     const create = await postComment(user.id, comments, videoId, roadmapId);
 
     return res.status(201).json({
