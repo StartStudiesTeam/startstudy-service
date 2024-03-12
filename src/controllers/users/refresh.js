@@ -3,9 +3,9 @@ const errorMessages = require("../../constants/codeMessages/errorMessages");
 const {
   validRefresh,
   deleteRefresh,
-  createRefresh,
+  CreateRefresh,
 } = require("../../models/Refresh");
-const { createAccessToken } = require("../../utils/authenticate/AccessToken");
+const { CreateAccessToken } = require("../../utils/authenticate/AccessToken");
 const { afterDate } = require("../../utils/date/date");
 
 const refreshTokenUser = async (req, res) => {
@@ -20,11 +20,11 @@ const refreshTokenUser = async (req, res) => {
     }
 
     const verifyDateAccess = await afterDate(validateRefresh.expiresIn);
-    const accessToken = await createAccessToken(refresh_token);
+    const accessToken = await CreateAccessToken(refresh_token);
 
     if (verifyDateAccess) {
       const deleteAllRefresh = await deleteRefresh(validateRefresh.id);
-      const newRefreshToken = await createRefresh(validateRefresh.usersId);
+      const newRefreshToken = await CreateRefresh(validateRefresh.usersId);
 
       return res.status(200).json({
         statusCode: 200,
