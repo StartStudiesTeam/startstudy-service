@@ -56,7 +56,7 @@ const upgradeUser = async (id, name, email, phoneNumber, time) => {
   return response;
 };
 
-const updateNewPassword = async (email, password, date) => {
+const UpdateNewPassword = async (email, password, date) => {
   const update = prisma.users.update({
     where: {
       email,
@@ -87,6 +87,6 @@ module.exports = {
   GetUserByIdWithDeletedField,
   GetFieldDeletedByUser,
   upgradeUser,
-  updateNewPassword,
+  UpdateNewPassword,
   DeleteUserById,
 };
