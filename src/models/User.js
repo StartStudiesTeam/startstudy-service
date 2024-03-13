@@ -64,6 +64,7 @@ const UpdateNewPassword = async (email, password, date) => {
     data: {
       password,
       updatedAt: date,
+      verifyMail: false,
     },
   });
   return update;
