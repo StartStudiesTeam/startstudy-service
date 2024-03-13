@@ -2,15 +2,29 @@ const bcrypt = require("bcrypt");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessages = require("../../constants/codeMessages/sucessMessages");
 const { currentTime } = require("../../utils/date/date");
-const { updateNewPassword } = require("../../models/User");
+const {
+  UpdateNewPassword,
+  GetUserByMail,
+  GetUserByIdWithDeletedField,
+} = require("../../models/User");
 
 const newPassword = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    const user = await GetUserByMail(email);
+    const isFieldDeleted = await GetUserByIdWithDeletedField(user.id);
+    const isVerifiedMail = user.verifyMail;
+
+    if (!isFieldDeleted || !isVerifiedMail) {
+      return res
+        .status(404)
+        .json({ message: "Não foi possível atualizar sua senha." });
+    }
+
     const passEncrypted = await bcrypt.hash(password, 10);
 
-    const replacementPass = await updateNewPassword(
+    const replacementPass = await UpdateNewPassword(
       email,
       passEncrypted,
       currentTime
