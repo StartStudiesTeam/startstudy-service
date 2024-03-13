@@ -32,7 +32,8 @@ const GetFieldVerifyUserById = async (id) => {
       },
     },
   });
-  return request;
+  const { confirmationAt } = request;
+  return confirmationAt;
 };
 
 const UpdateCodeTokenById = async (id, code, date, value) => {
