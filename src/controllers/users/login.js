@@ -1,37 +1,37 @@
 const bcrypt = require("bcrypt");
 const errorMessages = require("../../constants/codeMessages/errorMessages.js");
 const sucessMessages = require("../../constants/codeMessages/sucessMessages.js");
-const { createRefresh } = require("../../models/Refresh.js");
+const { CreateRefresh } = require("../../models/Refresh.js");
 const {
-  findUserMail,
-  findUserNick,
-  findDeletedFieldUser,
+  GetUserByMail,
+  GetUserByNick,
+  GetFieldDeletedByUser,
 } = require("../../models/User.js");
 const {
-  createAccessToken,
+  CreateAccessToken,
 } = require("../../utils/authenticate/AccessToken.js");
 
 const loginUser = async (req, res) => {
   const { nick_name, email, password } = req.body;
 
   try {
-    const existingUser = email
-      ? await findUserMail(email)
-      : await findUserNick(nick_name);
+    const user = email
+      ? await GetUserByMail(email)
+      : await GetUserByNick(nick_name);
 
-    if (!existingUser) {
+    if (!user) {
       return res
         .status(401)
         .json({ message: errorMessages.invalidCredentials });
     }
 
-    const findDeleted = await findDeletedFieldUser(existingUser.id);
+    const fieldDeleted = await GetFieldDeletedByUser(user.id);
 
-    if (!findDeleted) {
+    if (!fieldDeleted) {
       return res.status(400).json({ message: errorMessages.invalidUser });
     }
 
-    const correctPass = await bcrypt.compare(password, existingUser.password);
+    const correctPass = await bcrypt.compare(password, user.password);
 
     if (!correctPass) {
       return res
@@ -39,15 +39,15 @@ const loginUser = async (req, res) => {
         .json({ message: errorMessages.invalidCredentials });
     }
 
-    const accessToken = await createAccessToken(existingUser.id);
-    const refreshToken = await createRefresh(existingUser.id);
+    const accessToken = await CreateAccessToken(user.id);
+    const refreshToken = await CreateRefresh(user.id);
 
-    const { password: _, ...userValid } = existingUser;
+    const { password: _, ...response } = user;
 
     return res.status(200).json({
       statusCode: 200,
       message: sucessMessages.userAcessLogin,
-      body: { accessToken, refreshToken },
+      body: { response, accessToken, refreshToken },
     });
   } catch (error) {
     return res.status(400).json({

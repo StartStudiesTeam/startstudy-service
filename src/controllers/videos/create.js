@@ -2,13 +2,13 @@ const prisma = require("../../database/prisma");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { getRoadmap } = require("../../models/Roadmap");
-const { findUserMail } = require("../../models/User");
+const { GetUserByMail } = require("../../models/User");
 
 const createVideos = async (req, res) => {
   const { roadmapId, email, title, description, video, amountLike } = req.body;
 
   try {
-    const user = await findUserMail(email);
+    const user = await GetUserByMail(email);
     const roadmap = await getRoadmap(roadmapId);
 
     const videos = await prisma.$transaction(async () => {

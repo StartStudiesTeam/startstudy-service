@@ -1,34 +1,44 @@
+const dayjs = require("dayjs");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessages = require("../../constants/codeMessages/sucessMessages");
-const { currentTime } = require("../../utils/date/date");
-const { createAccessToken } = require("../../utils/authenticate/AccessToken");
-const { getMailAndCode, updateVerifyField } = require("../../models/Code");
+const { afterDate, currentTime } = require("../../utils/date/date");
+const { CreateAccessToken } = require("../../utils/authenticate/AccessToken");
+const {
+  GetTheMailAndCode,
+  UpdateVerifiedField,
+  GetFieldVerifyUserById,
+} = require("../../models/Code");
 
-const validationCodeToken = async (req, res) => {
+const checkTokenValidity = async (req, res) => {
   const { email, codeToken } = req.body;
 
   try {
-    const user = await getMailAndCode(email, codeToken);
+    const user = await GetTheMailAndCode(email, codeToken);
 
     if (!user) {
       return res.status(400).json({ message: errorMessages.invalidToken });
     }
 
-    const verifyDate = user.createdAt < currentTime;
+    const fieldVerify = await GetFieldVerifyUserById(user.id);
 
-    if (verifyDate) {
+    if (fieldVerify) {
+      return res.status(400).json({ message: "usuário validado" });
+    }
+
+    const userCreatedAtUnix = dayjs(user.createdAt).unix();
+    const isAfterCurrentTime = await afterDate(user.createdAt);
+
+    if (isAfterCurrentTime) {
       return res.status(400).json({ message: errorMessages.tokenExpired });
     }
 
-    const updatedField = await updateVerifyField(user.id, currentTime, true);
-
-    const accessToken = await createAccessToken(user);
-    const { password: _, ...userValid } = user;
+    const fieldUpdated = await UpdateVerifiedField(user.id, currentTime, true);
+    const accessToken = await CreateAccessToken(user);
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessages.userAcessLogin,
-      body: { accessToken },
+      message: sucessMessages.successUpdateUser,
+      body: { fieldUpdated, accessToken },
     });
   } catch (error) {
     return res.status(400).json({
@@ -39,4 +49,4 @@ const validationCodeToken = async (req, res) => {
   }
 };
 
-module.exports = validationCodeToken;
+module.exports = checkTokenValidity;

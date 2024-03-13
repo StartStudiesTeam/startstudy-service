@@ -1,12 +1,12 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { postRoadmap } = require("../../models/Roadmap");
-const { findUserMail } = require("../../models/User");
+const { GetUserByMail } = require("../../models/User");
 
 const createdRoadmap = async (req, res) => {
   const { email, title, description } = req.body;
 
-  const user = await findUserMail(email);
+  const user = await GetUserByMail(email);
 
   try {
     const create = await postRoadmap(user.id, title, description);
