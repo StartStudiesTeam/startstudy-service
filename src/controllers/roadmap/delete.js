@@ -1,12 +1,16 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { getRoadmap } = require("../../models/Roadmap");
+const {
+  GetRoadmap,
+  DeletedRoadmapById,
+  GetFieldDeletedByRoadmapId,
+} = require("../../models/Roadmap");
 
 const deleteRoadmap = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const findRoadmap = await getRoadmap(id);
+    const findRoadmap = await GetRoadmap(id);
 
     if (!findRoadmap) {
       return res.status(404).json({
@@ -15,8 +19,17 @@ const deleteRoadmap = async (req, res) => {
         body: {},
       });
     }
+    const isDeletedField = await GetFieldDeletedByRoadmapId(id);
 
-    const exclude = await deleteRoadmap(id);
+    if (!isDeletedField) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Não foi possível deletar o Roadmap",
+        body: {},
+      });
+    }
+
+    const exclude = await DeletedRoadmapById(id);
 
     return res.status(204).json({
       statusCode: 204,
