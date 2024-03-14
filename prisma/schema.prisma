@@ -172,7 +172,6 @@ model Bookmarks {
 
 model Tags {
   id        String    @id @default(uuid())
-  userId    String    @map("user_id")
   roadmapId String    @map("roadmap_id")
   tag       String
   createdAt DateTime  @default(now()) @map("created_at")
