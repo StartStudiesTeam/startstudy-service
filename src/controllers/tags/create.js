@@ -1,13 +1,13 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { getRoadmap } = require("../../models/Roadmap");
+const { GetRoadmap } = require("../../models/Roadmap");
 const { CreateTag } = require("../../models/Tags");
 
 const createTag = async (req, res) => {
   const { userId, roadmapId, tag } = req.body;
 
   try {
-    const findRoadmap = await getRoadmap(roadmapId);
+    const findRoadmap = await GetRoadmap(roadmapId);
 
     if (!findRoadmap) {
       return res.status(404).json({
@@ -17,7 +17,7 @@ const createTag = async (req, res) => {
       });
     }
 
-    const request = await CreateTag(userId, roadmapId, tag);
+    const request = await CreateTag(roadmapId, tag);
 
     return res.status(201).json({
       statusCode: 201,
