@@ -46,7 +46,7 @@ const UpdateRoadmap = async (id, title, description, time) => {
       updatedAt: time,
     },
   });
-  const { updatedAt, deletedAt: _, ...response } = roadmap;
+  const { deletedAt: _, ...response } = roadmap;
   return response;
 };
 
