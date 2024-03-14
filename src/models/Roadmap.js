@@ -1,6 +1,6 @@
 const prisma = require("../database/prisma");
 
-const getRoadmap = async (id) => {
+const GetRoadmap = async (id) => {
   const roadmap = await prisma.roadmap.findFirst({
     where: {
       id,
@@ -9,7 +9,17 @@ const getRoadmap = async (id) => {
   return roadmap;
 };
 
-const postRoadmap = async (id, title, description) => {
+const GetFieldDeletedByRoadmapId = async (id) => {
+  const roadmap = await prisma.roadmap.findFirst({
+    where: {
+      id,
+      deletedAt: null,
+    },
+  });
+  return roadmap;
+};
+
+const CreateRoadmap = async (id, title, description) => {
   const roadmap = await prisma.roadmap.create({
     data: {
       Users: {
@@ -25,7 +35,7 @@ const postRoadmap = async (id, title, description) => {
   return response;
 };
 
-const upgradeRoadmap = async (id, title, description, time) => {
+const UpdateRoadmap = async (id, title, description, time) => {
   const roadmap = await prisma.roadmap.update({
     where: {
       id,
@@ -40,7 +50,7 @@ const upgradeRoadmap = async (id, title, description, time) => {
   return response;
 };
 
-const delRoadmap = async (id) => {
+const DeletedRoadmapById = async (id) => {
   const roadmap = await prisma.roadmap.delete({
     where: {
       id,
@@ -50,8 +60,9 @@ const delRoadmap = async (id) => {
 };
 
 module.exports = {
-  getRoadmap,
-  postRoadmap,
-  upgradeRoadmap,
-  delRoadmap,
+  GetRoadmap,
+  GetFieldDeletedByRoadmapId,
+  CreateRoadmap,
+  UpdateRoadmap,
+  DeletedRoadmapById,
 };
