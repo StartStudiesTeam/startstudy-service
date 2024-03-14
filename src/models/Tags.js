@@ -10,11 +10,10 @@ const GetTag = async (id) => {
   return tags;
 };
 
-const CreateTag = async (userId, roadmapId, tag) => {
+const CreateTag = async (roadmapId, tag) => {
   const tags = await prisma.tags.create({
     data: {
       tag,
-      userId,
       roadmapId,
     },
   });
