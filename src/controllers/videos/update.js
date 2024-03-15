@@ -1,13 +1,17 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { currentTime } = require("../../utils/date/date");
-const { upgradeVideo, getVideo } = require("../../models/Video");
+const {
+  UpdateAllVideoData,
+  GetVideo,
+  UpdateFieldVideosRoadmap,
+} = require("../../models/Video");
 
 const updateVideos = async (req, res) => {
   const { id, title, description, video, amountLike } = req.body;
 
   try {
-    const findVideo = getVideo(id);
+    const findVideo = GetVideo(id);
 
     if (!findVideo) {
       return res.status(404).json({
@@ -17,7 +21,9 @@ const updateVideos = async (req, res) => {
       });
     }
 
-    const videos = await upgradeVideo(
+    const videosRoadmap = UpdateFieldVideosRoadmap(id, currentTime);
+
+    const videos = await UpdateAllVideoData(
       id,
       title,
       description,
