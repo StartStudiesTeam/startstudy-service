@@ -1,7 +1,7 @@
 const prisma = require("../../database/prisma");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { getRoadmap } = require("../../models/Roadmap");
+const { GetRoadmap } = require("../../models/Roadmap");
 const { GetUserByMail } = require("../../models/User");
 
 const createVideos = async (req, res) => {
@@ -9,7 +9,7 @@ const createVideos = async (req, res) => {
 
   try {
     const user = await GetUserByMail(email);
-    const roadmap = await getRoadmap(roadmapId);
+    const roadmap = await GetRoadmap(roadmapId);
 
     const videos = await prisma.$transaction(async () => {
       const videos = await prisma.videos.create({
@@ -34,15 +34,15 @@ const createVideos = async (req, res) => {
           videoId,
         },
       });
-      return videos;
-    });
 
-    const { updatedAt, deletedAt: _, ...createdVideos } = videos;
+      const { updatedAt, deletedAt: _, ...response } = videos;
+      return response;
+    });
 
     return res.status(200).json({
       statusCode: 200,
       message: sucessMessagesRoadmap.successUpdateRoadmap,
-      body: { createdVideos },
+      body: { videos },
     });
   } catch (error) {
     return res.status(400).json({

@@ -50,10 +50,13 @@ const UpdateRoadmap = async (id, title, description, time) => {
   return response;
 };
 
-const DeletedRoadmapById = async (id) => {
-  const roadmap = await prisma.roadmap.delete({
+const DeletedRoadmapById = async (id, time) => {
+  const roadmap = await prisma.roadmap.update({
     where: {
       id,
+    },
+    data: {
+      deletedAt: time,
     },
   });
   return roadmap;

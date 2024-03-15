@@ -17,7 +17,7 @@ const newPassword = async (req, res) => {
 
     if (!isVerifiedAndActive) {
       return res
-        .status(404)
+        .status(400)
         .json({ message: "Não foi possível atualizar sua senha." });
     }
 

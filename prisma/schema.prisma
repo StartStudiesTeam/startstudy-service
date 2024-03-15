@@ -57,7 +57,7 @@ model Videos {
   video         String
   title         String
   description   String?
-  amountLike    Int             @map("amount_like")
+  amount_like   Int?
   userOwnerID   String          @map("user_owner_id")
   createdAt     DateTime        @default(now()) @map("created_at")
   updatedAt     DateTime?       @map("updated_at") @db.Timestamp(6)

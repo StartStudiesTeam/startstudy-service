@@ -17,9 +17,9 @@ const createdRoadmap = async (req, res) => {
       .json({ statusCode: 404, message: errorMessages.invalidUser, body: {} });
   }
 
-  const isDeletedUser = await GetUserByIdWithDeletedField(user.id);
+  const isVerifiedAndActive = await GetUserByIdWithDeletedField(user.id);
 
-  if (!isDeletedUser) {
+  if (!isVerifiedAndActive) {
     return res.status(400).json({
       statusCode: 400,
       message: errorMessages.errorProcessingThisRequest,
