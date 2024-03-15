@@ -4,7 +4,7 @@ const { GetRoadmap } = require("../../models/Roadmap");
 const { CreateTag } = require("../../models/Tags");
 
 const createTag = async (req, res) => {
-  const { userId, roadmapId, tag } = req.body;
+  const { roadmapId, tag } = req.body;
 
   try {
     const findRoadmap = await GetRoadmap(roadmapId);
