@@ -5,6 +5,7 @@ const {
   DeletedRoadmapById,
   GetFieldDeletedByRoadmapId,
 } = require("../../models/Roadmap");
+const { currentTime } = require("../../utils/date/date");
 
 const deleteRoadmap = async (req, res) => {
   const { id } = req.body;
@@ -29,7 +30,7 @@ const deleteRoadmap = async (req, res) => {
       });
     }
 
-    const exclude = await DeletedRoadmapById(id);
+    const excludeRoadmap = await DeletedRoadmapById(id, currentTime);
 
     return res.status(204).json({
       statusCode: 204,
