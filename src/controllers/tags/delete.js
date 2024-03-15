@@ -1,12 +1,13 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { GetTag, DeleteTag } = require("../../models/Tags");
+const { GetTagById, DeleteTag } = require("../../models/Tags");
+const { currentTime } = require("../../utils/date/date");
 
 const deleteTag = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const findTag = await GetTag(id);
+    const findTag = await GetTagById(id);
 
     if (!findTag) {
       return res.status(404).json({
@@ -16,7 +17,7 @@ const deleteTag = async (req, res) => {
       });
     }
 
-    const request = await DeleteTag(id);
+    const response = await DeleteTag(id, currentTime);
 
     return res.status(204).json({
       statusCode: 204,

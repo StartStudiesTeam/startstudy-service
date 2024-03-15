@@ -1,55 +1,56 @@
 const prisma = require("../../src/database/prisma");
 
-const GetTag = async (id) => {
-  const tags = await prisma.tags.findFirst({
+const GetTagById = async (id) => {
+  const request = await prisma.tags.findFirst({
     where: {
       id,
+      deletedAt: null,
     },
   });
-
-  return tags;
+  return request;
 };
 
 const CreateTag = async (roadmapId, tag) => {
-  const tags = await prisma.tags.create({
+  const request = await prisma.tags.create({
     data: {
       tag,
       roadmapId,
     },
   });
 
-  const { updatedAt, deletedAt: _, ...response } = tags;
+  const { updatedAt, deletedAt: _, ...response } = request;
   return response;
 };
 
-const UpdateTag = async (id, roadmapId, userId, tag, time) => {
-  const tags = await prisma.tags.update({
+const UpdateTag = async (id, tag, time) => {
+  const request = await prisma.tags.update({
     where: {
       id,
     },
     data: {
-      roadmapId,
-      userId,
       tag,
       updatedAt: time,
     },
   });
-  const { deletedAt: _, ...response } = tags;
+  const { deletedAt: _, ...response } = request;
   return response;
 };
 
-const DeleteTag = async (id) => {
-  const tags = await prisma.tags.delete({
+const DeleteTag = async (id, time) => {
+  const request = await prisma.tags.update({
     where: {
       id,
     },
+    data: {
+      deletedAt: time,
+    },
   });
 
-  return tags;
+  return request;
 };
 
 module.exports = {
-  GetTag,
+  GetTagById,
   CreateTag,
   UpdateTag,
   DeleteTag,
