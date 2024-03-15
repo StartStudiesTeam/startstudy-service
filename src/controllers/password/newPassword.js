@@ -13,10 +13,9 @@ const newPassword = async (req, res) => {
 
   try {
     const user = await GetUserByMail(email);
-    const isFieldDeleted = await GetUserByIdWithDeletedField(user.id);
-    const isVerifiedMail = user.verifyMail;
+    const isVerifiedAndActive = await GetUserByIdWithDeletedField(user.id);
 
-    if (!isFieldDeleted || !isVerifiedMail) {
+    if (!isVerifiedAndActive) {
       return res
         .status(404)
         .json({ message: "Não foi possível atualizar sua senha." });

@@ -23,6 +23,7 @@ const GetUserByIdWithDeletedField = async (id) => {
     where: {
       id,
       deletedAt: null,
+      verifyMail: true,
     },
   });
 
