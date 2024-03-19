@@ -1,12 +1,13 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { getLike, delLike } = require("../../models/Like");
+const sucessMessagesLikes = require("../../constants/codeMessages/sucessMessagesLikes");
+const { GetLike, DeleteLike } = require("../../models/Like");
+const { currentTime } = require("../../utils/date/date");
 
 const deleteLike = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const findLike = await getLike(id);
+    const findLike = await GetLike(id);
 
     if (!findLike) {
       return res.status(404).json({
@@ -16,11 +17,11 @@ const deleteLike = async (req, res) => {
       });
     }
 
-    const exclude = await delLike(id);
+    const exclude = await DeleteLike(id, currentTime);
 
     return res.status(204).json({
       statusCode: 204,
-      message: sucessMessagesRoadmap.successfullyRegisteredRoadmap,
+      message: sucessMessagesLikes.deletedLikes,
       body: {},
     });
   } catch (error) {

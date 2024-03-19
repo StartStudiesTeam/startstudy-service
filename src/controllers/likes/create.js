@@ -1,16 +1,23 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { postLike } = require("../../models/Like");
+const sucessMessages = require("../../constants/codeMessages/sucessMessages");
+const { CreateLike } = require("../../models/Like");
 
 const createLike = async (req, res) => {
-  const { userId, videoId, roadmapId } = req.body;
+  const { userId, videoId, roadmapId, commentsId, commentsCommentsId } =
+    req.body;
 
   try {
-    const like = await postLike(userId, videoId, roadmapId);
+    const like = await CreateLike(
+      userId,
+      videoId,
+      roadmapId,
+      commentsId,
+      commentsCommentsId
+    );
 
     return res.status(201).json({
       statusCode: 201,
-      message: sucessMessagesRoadmap.successfullyRegisteredRoadmap,
+      message: sucessMessages.createLikes,
       body: { like },
     });
   } catch (error) {
