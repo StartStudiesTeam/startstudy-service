@@ -1,36 +1,43 @@
 const prisma = require("../database/prisma");
 
-const getBookmark = async (id) => {
-  const bookmark = await prisma.bookmarks.findFirst({
+const GetBookmarkById = async (id) => {
+  const request = await prisma.bookmarks.findFirst({
     where: {
       id,
     },
   });
-  return bookmark;
+  return request;
 };
 
-const postBookmark = async (userId, videoId, roadmapId) => {
-  const bookmark = await prisma.bookmarks.create({
+const GetBookmarkByIdWithDeletedField = async (id) => {
+  const request = await prisma.bookmarks.findFirst({
+    where: {
+      id,
+      deletedAt: null,
+    },
+  });
+  return request;
+};
+
+const CreateBookmark = async (userId, roadmapId) => {
+  const request = await prisma.bookmarks.create({
     data: {
       userId,
-      videoId,
       roadmapId,
     },
   });
 
-  const { updatedAt, deletedAt: _, ...response } = bookmark;
+  const { updatedAt, deletedAt: _, ...response } = request;
 
   return response;
 };
 
-const updateBookmark = async (id, userId, videoId, roadmapId, time) => {
+const UpdateBookmark = async (id, roadmapId, time) => {
   const bookmark = await prisma.bookmarks.update({
     where: {
       id,
     },
     data: {
-      userId,
-      videoId,
       roadmapId,
       updatedAt: time,
     },
@@ -41,18 +48,22 @@ const updateBookmark = async (id, userId, videoId, roadmapId, time) => {
   return response;
 };
 
-const delBookmark = async (id) => {
-  const bookmark = await prisma.bookmarks.delete({
+const DeleteBookmark = async (id, time) => {
+  const bookmark = await prisma.bookmarks.update({
     where: {
       id,
+    },
+    data: {
+      deletedAt: time,
     },
   });
 
   return bookmark;
 };
 module.exports = {
-  getBookmark,
-  postBookmark,
-  updateBookmark,
-  delBookmark,
+  GetBookmarkById,
+  GetBookmarkByIdWithDeletedField,
+  CreateBookmark,
+  UpdateBookmark,
+  DeleteBookmark,
 };

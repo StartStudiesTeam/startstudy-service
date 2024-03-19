@@ -1,17 +1,30 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { postBookmark } = require("../../models/Bookmark");
+const { CreateBookmark } = require("../../models/Bookmark");
+const { GetFieldDeletedByRoadmapId } = require("../../models/Roadmap");
+const { GetFieldDeletedByUser } = require("../../models/User");
 
 const createBookmark = async (req, res) => {
-  const { userId, videoId, roadmapId } = req.body;
+  const { userId, roadmapId } = req.body;
 
   try {
-    const create = await postBookmark(userId, videoId, roadmapId);
+    const user = await GetFieldDeletedByUser(userId);
+    const roadmap = await GetFieldDeletedByRoadmapId(roadmapId);
+
+    if (!user || !roadmap) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: errorMessages.errorProcessingThisRequest,
+        body: {},
+      });
+    }
+
+    const response = await CreateBookmark(userId, roadmapId);
 
     return res.status(201).json({
       statusCode: 201,
       message: sucessMessagesRoadmap.successUpdateRoadmap,
-      body: { create },
+      body: { response },
     });
   } catch (error) {
     return res.status(400).json({
