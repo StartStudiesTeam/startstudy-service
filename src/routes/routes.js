@@ -38,6 +38,7 @@ const deleteUser = require("../controllers/users/delete");
 const createTag = require("../controllers/tags/create");
 const updateTag = require("../controllers/tags/update");
 const deleteTag = require("../controllers/tags/delete");
+const countLike = require("../controllers/likes/count");
 
 const route = express();
 
@@ -70,6 +71,7 @@ route.delete("/videos", deleteVideo);
 route.post("/likes", createLike);
 route.put("/likes", updateLike);
 route.delete("/likes", deleteLike);
+route.get("/likes", countLike);
 
 route.post("/bookmarks", createBookmark);
 route.put("/bookmarks", updateBookmark);
