@@ -5,9 +5,10 @@ const deleteCommentsComments = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const findComment = await getCommentComment(id);
+    const commentCommentDelete = await GetFieldDeleteByCommentCommentId(id);
+    const findComment = await GetCommentComment(id);
 
-    if (!findComment) {
+    if (!findComment || !commentCommentDelete) {
       return res.status(404).json({
         statusCode: 404,
         message: errorMessages.errorProcessingThisRequest,
@@ -15,7 +16,7 @@ const deleteCommentsComments = async (req, res) => {
       });
     }
 
-    const exclude = await deleteCommentsComments(id);
+    const exclude = await DeleteCommentsComments(id);
 
     return res.status(204).json({
       statusCode: 204,
