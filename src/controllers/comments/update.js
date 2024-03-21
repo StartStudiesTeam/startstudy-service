@@ -1,13 +1,28 @@
 const sucessMessagesComments = require("../../constants/codeMessages/commentsSucessMessages");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const { currentTime } = require("../../utils/date/date");
-const { upgradeComment } = require("../../models/Comment");
+const {
+  UpgradeComment,
+  GetFieldDeleteByCommentId,
+  GetComment,
+} = require("../../models/Comment");
 
 const updateComments = async (req, res) => {
   const { id, comments } = req.body;
 
   try {
-    const comment = await upgradeComment(id, comments, currentTime);
+    const findComment = await GetComment(id);
+    const commentDelete = await GetFieldDeleteByCommentId(id);
+
+    if (!findComment || !commentDelete) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: errorMessages.errorProcessingThisRequest,
+        body: {},
+      });
+    }
+
+    const comment = await UpgradeComment(id, comments, currentTime);
 
     return res.status(200).json({
       statusCode: 200,
