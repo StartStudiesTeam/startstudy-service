@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>StartStudies - Confirmação de Cadastro</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 16px;
+      border: 1px solid #ddd;
+    }
+
+    /* CSS específico para cada elemento */
+
+    #header {
+      background-color: #2B85A2;
+      text-align: center;
+    }
+
+    #header h1 {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    #header p {
+      margin-bottom: 0;
+    }
+
+    #main {
+      padding: 0;
+    }
+
+    #main h2 {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    #main p {
+      margin-bottom: 16px;
+    }
+
+    #code {
+      text-align: center;
+    }
+
+    #code p {
+      font-family: monospace;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    #footer {
+      background-color: #2B85A2;
+      text-align: center;
+    }
+
+    #footer p {
+      margin-bottom: 0;
+    }
+
+    #instagram {
+      text-align: center;
+    }
+
+    #instagram i {
+      font-size: 32px;
+      color: #000;
+    }
+
+    #instagram span {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <table class="container">
+    <tr id="header">
+      <td>
+        <h1>StartStudies</h1>
+        <p>Sua trilha do conhecimento</p>
+      </td>
+    </tr>
+    <tr id="main">
+      <td>
+        <h2>Olá {{name}},</h2>
+        <p>Seja bem-vindo(a) ao StartStudies! Estamos animados por tê-lo(a) conosco.</p>
+        <p>
+          Estamos em festa porque valorizamos profundamente aqueles que têm sede de conhecimento! Sabemos que a chave do sucesso está em manter-se sempre atualizado, e é por isso que construímos uma plataforma onde você pode encontrar uma infinidade de conteúdos para aprimorar seu aprendizado.
+        </p>
+        <p>
+          Mas não é só isso! Aqui no StartStudies, você também tem a oportunidade de compartilhar seu conhecimento com outros usuários. Acreditamos na comunidade colaborativa e estamos empolgados para ver como você pode contribuir para enriquecer ainda mais nossa plataforma.
+        </p>
+        <p>
+          Explore todas as funcionalidades, personalize seu perfil e compartilhe seus feedbacks conosco. Queremos garantir que sua experiência seja a melhor possível. Além disso, não se esqueça da importância de uma trilha de conhecimento bem estruturada. Ela irá guiá-lo(a) em sua jornada de aprendizado, ajudando-o(a) a progredir de forma consistente e eficaz.
+        </p>
+        <p>Explore, aprenda, compartilhe e celebre o conhecimento conosco!</p>
+        <p>Agradecemos por se juntar a esta jornada de aprendizado e crescimento!</p>
+      </td>
+    </tr>
+    <tr id="code">
+      <td>
+        <h2>Código de confirmação</h2>
+        <p>Aqui está seu código para confirmação da conta:</p>
+        <p>Code: {{codeToken}}</p>
+      </td>
+    </tr>
+    <tr id="footer">
+      <td>
+        <p>
+          Você está na nossa lista de contatos. Caso prefira não receber
