@@ -1,0 +1,123 @@
+<mjml>
+  <mj-head>
+    <mj-style>
+      /* Reset Css */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        list-style: none;
+        text-decoration: none;
+        outline: none;
+        border: none;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        color: inherit;
+      }
+
+      /* Fonts */
+      .ubuntu-light {
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      .ubuntu-regular {
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      .ubuntu-medium {
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      .ubuntu-bold {
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      .ubuntu-light-italic {
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 300;
+        font-style: italic;
+      }
+
+      .ubuntu-regular-italic {
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 400;
+        font-style: italic;
+      }
+
+      .ubuntu-medium-italic {
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 500;
+        font-style: italic;
+      }
+
+      .ubuntu-bold-italic {
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 700;
+        font-style: italic;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text >
+          <h1 class="brand-name ubuntu-medium">Start Studies</h1>
+          <p class="brand-slogan ubuntu-light">Sua trilha do conhecimento</p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section >
+      <mj-column>
+        <mj-text >
+          <h1 class="ubuntu-light-italic">Agora você faz parte da maior trilha de conhecimento do mundo 💫</h1>
+        </mj-text>
+        <mj-text >
+          <p class="ubuntu-light-italic">Olá {{name}},</p>
+          <p class="ubuntu-bold-italic">Seja bem-vindo(a) ao StartStudies! Estamos animados por tê-lo(a) conosco.</p>
+          <p class="ubuntu-light-italic">
+            Estamos em festa porque valorizamos profundamente aqueles que têm sede de conhecimento! Sabemos que a chave do sucesso está em manter-se sempre atualizado, e é por isso que construímos uma plataforma onde você pode encontrar uma infinidade de conteúdos para aprimorar seu aprendizado.
+          </p>
+          <p class="ubuntu-light-italic">
+            Mas não é só isso! Aqui no StartStudies, você também tem a oportunidade de compartilhar seu conhecimento com outros usuários. Acreditamos na comunidade colaborativa e estamos empolgados para ver como você pode contribuir para enriquecer ainda mais nossa plataforma.
+          </p>
+          <p class="ubuntu-light-italic">
+            Explore todas as funcionalidades, personalize seu perfil e compartilhe seus feedbacks conosco. Queremos garantir que sua experiência seja a melhor possível. Além disso, não se esqueça da importância de uma trilha de conhecimento bem estruturada. Ela irá guiá-lo(a) em sua jornada de aprendizado, ajudando-o(a) a progredir de forma consistente e eficaz.
+          </p>
+          <p class="ubuntu-light-italic">Explore, aprenda, compartilhe e celebre o conhecimento conosco!</p>
+          <p class="ubuntu-light-italic">Agradecemos por se juntar a esta jornada de aprendizado e crescimento!</p>
+        </mj-text>
+            <mj-text >Confirmation Code</mj-text>
+            <mj-text >Aqui está seu código para confirmação da conta:</mj-text>
+            <mj-text>Code: <span class="ubuntu-bold">{{codeToken}}</span></mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section >
+      <mj-column>
+        <mj-text >
+          <p class="text ubuntu-light">
+            Você está na nossa lista de contatos. Caso prefira não receber os nossos e-mails, solicite o cancelamento da inscrição [aqui]. Para falar conosco, clique [aqui] e confira nossos canais de atendimento.
+          </p>
+          <p class="signature ubuntu-light">StartStudy, 2024 www.startstudy.com.br</p>
+        </mj-text>
+        <mj-text>
+          <div class="instagram">
+            <span class="icon">
+              <i class="fa-brands fa-instagram fa-xl"></i>
+            </span>
+            <span class="ubuntu-light">@startstudies</span>
+          </div>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
