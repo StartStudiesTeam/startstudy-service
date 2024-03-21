@@ -1,6 +1,6 @@
 const sucessMessagesComments = require("../../constants/codeMessages/commentsSucessMessages");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
-const { PostCommentComment } = require("../../models/CommentComment");
+const { CreateCommentComment } = require("../../models/CommentComment");
 const { GetUserByMail } = require("../../models/User");
 
 const createCommentsComments = async (req, res) => {
@@ -9,7 +9,7 @@ const createCommentsComments = async (req, res) => {
   try {
     const user = await GetUserByMail(email);
 
-    const create = PostCommentComment(user.id, commentsComments, commentsId);
+    const create = CreateCommentComment(user.id, commentsComments, commentsId);
 
     return res.status(201).json({
       statusCode: 201,

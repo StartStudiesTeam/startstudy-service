@@ -2,9 +2,10 @@ const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { currentTime } = require("../../utils/date/date");
 const {
-  UpdateAllVideoData,
   GetVideo,
+  GetFieldDeleteByVideoId,
   UpdateFieldVideosRoadmap,
+  UpdateAllVideoData,
 } = require("../../models/Video");
 
 const updateVideos = async (req, res) => {
