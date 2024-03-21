@@ -1,6 +1,10 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { GetTagById, DeleteTag } = require("../../models/Tags");
+const {
+  GetTagById,
+  DeleteTag,
+  GetFieldDeleteByTagId,
+} = require("../../models/Tags");
 const { currentTime } = require("../../utils/date/date");
 
 const deleteTag = async (req, res) => {
@@ -8,8 +12,9 @@ const deleteTag = async (req, res) => {
 
   try {
     const findTag = await GetTagById(id);
+    const isTagDeleted = await GetFieldDeleteByTagId(id);
 
-    if (!findTag) {
+    if (!findTag || isTagDeleted) {
       return res.status(404).json({
         statusCode: 404,
         message: errorMessages.errorProcessingThisRequest,
