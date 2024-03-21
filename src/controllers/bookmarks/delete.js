@@ -1,22 +1,26 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { delBookmark, getBookmark } = require("../../models/Bookmark");
+const { currentTime } = require("../../utils/date/date");
+const {
+  DeleteBookmark,
+  GetBookmarkByIdWithDeletedField,
+} = require("../../models/Bookmark");
 
 const deleteBookmark = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const bookmark = await getBookmark(id);
+    const bookmark = await GetBookmarkByIdWithDeletedField(id);
 
     if (!bookmark) {
-      return res.status(404).json({
-        statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Este salvo não foi encontrado ou já foi removido!",
         body: {},
       });
     }
 
-    const exclude = await delBookmark(id);
+    const response = await DeleteBookmark(id, currentTime);
 
     return res.status(204).json({
       statusCode: 204,

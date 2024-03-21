@@ -1,23 +1,31 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { currentTime } = require("../../utils/date/date");
-const { upgradeLike } = require("../../models/Like");
+const {
+  UpgradeLike,
+  GetLike,
+  GetFieldDeleteByLikeId,
+} = require("../../models/Like");
+const sucessMessagesLikes = require("../../constants/codeMessages/sucessMessagesLikes");
 
 const updateLike = async (req, res) => {
-  const { id, userId, videoId, roadmapId } = req.body;
+  const { id, userId } = req.body;
 
   try {
-    const likes = await upgradeLike(
-      id,
-      userId,
-      videoId,
-      roadmapId,
-      currentTime
-    );
+    const findLike = await GetLike(id);
+    const likesDelete = await GetFieldDeleteByLikeId(id);
+
+    if (!findLike || !likesDelete) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: errorMessages.errorProcessingThisRequest,
+        body: {},
+      });
+    }
+    const likes = await UpgradeLike(id, userId, currentTime);
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessagesRoadmap.successfullyRegisteredRoadmap,
+      message: sucessMessagesLikes.updateLike,
       body: { likes },
     });
   } catch (error) {

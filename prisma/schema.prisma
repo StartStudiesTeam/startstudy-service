@@ -62,7 +62,6 @@ model Videos {
   createdAt     DateTime        @default(now()) @map("created_at")
   updatedAt     DateTime?       @map("updated_at") @db.Timestamp(6)
   deletedAt     DateTime?       @map("deleted_at") @db.Timestamp(6)
-  Bookmarks     Bookmarks[]
   Comments      Comments[]
   Likes         Likes[]
   Users         Users           @relation(fields: [userOwnerID], references: [id])
@@ -158,14 +157,12 @@ model Likes {
 model Bookmarks {
   id        String    @id @default(uuid())
   userId    String    @map("user_id")
-  videoId   String    @map("video_id")
   roadmapId String    @map("roadmap_id")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at") @db.Timestamp(6)
   deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
   Roadmap   Roadmap   @relation(fields: [roadmapId], references: [id])
   Users     Users     @relation(fields: [userId], references: [id])
-  Videos    Videos    @relation(fields: [videoId], references: [id])
 
   @@map("bookmarks")
 }

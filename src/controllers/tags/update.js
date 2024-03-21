@@ -5,13 +5,13 @@ const { UpdateTag, GetTagById } = require("../../models/Tags");
 const { currentTime } = require("../../utils/date/date");
 
 const updateTag = async (req, res) => {
-  const { id, roadmapId, tag } = req.body;
+  const { id, tag } = req.body;
 
   try {
-    const findRoadmap = await GetFieldDeletedByRoadmapId(roadmapId);
-    const isTagDeleted = await GetTagById(id);
+    const findTag = await GetTagById(id);
+    const isTagDeleted = await GetFieldDeleteByTagId(id);
 
-    if (!findRoadmap || !isTagDeleted) {
+    if (!findTag || isTagDeleted) {
       return res.status(404).json({
         statusCode: 404,
         message: errorMessages.errorProcessingThisRequest,

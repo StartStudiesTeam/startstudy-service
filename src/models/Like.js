@@ -1,6 +1,6 @@
 const prisma = require("../database/prisma");
 
-const getLike = async (id) => {
+const GetLike = async (id) => {
   const like = await prisma.likes.findFirst({
     where: {
       id,
@@ -9,12 +9,21 @@ const getLike = async (id) => {
   return like;
 };
 
-const postLike = async (userId, videoId, roadmapId) => {
+const CreateLike = async (
+  userId,
+  videoId,
+  roadmapId,
+  commentsId,
+  commentsCommentsId
+) => {
   const like = await prisma.likes.create({
     data: {
       userId,
       videoId,
       roadmapId,
+      commentsId,
+      commentsCommentsId,
+      likes: true,
     },
   });
 
@@ -22,15 +31,13 @@ const postLike = async (userId, videoId, roadmapId) => {
   return response;
 };
 
-const upgradeLike = async (id, userId, videoId, roadmapId, time) => {
+const UpgradeLike = async (id, userId, time) => {
   const like = await prisma.likes.update({
     where: {
       id,
     },
     data: {
       userId,
-      videoId,
-      roadmapId,
       updatedAt: time,
     },
   });
@@ -40,19 +47,51 @@ const upgradeLike = async (id, userId, videoId, roadmapId, time) => {
   return response;
 };
 
-const delLike = async (id) => {
-  const like = await prisma.likes.delete({
+const DeleteLike = async (id, time) => {
+  const like = await prisma.likes.update({
     where: {
       id,
+      data: {
+        deletedAt: time,
+      },
     },
   });
 
   return like;
 };
 
+const CountLike = async (
+  videoId,
+  roadmapId,
+  commentsId,
+  commentsCommentsId
+) => {
+  const where = {};
+  if (videoId) where.videoId = videoId;
+  if (roadmapId) where.roadmapId = roadmapId;
+  if (commentsId) where.commentsId = commentsId;
+  if (commentsCommentsId) where.commentsCommentsId = commentsCommentsId;
+  const like = await prisma.likes.count({
+    where,
+  });
+  return like;
+};
+
+const GetFieldDeleteByLikeId = async (id) => {
+  const like = await prisma.likes.findFirst({
+    where: {
+      id,
+      deletedAt: null,
+    },
+  });
+  return like;
+};
+
 module.exports = {
-  getLike,
-  postLike,
-  upgradeLike,
-  delLike,
+  GetLike,
+  CreateLike,
+  UpgradeLike,
+  DeleteLike,
+  CountLike,
+  GetFieldDeleteByLikeId,
 };

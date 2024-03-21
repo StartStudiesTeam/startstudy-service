@@ -1,24 +1,22 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessages = require("../../constants/codeMessages/sucessMessages");
-const { CreateLike } = require("../../models/Like");
+const { CountLike } = require("../../models/Like");
 
-const createLike = async (req, res) => {
-  const { userId, videoId, roadmapId, commentsId, commentsCommentsId } =
-    req.body;
+const countLike = async (req, res) => {
+  const { videoId, roadmapId, commentsId, commentsCommentsId } = req.body;
 
   try {
-    const like = await CreateLike(
-      userId,
+    const likes = await CountLike(
       videoId,
       roadmapId,
       commentsId,
       commentsCommentsId
     );
 
-    return res.status(201).json({
-      statusCode: 201,
-      message: sucessMessages.createLikes,
-      body: { like },
+    return res.status(200).json({
+      statusCode: 200,
+      message: sucessMessages.countLikes,
+      body: { likes },
     });
   } catch (error) {
     return res.status(400).json({
@@ -29,4 +27,4 @@ const createLike = async (req, res) => {
   }
 };
 
-module.exports = createLike;
+module.exports = countLike;
