@@ -9,6 +9,16 @@ const GetVideo = async (id) => {
   return response;
 };
 
+const GetFieldDeleteByVideoId = async (id) => {
+  const response = await prisma.videos.findFirst({
+    where: {
+      id,
+      deletedAt: null,
+    },
+  });
+  return response;
+};
+
 const UpdateFieldVideosRoadmap = async (id, time) => {
   const response = await prisma.videosRoadmap.updateMany({
     where: {
@@ -39,19 +49,9 @@ const UpdateAllVideoData = async (id, title, desc, midia, amountLike, time) => {
   return response;
 };
 
-const GetFieldDeleteByVideoId = async (id) => {
-  const response = await prisma.videos.findFirst({
-    where: {
-      id,
-      deletedAt: null,
-    },
-  });
-  return response;
-};
-
 module.exports = {
   GetVideo,
+  GetFieldDeleteByVideoId,
   UpdateFieldVideosRoadmap,
   UpdateAllVideoData,
-  GetFieldDeleteByVideoId,
 };

@@ -6,7 +6,7 @@ const { CreateAccessToken } = require("../../utils/authenticate/AccessToken");
 const {
   GetTheMailAndCode,
   UpdateVerifiedField,
-  GetFieldVerifyUserById,
+  GetConfirmationFieldByTokenUserId,
 } = require("../../models/Code");
 
 const checkTokenValidity = async (req, res) => {
@@ -19,10 +19,10 @@ const checkTokenValidity = async (req, res) => {
       return res.status(400).json({ message: errorMessages.invalidToken });
     }
 
-    const fieldVerify = await GetFieldVerifyUserById(user.id);
+    const fieldVerify = await GetConfirmationFieldByTokenUserId(user.id);
 
-    if (fieldVerify) {
-      return res.status(400).json({ message: "usuário validado" });
+    if (!fieldVerify) {
+      return res.status(200).json({ message: "Usuário já foi validado" });
     }
 
     const userCreatedAtUnix = dayjs(user.createdAt).unix();
@@ -32,13 +32,13 @@ const checkTokenValidity = async (req, res) => {
       return res.status(400).json({ message: errorMessages.tokenExpired });
     }
 
-    const fieldUpdated = await UpdateVerifiedField(user.id, currentTime, true);
+    const response = await UpdateVerifiedField(user.id, currentTime, true);
     const accessToken = await CreateAccessToken(user);
 
     return res.status(200).json({
       statusCode: 200,
       message: sucessMessages.successUpdateUser,
-      body: { fieldUpdated, accessToken },
+      body: { response, accessToken },
     });
   } catch (error) {
     return res.status(400).json({

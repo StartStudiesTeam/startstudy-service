@@ -1,5 +1,11 @@
 const sucessMessagesComments = require("../../constants/codeMessages/commentsSucessMessages");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
+const { currentTime } = require("../../utils/date/date");
+const {
+  GetFieldDeleteByCommentCommentId,
+  GetCommentComment,
+  DelCommentsComments,
+} = require("../../models/CommentComment");
 
 const deleteCommentsComments = async (req, res) => {
   const { id } = req.body;
@@ -16,7 +22,7 @@ const deleteCommentsComments = async (req, res) => {
       });
     }
 
-    const exclude = await DeleteCommentsComments(id);
+    const exclude = await DelCommentsComments(id, currentTime);
 
     return res.status(204).json({
       statusCode: 204,

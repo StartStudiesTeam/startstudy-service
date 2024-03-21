@@ -9,7 +9,17 @@ const GetCommentComment = async (id) => {
   return comment;
 };
 
-const PostCommentComment = async (id, commentsComments, commentsId) => {
+const GetFieldDeleteByCommentCommentId = async (id) => {
+  const comment = await prisma.commentsComments.findFirst({
+    where: {
+      id,
+      deletedAt: null,
+    },
+  });
+  return comment;
+};
+
+const CreateCommentComment = async (id, commentsComments, commentsId) => {
   const comment = await prisma.commentsComments.create({
     data: {
       Users: {
@@ -26,7 +36,7 @@ const PostCommentComment = async (id, commentsComments, commentsId) => {
   return response;
 };
 
-const UpgradeCommentComment = async (id, commentsComments, time) => {
+const UpdateCommentComment = async (id, commentsComments, time) => {
   const comment = await prisma.commentsComments.update({
     where: {
       id,
@@ -41,30 +51,23 @@ const UpgradeCommentComment = async (id, commentsComments, time) => {
   return response;
 };
 
-const DelCommentsComments = async (id) => {
-  const comment = await prisma.commentsComments.delete({
+const DelCommentsComments = async (id, time) => {
+  const comment = await prisma.commentsComments.update({
     where: {
       id,
     },
-  });
-
-  return comment;
-};
-
-const GetFieldDeleteByCommentCommentId = async (id) => {
-  const comment = await prisma.commentsComments.findFirst({
-    where: {
-      id,
-      deletedAt: null,
+    data: {
+      deletedAt: time,
     },
   });
+
   return comment;
 };
 
 module.exports = {
   GetCommentComment,
-  PostCommentComment,
-  UpgradeCommentComment,
-  DelCommentsComments,
   GetFieldDeleteByCommentCommentId,
+  CreateCommentComment,
+  UpdateCommentComment,
+  DelCommentsComments,
 };
