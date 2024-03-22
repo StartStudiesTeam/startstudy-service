@@ -22,18 +22,14 @@ const GetTheUserId = async (id) => {
   return request;
 };
 
-const GetFieldVerifyUserById = async (id) => {
+const GetConfirmationFieldByTokenUserId = async (id) => {
   const request = await prisma.codeToken.findFirst({
     where: {
       id,
-      NOT: {
-        confirmationAt: null,
-        updatedAt: null,
-      },
+      confirmationAt: null,
     },
   });
-  const { confirmationAt } = request;
-  return confirmationAt;
+  return request;
 };
 
 const UpdateCodeTokenById = async (id, code, date, value) => {
@@ -72,7 +68,7 @@ const UpdateVerifiedField = async (id, time, verify) => {
 module.exports = {
   GetTheMailAndCode,
   GetTheUserId,
-  GetFieldVerifyUserById,
+  GetConfirmationFieldByTokenUserId,
   UpdateCodeTokenById,
   UpdateVerifiedField,
 };

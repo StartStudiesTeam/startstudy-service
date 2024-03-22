@@ -3,7 +3,7 @@ const errorMessages = require("../../constants/codeMessages/errorMessages");
 const {
   GetUserByMail,
   GetUserByNick,
-  upgradeUser,
+  UpdateMainUserData,
   GetUserByIdWithDeletedField,
 } = require("../../models/User");
 const { currentTime } = require("../../utils/date/date");
@@ -32,7 +32,7 @@ const updateUser = async (req, res) => {
       return res.status(400).json({ message: errorMessages.existingUser });
     }
 
-    const response = await upgradeUser(
+    const response = await UpdateMainUserData(
       id,
       name,
       email,

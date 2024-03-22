@@ -40,7 +40,7 @@ const GetFieldDeletedByUser = async (id) => {
   return find;
 };
 
-const upgradeUser = async (id, name, email, phoneNumber, time) => {
+const UpdateMainUserData = async (id, name, email, phoneNumber, time) => {
   const request = await prisma.users.update({
     where: {
       id,
@@ -88,7 +88,7 @@ module.exports = {
   GetUserByNick,
   GetUserByIdWithDeletedField,
   GetFieldDeletedByUser,
-  upgradeUser,
+  UpdateMainUserData,
   UpdateNewPassword,
   DeleteUserById,
 };
