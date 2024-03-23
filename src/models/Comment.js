@@ -9,16 +9,13 @@ const GetComment = async (id) => {
   return comment;
 };
 
-const PostComment = async (id, comments, videoId, roadmapId) => {
+const CreateComment = async (userId, comments, videoId, roadmapId) => {
   const comment = await prisma.comments.create({
     data: {
-      Users: {
-        connect: {
-          id,
-        },
-      },
+      userId,
       comments,
-      ...(videoId ? { videoId } : { roadmapId }),
+      videoId,
+      roadmapId,
     },
   });
 
@@ -53,7 +50,7 @@ const GetFieldDeleteByCommentId = async (id) => {
 
 module.exports = {
   GetComment,
-  PostComment,
+  CreateComment,
   UpgradeComment,
   GetFieldDeleteByCommentId,
 };
