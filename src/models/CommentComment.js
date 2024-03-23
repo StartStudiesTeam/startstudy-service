@@ -19,14 +19,10 @@ const GetFieldDeleteByCommentCommentId = async (id) => {
   return comment;
 };
 
-const CreateCommentComment = async (id, commentsComments, commentsId) => {
+const CreateCommentComment = async (userId, commentsComments, commentsId) => {
   const comment = await prisma.commentsComments.create({
     data: {
-      Users: {
-        connect: {
-          id,
-        },
-      },
+      userId,
       commentsComments,
       commentsId,
     },
