@@ -51,9 +51,9 @@ const DeleteLike = async (id, time) => {
   const like = await prisma.likes.update({
     where: {
       id,
-      data: {
-        deletedAt: time,
-      },
+    },
+    data: {
+      deletedAt: time,
     },
   });
 
