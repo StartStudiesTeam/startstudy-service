@@ -9,7 +9,11 @@ const createCommentsComments = async (req, res) => {
   try {
     const user = await GetUserByMail(email);
 
-    const create = CreateCommentComment(user.id, commentsComments, commentsId);
+    const create = await CreateCommentComment(
+      user.id,
+      commentsComments,
+      commentsId
+    );
 
     return res.status(201).json({
       statusCode: 201,
