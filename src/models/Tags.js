@@ -1,6 +1,6 @@
 const prisma = require("../../src/database/prisma");
 
-const GetFieldDeleteByTagId = async (id) => {
+const GetTagById = async (id) => {
   const request = await prisma.tags.findFirst({
     where: {
       id,
@@ -50,7 +50,7 @@ const DeleteTag = async (id, time) => {
 };
 
 module.exports = {
-  GetFieldDeleteByTagId,
+  GetTagById,
   CreateTag,
   UpdateTag,
   DeleteTag,
