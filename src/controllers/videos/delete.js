@@ -1,14 +1,14 @@
 const prisma = require("../../database/prisma");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { GetVideo } = require("../../models/Video");
+const { GetVideoById } = require("../../models/Video");
 const { currentTime } = require("../../utils/date/date");
 
 const deleteVideo = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const findVideo = await GetVideo(id);
+    const findVideo = await GetVideoById(id);
 
     if (!findVideo) {
       return res.status(404).json({
