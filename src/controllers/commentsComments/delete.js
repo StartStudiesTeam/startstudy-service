@@ -2,8 +2,7 @@ const sucessMessagesComments = require("../../constants/codeMessages/commentsSuc
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const { currentTime } = require("../../utils/date/date");
 const {
-  GetFieldDeleteByCommentCommentId,
-  GetCommentComment,
+  GetCommentCommentById,
   DelCommentsComments,
 } = require("../../models/CommentComment");
 
@@ -11,10 +10,9 @@ const deleteCommentsComments = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const commentCommentDelete = await GetFieldDeleteByCommentCommentId(id);
-    const findComment = await GetCommentComment(id);
+    const findComment = await GetCommentCommentById(id);
 
-    if (!findComment || !commentCommentDelete) {
+    if (!findComment) {
       return res.status(404).json({
         statusCode: 404,
         message: errorMessages.errorProcessingThisRequest,
