@@ -1,13 +1,13 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { GetRoadmap } = require("../../models/Roadmap");
+const { GetRoadmapById } = require("../../models/Roadmap");
 const { CreateTag } = require("../../models/Tags");
 
 const createTag = async (req, res) => {
   const { roadmapId, tag } = req.body;
 
   try {
-    const findRoadmap = await GetRoadmap(roadmapId);
+    const findRoadmap = await GetRoadmapById(roadmapId);
 
     if (!findRoadmap) {
       return res.status(404).json({
