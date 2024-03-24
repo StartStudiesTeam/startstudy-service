@@ -1,6 +1,6 @@
 const prisma = require("../database/prisma");
 
-const GetRoadmap = async (id) => {
+const GetRoadmapById = async (id) => {
   const roadmap = await prisma.roadmap.findFirst({
     where: {
       id,
@@ -54,7 +54,7 @@ const DeletedRoadmapById = async (id, time) => {
 };
 
 module.exports = {
-  GetRoadmap,
+  GetRoadmapById,
   CreateRoadmap,
   UpdateRoadmap,
   DeletedRoadmapById,
