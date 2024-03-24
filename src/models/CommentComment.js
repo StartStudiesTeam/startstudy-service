@@ -1,15 +1,6 @@
 const prisma = require("../database/prisma");
 
-const GetCommentComment = async (id) => {
-  const comment = await prisma.commentsComments.findFirst({
-    where: {
-      id,
-    },
-  });
-  return comment;
-};
-
-const GetFieldDeleteByCommentCommentId = async (id) => {
+const GetCommentCommentById = async (id) => {
   const comment = await prisma.commentsComments.findFirst({
     where: {
       id,
@@ -61,8 +52,7 @@ const DelCommentsComments = async (id, time) => {
 };
 
 module.exports = {
-  GetCommentComment,
-  GetFieldDeleteByCommentCommentId,
+  GetCommentCommentById,
   CreateCommentComment,
   UpdateCommentComment,
   DelCommentsComments,
