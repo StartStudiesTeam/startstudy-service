@@ -40,6 +40,7 @@ const updateTag = require("../controllers/tags/update");
 const deleteTag = require("../controllers/tags/delete");
 const countLike = require("../controllers/likes/count");
 const readVideo = require("../controllers/videos/read");
+const readRoadmap = require("../controllers/roadmap/read");
 
 const route = express();
 
@@ -60,6 +61,7 @@ route.put("/newpassword", middlewareSchema(NewPassword), newPassword);
 route.post("/roadmap", createdRoadmap);
 route.put("/roadmap", updateRoadmap);
 route.delete("/roadmap", deleteRoadmap);
+route.get("/roadmap", readRoadmap);
 
 route.post("/tags", createTag);
 route.put("/tags", updateTag);
