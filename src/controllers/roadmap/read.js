@@ -1,13 +1,13 @@
 const prisma = require("../../database/prisma");
 const sucessMessages = require("../../constants/codeMessages/sucessMessages");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
-const { GetRoadmap } = require("../../models/Roadmap");
+const { GetRoadmapById } = require("../../models/Roadmap");
 
 const readRoadmap = async (req, res) => {
   const { roadmapId } = req.body;
 
   try {
-    const findRoadmap = await GetRoadmap(roadmapId);
+    const findRoadmap = await GetRoadmapById(roadmapId);
 
     if (!findRoadmap) {
       return res.status(404).json({
