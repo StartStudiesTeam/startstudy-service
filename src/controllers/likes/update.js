@@ -1,20 +1,15 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const { currentTime } = require("../../utils/date/date");
-const {
-  UpgradeLike,
-  GetLike,
-  GetFieldDeleteByLikeId,
-} = require("../../models/Like");
+const { UpgradeLike, GetLikeById } = require("../../models/Like");
 const sucessMessagesLikes = require("../../constants/codeMessages/sucessMessagesLikes");
 
 const updateLike = async (req, res) => {
   const { id, userId } = req.body;
 
   try {
-    const findLike = await GetLike(id);
-    const likesDelete = await GetFieldDeleteByLikeId(id);
+    const findLike = await GetLikeById(id);
 
-    if (!findLike || !likesDelete) {
+    if (!findLike) {
       return res.status(404).json({
         statusCode: 404,
         message: errorMessages.errorProcessingThisRequest,

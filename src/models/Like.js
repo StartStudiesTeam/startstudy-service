@@ -1,9 +1,10 @@
 const prisma = require("../database/prisma");
 
-const GetLike = async (id) => {
+const GetLikeById = async (id) => {
   const like = await prisma.likes.findFirst({
     where: {
       id,
+      deletedAt: null,
     },
   });
   return like;
@@ -77,21 +78,10 @@ const CountLike = async (
   return like;
 };
 
-const GetFieldDeleteByLikeId = async (id) => {
-  const like = await prisma.likes.findFirst({
-    where: {
-      id,
-      deletedAt: null,
-    },
-  });
-  return like;
-};
-
 module.exports = {
-  GetLike,
+  GetLikeById,
   CreateLike,
   UpgradeLike,
   DeleteLike,
   CountLike,
-  GetFieldDeleteByLikeId,
 };

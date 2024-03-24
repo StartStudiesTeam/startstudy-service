@@ -1,7 +1,7 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { CreateBookmark } = require("../../models/Bookmark");
-const { GetFieldDeletedByRoadmapId } = require("../../models/Roadmap");
+const { GetRoadmapById } = require("../../models/Roadmap");
 const { GetFieldDeletedByUser } = require("../../models/User");
 
 const createBookmark = async (req, res) => {
@@ -9,7 +9,7 @@ const createBookmark = async (req, res) => {
 
   try {
     const user = await GetFieldDeletedByUser(userId);
-    const roadmap = await GetFieldDeletedByRoadmapId(roadmapId);
+    const roadmap = await GetRoadmapById(roadmapId);
 
     if (!user || !roadmap) {
       return res.status(404).json({

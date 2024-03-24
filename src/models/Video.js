@@ -1,15 +1,6 @@
 const prisma = require("../database/prisma");
 
-const GetVideo = async (id) => {
-  const response = await prisma.videos.findFirst({
-    where: {
-      id,
-    },
-  });
-  return response;
-};
-
-const GetFieldDeleteByVideoId = async (id) => {
+const GetVideoById = async (id) => {
   const response = await prisma.videos.findFirst({
     where: {
       id,
@@ -50,8 +41,7 @@ const UpdateAllVideoData = async (id, title, desc, midia, amountLike, time) => {
 };
 
 module.exports = {
-  GetVideo,
-  GetFieldDeleteByVideoId,
+  GetVideoById,
   UpdateFieldVideosRoadmap,
   UpdateAllVideoData,
 };

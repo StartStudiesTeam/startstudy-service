@@ -1,15 +1,15 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { GetFieldDeletedByRoadmapId } = require("../../models/Roadmap");
-const { UpdateTag, GetFieldDeleteByTagId } = require("../../models/Tags");
+const { GetRoadmapById } = require("../../models/Roadmap");
+const { UpdateTag, GetTagById } = require("../../models/Tags");
 const { currentTime } = require("../../utils/date/date");
 
 const updateTag = async (req, res) => {
   const { id, roadmapId, tag } = req.body;
 
   try {
-    const isTagDeleted = await GetFieldDeleteByTagId(id);
-    const isDeletedRoadmap = await GetFieldDeletedByRoadmapId(roadmapId);
+    const isTagDeleted = await GetTagById(id);
+    const isDeletedRoadmap = await GetRoadmapById(roadmapId);
 
     if (!isDeletedRoadmap || !isTagDeleted) {
       return res.status(404).json({

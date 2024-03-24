@@ -4,15 +4,6 @@ const GetBookmarkById = async (id) => {
   const request = await prisma.bookmarks.findFirst({
     where: {
       id,
-    },
-  });
-  return request;
-};
-
-const GetBookmarkByIdWithDeletedField = async (id) => {
-  const request = await prisma.bookmarks.findFirst({
-    where: {
-      id,
       deletedAt: null,
     },
   });
@@ -62,7 +53,6 @@ const DeleteBookmark = async (id, time) => {
 };
 module.exports = {
   GetBookmarkById,
-  GetBookmarkByIdWithDeletedField,
   CreateBookmark,
   UpdateBookmark,
   DeleteBookmark,

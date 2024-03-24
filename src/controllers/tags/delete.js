@@ -1,13 +1,13 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { DeleteTag, GetFieldDeleteByTagId } = require("../../models/Tags");
+const { DeleteTag, GetTagById } = require("../../models/Tags");
 const { currentTime } = require("../../utils/date/date");
 
 const deleteTag = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const isTagDeleted = await GetFieldDeleteByTagId(id);
+    const isTagDeleted = await GetTagById(id);
 
     if (!isTagDeleted) {
       return res.status(400).json({

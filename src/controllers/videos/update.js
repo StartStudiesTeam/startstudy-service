@@ -2,20 +2,18 @@ const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { currentTime } = require("../../utils/date/date");
 const {
-  GetVideo,
-  GetFieldDeleteByVideoId,
   UpdateFieldVideosRoadmap,
   UpdateAllVideoData,
+  GetVideoById,
 } = require("../../models/Video");
 
 const updateVideos = async (req, res) => {
   const { id, title, description, video, amountLike } = req.body;
 
   try {
-    const findVideo = await GetVideo(id);
-    const isVideoDeleted = await GetFieldDeleteByVideoId(id);
+    const findVideo = await GetVideoById(id);
 
-    if (!findVideo || !isVideoDeleted) {
+    if (!findVideo) {
       return res.status(404).json({
         statusCode: 404,
         message: errorMessages.errorProcessingThisRequest,

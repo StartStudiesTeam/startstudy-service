@@ -1,18 +1,15 @@
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
 const { currentTime } = require("../../utils/date/date");
-const {
-  DeleteBookmark,
-  GetBookmarkByIdWithDeletedField,
-} = require("../../models/Bookmark");
+const { DeleteBookmark, GetBookmarkById } = require("../../models/Bookmark");
 
 const deleteBookmark = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const bookmark = await GetBookmarkByIdWithDeletedField(id);
+    const findbookmark = await GetBookmarkById(id);
 
-    if (!bookmark) {
+    if (!findbookmark) {
       return res.status(400).json({
         statusCode: 400,
         message: "Este salvo não foi encontrado ou já foi removido!",
