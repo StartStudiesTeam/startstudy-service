@@ -7,6 +7,7 @@ const sucessMessages = {
   userAcessLogin: "Usuário Logado com Sucesso!",
   checkMailUser: "Verifique o código enviado para o seu e-mail",
   readVideos: "Video retornado com sucesso!",
+  readRoadmap: "Roadmap retornado com sucesso!",
 };
 
 module.exports = sucessMessages;
