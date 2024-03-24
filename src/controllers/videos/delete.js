@@ -1,7 +1,7 @@
 const prisma = require("../../database/prisma");
 const errorMessages = require("../../constants/codeMessages/errorMessages");
 const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
-const { GetVideo, GetFieldDeleteByVideoId } = require("../../models/Video");
+const { GetVideo } = require("../../models/Video");
 const { currentTime } = require("../../utils/date/date");
 
 const deleteVideo = async (req, res) => {
@@ -9,9 +9,8 @@ const deleteVideo = async (req, res) => {
 
   try {
     const findVideo = await GetVideo(id);
-    const isVideoDeleted = await GetFieldDeleteByVideoId(id);
 
-    if (!findVideo || !isVideoDeleted) {
+    if (!findVideo) {
       return res.status(404).json({
         statusCode: 404,
         message: errorMessages.errorProcessingThisRequest,
