@@ -21,30 +21,35 @@ const readRoadmap = async (req, res) => {
       const video = await prisma.videosRoadmap.findFirst({
         where: {
           roadmapId,
+          deletedAt: null,
         },
       });
 
       const comment = await prisma.comments.findMany({
         where: {
           roadmapId,
+          deletedAt: null,
         },
       });
 
       const commentsComments = await prisma.commentsComments.findMany({
         where: {
           commentsId: comment.id,
+          deletedAt: null,
         },
       });
 
       const likes = await prisma.likes.count({
         where: {
           roadmapId,
+          deletedAt: null,
         },
       });
 
       const bookmark = await prisma.bookmarks.findMany({
         where: {
           roadmapId,
+          deletedAt: null,
         },
       });
 
