@@ -13,7 +13,7 @@ const mailCheck = async (req, res) => {
     const user = await GetUserByMail(email);
 
     if (!user) {
-      return res.status(400).json({
+      return res.status(404).json({
         message: errorMessages.invalidEmail,
       });
     }

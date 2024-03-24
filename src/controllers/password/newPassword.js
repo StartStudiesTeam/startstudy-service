@@ -18,7 +18,7 @@ const newPassword = async (req, res) => {
     if (!isVerifiedAndActive) {
       return res
         .status(400)
-        .json({ message: "Não foi possível atualizar sua senha." });
+        .json({ message: "Não foi possível atualizar sua senha.", body: {} });
     }
 
     const passEncrypted = await bcrypt.hash(password, 10);
