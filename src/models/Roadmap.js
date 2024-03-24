@@ -4,15 +4,6 @@ const GetRoadmap = async (id) => {
   const roadmap = await prisma.roadmap.findFirst({
     where: {
       id,
-    },
-  });
-  return roadmap;
-};
-
-const GetFieldDeletedByRoadmapId = async (id) => {
-  const roadmap = await prisma.roadmap.findFirst({
-    where: {
-      id,
       deletedAt: null,
     },
   });
@@ -64,7 +55,6 @@ const DeletedRoadmapById = async (id, time) => {
 
 module.exports = {
   GetRoadmap,
-  GetFieldDeletedByRoadmapId,
   CreateRoadmap,
   UpdateRoadmap,
   DeletedRoadmapById,
