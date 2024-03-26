@@ -17,4 +17,11 @@ const errorMessages = {
   invalidCredentials: "Credenciais de acesso inválidas!",
 };
 
-module.exports = errorMessages;
+const sucessMessages = {
+  checkMailUser: "Verifique o código enviado para o seu e-mail",
+};
+
+module.exports = {
+  sucessMessages,
+  errorMessages,
+};
