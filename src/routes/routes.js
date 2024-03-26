@@ -55,27 +55,26 @@ route.use(authenticationUser);
 
 route.put("/updateuser", updateUser);
 route.delete("/deleteuser", deleteUser);
+route.patch("/newpassword", middlewareSchema(NewPassword), newPassword);
 
-route.put("/newpassword", middlewareSchema(NewPassword), newPassword);
-
+route.get("/roadmap", readRoadmap);
 route.post("/roadmap", createdRoadmap);
 route.put("/roadmap", updateRoadmap);
 route.delete("/roadmap", deleteRoadmap);
-route.get("/roadmap", readRoadmap);
 
 route.post("/tags", createTag);
 route.put("/tags", updateTag);
 route.delete("/tags", deleteTag);
 
+route.get("/videos", readVideo);
 route.post("/videos", createVideos);
 route.put("/videos", updateVideos);
 route.delete("/videos", deleteVideo);
-route.get("/videos", readVideo);
 
+route.get("/likes", countLike);
 route.post("/likes", createLike);
 route.put("/likes", updateLike);
 route.delete("/likes", deleteLike);
-route.get("/likes", countLike);
 
 route.post("/bookmarks", createBookmark);
 route.put("/bookmarks", updateBookmark);
