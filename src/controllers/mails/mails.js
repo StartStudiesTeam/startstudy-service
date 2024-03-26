@@ -1,6 +1,6 @@
 const CodeToken = require("../../utils/user/token");
 const UserMessageErrors = require("../../constants/Users/errors");
-const UserMessageSuccess = require("../../constants/Users/successes");
+const UserMessageSuccesses = require("../../constants/Users/successes");
 const { currentTime } = require("../../utils/date/date");
 const { GetUserByMail } = require("../../models/User");
 const { GetTheUserId, UpdateCodeTokenById } = require("../../models/Code");
@@ -35,7 +35,7 @@ const mailCheck = async (req, res) => {
 
     return res.status(201).json({
       statusCode: responseMail,
-      message: UserMessageSuccess.successfulSendingEmail,
+      message: UserMessageSuccesses.successfulSendingEmail,
       body: {},
     });
   } catch (error) {

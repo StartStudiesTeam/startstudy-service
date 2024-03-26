@@ -1,5 +1,5 @@
 const UserMessageErrors = require("../../constants/Users/errors");
-const UserMessageSuccess = require("../../constants/Users/successes");
+const UserMessageSuccesses = require("../../constants/Users/successes");
 const { currentTime } = require("../../utils/date/date");
 const {
   DeleteUserById,
@@ -24,7 +24,7 @@ const deleteUser = async (req, res) => {
 
     return res.status(204).json({
       statusCode: 204,
-      message: UserMessageSuccess.successInDeletingUser,
+      message: UserMessageSuccesses.successInDeletingUser,
       body: {},
     });
   } catch (error) {

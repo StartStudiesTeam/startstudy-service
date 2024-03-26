@@ -1,4 +1,4 @@
-const UserMessageSuccess = require("../../constants/Users/successes");
+const UserMessageSuccesseses = require("../../constants/Users/successes");
 const UserMessageErrors = require("../../constants/Users/errors");
 const {
   CreateRefresh,
@@ -28,14 +28,14 @@ const refreshTokenUser = async (req, res) => {
 
       return res.status(201).json({
         statusCode: 201,
-        message: UserMessageSuccess.successfulUserLogin,
+        message: UserMessageSuccesseses.successfulUserLogin,
         body: { accessToken, newRefreshToken },
       });
     }
 
     return res.status(201).json({
       statusCode: 201,
-      message: UserMessageSuccess.successfulUserLogin,
+      message: UserMessageSuccesseses.successfulUserLogin,
       body: { accessToken },
     });
   } catch (error) {

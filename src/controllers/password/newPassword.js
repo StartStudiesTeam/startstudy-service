@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const UserMessageErrors = require("../../constants/Users/errors");
-const UserMessageSuccess = require("../../constants/Users/successes");
+const UserMessageSuccesses = require("../../constants/Users/successes");
 const { currentTime } = require("../../utils/date/date");
 const {
   UpdateNewPassword,
@@ -31,7 +31,7 @@ const newPassword = async (req, res) => {
 
     return res.status(200).json({
       statusCode: 200,
-      message: UserMessageSuccess.successfulPasswordReset,
+      message: UserMessageSuccesses.successfulPasswordReset,
       body: {},
     });
   } catch (error) {

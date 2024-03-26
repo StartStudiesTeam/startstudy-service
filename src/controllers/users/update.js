@@ -1,5 +1,5 @@
 const UserMessageErrors = require("../../constants/Users/errors");
-const UserMessageSuccess = require("../../constants/Users/successes");
+const UserMessageSuccesses = require("../../constants/Users/successes");
 const MessagesErros = require("../../constants/Generics/messages");
 const {
   GetUserByMail,
@@ -47,7 +47,7 @@ const updateUser = async (req, res) => {
 
     return res.status(200).json({
       statusCode: 200,
-      message: UserMessageSuccess.successfulUpdatingUser,
+      message: UserMessageSuccesses.successfulUpdatingUser,
       body: { data, accessToken },
     });
   } catch (error) {

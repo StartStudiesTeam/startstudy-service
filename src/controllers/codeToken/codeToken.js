@@ -1,6 +1,6 @@
 const dayjs = require("dayjs");
 const UserMessageErrors = require("../../constants/Users/errors");
-const UserMessageSuccess = require("../../constants/Users/successes");
+const UserMessageSuccesses = require("../../constants/Users/successes");
 const { afterDate, currentTime } = require("../../utils/date/date");
 const { CreateAccessToken } = require("../../utils/authenticate/AccessToken");
 const {
@@ -44,7 +44,7 @@ const checkTokenValidity = async (req, res) => {
 
     return res.status(200).json({
       statusCode: 200,
-      message: UserMessageSuccess.successInVerifyingToken,
+      message: UserMessageSuccesses.successInVerifyingToken,
       body: { data, accessToken },
     });
   } catch (error) {

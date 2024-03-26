@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const prisma = require("../../database/prisma");
-const UserMessageSuccess = require("../../constants/Users/successes");
+const UserMessageSuccesses = require("../../constants/Users/successes");
 const UserMessageErrors = require("../../constants/Users/errors");
 const CodeToken = require("../../utils/user/token");
 const SendRegisteredUserEmail = require("../../service/mail/Mails");
@@ -62,7 +62,7 @@ const registerUser = async (req, res) => {
 
     return res.status(201).json({
       statusCode: 201,
-      message: UserMessageSuccess.successInRegisteringUser,
+      message: UserMessageSuccesses.successInRegisteringUser,
       body: { user, accessToken, refreshToken },
     });
   } catch (error) {
