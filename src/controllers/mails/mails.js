@@ -1,6 +1,6 @@
 const CodeToken = require("../../utils/user/token");
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessages = require("../../constants/codeMessages/sucessMessages");
+const UserMessageErrors = require("../../constants/Users/errors");
+const UserMessageSuccess = require("../../constants/Users/successes");
 const { currentTime } = require("../../utils/date/date");
 const { GetUserByMail } = require("../../models/User");
 const { GetTheUserId, UpdateCodeTokenById } = require("../../models/Code");
@@ -14,7 +14,7 @@ const mailCheck = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({
-        message: errorMessages.invalidEmail,
+        message: UserMessageErrors.invalidEmailError,
       });
     }
 
@@ -35,13 +35,13 @@ const mailCheck = async (req, res) => {
 
     return res.status(201).json({
       statusCode: responseMail,
-      message: sucessMessages.checkMailUser,
+      message: UserMessageSuccess.successfulSendingEmail,
       body: {},
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: UserMessageErrors.errorSendingEmail,
       body: {},
     });
   }
