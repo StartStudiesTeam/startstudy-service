@@ -4,6 +4,9 @@ const userSuccesses = {
   successfulUpdatingUser: "Usuário atualizado com sucesso!",
   successInDeletingUser: "Usuário deletado com sucesso!",
   successfulPasswordReset: "Senha redefinida com sucesso!",
+  successfulSendingEmail:
+    "Email enviado, verifique sua caixa de entrada ou spam!",
+  successInVerifyingToken: "Sucesso ao verificar o token!",
 };
 
 module.exports = userSuccesses;
