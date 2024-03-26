@@ -1,5 +1,6 @@
-const sucessMessages = require("../../constants/codeMessages/sucessMessages");
-const errorMessages = require("../../constants/codeMessages/errorMessages");
+const UserMessageErrors = require("../../constants/Users/errors");
+const UserMessageSuccess = require("../../constants/Users/successes");
+const MessagesErros = require("../../constants/Generics/messages");
 const {
   GetUserByMail,
   GetUserByNick,
@@ -20,7 +21,7 @@ const updateUser = async (req, res) => {
     if (!findUser) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: UserMessageErrors.errorUpdatingUser,
         body: {},
       });
     }
@@ -29,7 +30,7 @@ const updateUser = async (req, res) => {
     const isInvalidNickNameUser = nickNameUser?.id && nickNameUser?.id !== id;
 
     if (isInvalidMailUser || isInvalidNickNameUser) {
-      return res.status(400).json({ message: errorMessages.existingUser });
+      return res.status(400).json({ message: MessagesErros.existingUser });
     }
 
     const response = await UpdateMainUserData(
@@ -44,13 +45,13 @@ const updateUser = async (req, res) => {
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessages.successUpdateUser,
+      message: UserMessageSuccess.successfulUpdatingUser,
       body: { response, accessToken },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: MessagesErros.errorProcessingThisRequest,
       body: {},
     });
   }

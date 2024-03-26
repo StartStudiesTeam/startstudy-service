@@ -1,6 +1,6 @@
-const bcrypt = require("bcrypt");
-const errorMessages = require("../../constants/codeMessages/errorMessages.js");
-const sucessMessages = require("../../constants/codeMessages/sucessMessages.js");
+const UserMessageErrors = require("../../constants/Users/errors");
+const UserMessageSuccess = require("../../constants/Users/successes");
+const MessagesErros = require("../../constants/Generics/messages");
 const { CreateRefresh } = require("../../models/Refresh.js");
 const {
   GetUserByMail,
@@ -22,13 +22,15 @@ const loginUser = async (req, res) => {
     if (!user) {
       return res
         .status(401)
-        .json({ message: errorMessages.invalidCredentials });
+        .json({ message: MessagesErros.invalidCredentials, body: {} });
     }
 
     const fieldDeleted = await GetFieldDeletedByUser(user.id);
 
     if (!fieldDeleted) {
-      return res.status(400).json({ message: errorMessages.invalidUser });
+      return res
+        .status(400)
+        .json({ message: UserMessageErrors.userLoginError });
     }
 
     const correctPass = await bcrypt.compare(password, user.password);
@@ -36,7 +38,7 @@ const loginUser = async (req, res) => {
     if (!correctPass) {
       return res
         .status(401)
-        .json({ message: errorMessages.invalidCredentials });
+        .json({ message: UserMessageErrors.userLoginError });
     }
 
     const accessToken = await CreateAccessToken(user.id);
@@ -46,13 +48,13 @@ const loginUser = async (req, res) => {
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessages.userAcessLogin,
+      message: UserMessageSuccess.successfulUserLogin,
       body: { response, accessToken, refreshToken },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: MessagesErros.errorProcessingThisRequest,
       body: {},
     });
   }

@@ -1,5 +1,6 @@
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessages = require("../../constants/codeMessages/sucessMessages");
+const UserMessageErrors = require("../../constants/Users/errors");
+const UserMessageSuccess = require("../../constants/Users/successes");
+const MessagesErros = require("../../constants/Generics/messages");
 const { currentTime } = require("../../utils/date/date");
 const {
   DeleteUserById,
@@ -15,7 +16,7 @@ const deleteUser = async (req, res) => {
     if (!findUser) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: UserMessageErrors.errorDeletingUser,
         body: {},
       });
     }
@@ -24,13 +25,13 @@ const deleteUser = async (req, res) => {
 
     return res.status(204).json({
       statusCode: 204,
-      message: sucessMessages.userDeleted,
+      message: UserMessageSuccess.successInDeletingUser,
       body: {},
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: MessagesErros.errorProcessingThisRequest,
       body: {},
     });
   }

@@ -1,5 +1,5 @@
-const sucessMessages = require("../../constants/codeMessages/sucessMessages");
-const errorMessages = require("../../constants/codeMessages/errorMessages");
+const UserMessageSuccess = require("../../constants/Users/successes");
+const MessagesErros = require("../../constants/Generics/messages");
 const {
   CreateRefresh,
   GetRefresh,
@@ -16,7 +16,7 @@ const refreshTokenUser = async (req, res) => {
     if (!validateRefresh) {
       return res
         .status(400)
-        .json({ message: errorMessages.invalidRefreshToken });
+        .json({ message: MessagesErros.invalidRefreshToken });
     }
 
     const verifyDateAccess = await afterDate(validateRefresh.expiresIn);
@@ -28,20 +28,20 @@ const refreshTokenUser = async (req, res) => {
 
       return res.status(200).json({
         statusCode: 200,
-        message: sucessMessages.userAcessLogin,
+        message: UserMessageSuccess.successfulUserLogin,
         body: { accessToken, newRefreshToken },
       });
     }
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessages.userAcessLogin,
+      message: UserMessageSuccess.successfulUserLogin,
       body: { accessToken },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: MessagesErros.errorProcessingThisRequest,
       body: {},
     });
   }
