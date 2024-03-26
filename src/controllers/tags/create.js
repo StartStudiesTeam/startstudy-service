@@ -1,5 +1,6 @@
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
+const TagMessageErrors = require("../../constants/Tags/errors");
+const TagMessageSuccess = require("../../constants/Tags/successes");
+const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
 const { GetRoadmapById } = require("../../models/Roadmap");
 const { CreateTag } = require("../../models/Tags");
 
@@ -12,22 +13,22 @@ const createTag = async (req, res) => {
     if (!findRoadmap) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: RoadmapMessageErrors.errorReadRoadmap,
         body: {},
       });
     }
 
-    const request = await CreateTag(roadmapId, tag);
+    const data = await CreateTag(roadmapId, tag);
 
     return res.status(201).json({
       statusCode: 201,
-      message: sucessMessagesRoadmap.successUpdateRoadmap,
-      body: { request },
+      message: TagMessageSuccess.successfulInRegisteringTag,
+      body: { data },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: TagMessageErrors.errorRegisteringTag,
       body: {},
     });
   }
