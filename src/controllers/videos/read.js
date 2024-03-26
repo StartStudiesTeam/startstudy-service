@@ -1,6 +1,6 @@
 const prisma = require("../../database/prisma");
-const sucessMessages = require("../../constants/codeMessages/sucessMessages");
-const errorMessages = require("../../constants/codeMessages/errorMessages");
+const VideoMessageErrors = require("../../constants/Videos/errors");
+const VideoMessageSuccess = require("../../constants/Videos/successes");
 const { GetVideoById } = require("../../models/Video");
 
 const readVideo = async (req, res) => {
@@ -12,7 +12,7 @@ const readVideo = async (req, res) => {
     if (!findVideo) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: VideoMessageErrors.errorReadVideos,
         body: {},
       });
     }
@@ -48,14 +48,14 @@ const readVideo = async (req, res) => {
 
       return res.status(200).json({
         statusCode: 200,
-        message: sucessMessages.readVideos,
+        message: VideoMessageSuccess.successReadVideos,
         body: { video, comment, commentsComments, likes },
       });
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: VideoMessageErrors.errorReadVideos,
       body: {},
     });
   }

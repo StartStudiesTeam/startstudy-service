@@ -1,6 +1,6 @@
 const prisma = require("../../database/prisma");
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
+const VideoMessageErrors = require("../../constants/Videos/errors");
+const VideoMessageSuccess = require("../../constants/Videos/successes");
 const { GetVideoById } = require("../../models/Video");
 const { currentTime } = require("../../utils/date/date");
 
@@ -13,7 +13,7 @@ const deleteVideo = async (req, res) => {
     if (!findVideo) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: VideoMessageErrors.errorDeletingVideo,
         body: {},
       });
     }
@@ -42,13 +42,13 @@ const deleteVideo = async (req, res) => {
 
     return res.status(204).json({
       statusCode: 204,
-      message: sucessMessagesRoadmap.deletedRoadmap,
+      message: VideoMessageSuccess.successfulDeletingVideo,
       body: {},
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: VideoMessageErrors.errorDeletingVideo,
       body: {},
     });
   }

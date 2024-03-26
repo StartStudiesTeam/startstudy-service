@@ -1,5 +1,5 @@
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
+const VideoMessageErrors = require("../../constants/Videos/errors");
+const VideoMessageSuccess = require("../../constants/Videos/successes");
 const { currentTime } = require("../../utils/date/date");
 const {
   UpdateFieldVideosRoadmap,
@@ -16,13 +16,13 @@ const updateVideos = async (req, res) => {
     if (!findVideo) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: VideoMessageErrors.errorReadVideos,
         body: {},
       });
     }
     const videosRoadmap = UpdateFieldVideosRoadmap(id, currentTime);
 
-    const videos = await UpdateAllVideoData(
+    const data = await UpdateAllVideoData(
       id,
       title,
       description,
@@ -33,13 +33,13 @@ const updateVideos = async (req, res) => {
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessagesRoadmap.successUpdateRoadmap,
-      body: { videos },
+      message: VideoMessageSuccess.successUpdatingVideo,
+      body: { data },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: VideoMessageErrors.errorUpdatingVideo,
       body: {},
     });
   }
