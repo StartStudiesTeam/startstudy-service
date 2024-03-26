@@ -1,11 +1,13 @@
 const jwt = require("jsonwebtoken");
-const errorMessages = require("../constants/codeMessages/errorMessages");
+const UserMessageErrors = require("../constants/Users/errors");
 
 const authenticationUser = async (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
-    return res.status(401).json({ message: errorMessages.unauthorizedUser });
+    return res
+      .status(401)
+      .json({ message: UserMessageErrors.unauthorizedUserError, body: {} });
   }
 
   const token = authorization.split(" ")[1];
@@ -17,7 +19,9 @@ const authenticationUser = async (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(401).json({ message: errorMessages.unauthorizedUser });
+    return res
+      .status(401)
+      .json({ message: UserMessageErrors.unauthorizedUserError, body: {} });
   }
 };
 
