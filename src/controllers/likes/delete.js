@@ -1,5 +1,5 @@
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessagesLikes = require("../../constants/codeMessages/sucessMessagesLikes");
+const LikeMessageErrors = require("../../constants/Likes/errors");
+const LikeMessageSuccess = require("../../constants/Likes/successes");
 const { GetLikeById, DeleteLike } = require("../../models/Like");
 const { currentTime } = require("../../utils/date/date");
 
@@ -12,7 +12,7 @@ const deleteLike = async (req, res) => {
     if (!findLike) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: LikeMessageErrors.errorDeletingLike,
         body: {},
       });
     }
@@ -21,13 +21,13 @@ const deleteLike = async (req, res) => {
 
     return res.status(204).json({
       statusCode: 204,
-      message: sucessMessagesLikes.deletedLikes,
+      message: LikeMessageSuccess.successfulDeletingLike,
       body: {},
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: LikeMessageErrors.errorDeletingLike,
       body: {},
     });
   }

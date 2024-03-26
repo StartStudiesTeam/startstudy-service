@@ -1,5 +1,5 @@
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessages = require("../../constants/codeMessages/sucessMessages");
+const LikeMessageErrors = require("../../constants/Likes/errors");
+const LikeMessageSuccess = require("../../constants/Likes/successes");
 const { CreateLike } = require("../../models/Like");
 
 const createLike = async (req, res) => {
@@ -7,7 +7,7 @@ const createLike = async (req, res) => {
     req.body;
 
   try {
-    const like = await CreateLike(
+    const data = await CreateLike(
       userId,
       videoId,
       roadmapId,
@@ -17,13 +17,13 @@ const createLike = async (req, res) => {
 
     return res.status(201).json({
       statusCode: 201,
-      message: sucessMessages.createLikes,
-      body: { like },
+      message: LikeMessageSuccess.successfulInRegisteringLike,
+      body: { data },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: LikeMessageErrors.errorRegisteringLike,
       body: {},
     });
   }

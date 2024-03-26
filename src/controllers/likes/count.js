@@ -1,12 +1,12 @@
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessages = require("../../constants/codeMessages/sucessMessages");
+const LikeMessageErrors = require("../../constants/Likes/errors");
+const LikeMessageSuccess = require("../../constants/Likes/successes");
 const { CountLike } = require("../../models/Like");
 
 const countLike = async (req, res) => {
   const { videoId, roadmapId, commentsId, commentsCommentsId } = req.body;
 
   try {
-    const likes = await CountLike(
+    const data = await CountLike(
       videoId,
       roadmapId,
       commentsId,
@@ -15,13 +15,13 @@ const countLike = async (req, res) => {
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessages.countLikes,
-      body: { likes },
+      message: LikeMessageSuccess.successCountingLikes,
+      body: { data },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: LikeMessageErrors.errorCountingLikes,
       body: {},
     });
   }
