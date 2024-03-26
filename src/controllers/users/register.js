@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const prisma = require("../../database/prisma");
 const UserMessageSuccess = require("../../constants/Users/successes");
-const MessagesErros = require("../../constants/Generics/messages");
+const UserMessageErrors = require("../../constants/Users/errors");
 const CodeToken = require("../../utils/user/token");
 const SendRegisteredUserEmail = require("../../service/mail/Mails");
 const { GetUserByMail, GetUserByNick } = require("../../models/User");
@@ -16,12 +16,15 @@ const registerUser = async (req, res) => {
 
     if (await GetUserByMail(email)) {
       return res.status(400).json({
-        message: MessagesErros.existingUser,
+        message: UserMessageErrors.existingUserError,
+        body: {},
       });
     }
 
     if (await GetUserByNick(nick_name)) {
-      return res.status(400).json({ message: MessagesErros.uniqueNickName });
+      return res
+        .status(400)
+        .json({ message: UserMessageErrors.invalidNicknameError, body: {} });
     }
 
     const user = await prisma.$transaction(async () => {
@@ -65,7 +68,7 @@ const registerUser = async (req, res) => {
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: MessagesErros.errorProcessingThisRequest,
+      message: UserMessageErrors.errorWhenRegisteringUser,
       body: {},
     });
   }

@@ -30,10 +30,12 @@ const updateUser = async (req, res) => {
     const isInvalidNickNameUser = nickNameUser?.id && nickNameUser?.id !== id;
 
     if (isInvalidMailUser || isInvalidNickNameUser) {
-      return res.status(400).json({ message: MessagesErros.existingUser });
+      return res
+        .status(400)
+        .json({ message: UserMessageErrors.existingUserError, body: {} });
     }
 
-    const response = await UpdateMainUserData(
+    const data = await UpdateMainUserData(
       id,
       name,
       email,
@@ -41,12 +43,12 @@ const updateUser = async (req, res) => {
       currentTime
     );
 
-    const accessToken = await CreateAccessToken(response.id);
+    const accessToken = await CreateAccessToken(data.id);
 
     return res.status(200).json({
       statusCode: 200,
       message: UserMessageSuccess.successfulUpdatingUser,
-      body: { response, accessToken },
+      body: { data, accessToken },
     });
   } catch (error) {
     return res.status(400).json({

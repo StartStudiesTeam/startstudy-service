@@ -1,6 +1,5 @@
 const UserMessageErrors = require("../../constants/Users/errors");
 const UserMessageSuccess = require("../../constants/Users/successes");
-const MessagesErros = require("../../constants/Generics/messages");
 const { currentTime } = require("../../utils/date/date");
 const {
   DeleteUserById,
@@ -21,7 +20,7 @@ const deleteUser = async (req, res) => {
       });
     }
 
-    const request = await DeleteUserById(id, currentTime);
+    const data = await DeleteUserById(id, currentTime);
 
     return res.status(204).json({
       statusCode: 204,
@@ -31,7 +30,7 @@ const deleteUser = async (req, res) => {
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: MessagesErros.errorProcessingThisRequest,
+      message: UserMessageErrors.errorDeletingUser,
       body: {},
     });
   }
