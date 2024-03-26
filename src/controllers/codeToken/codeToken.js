@@ -1,6 +1,6 @@
 const dayjs = require("dayjs");
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessages = require("../../constants/codeMessages/sucessMessages");
+const UserMessageErrors = require("../../constants/Users/errors");
+const UserMessageSuccess = require("../../constants/Users/successes");
 const { afterDate, currentTime } = require("../../utils/date/date");
 const { CreateAccessToken } = require("../../utils/authenticate/AccessToken");
 const {
@@ -16,34 +16,41 @@ const checkTokenValidity = async (req, res) => {
     const user = await GetTheMailAndCode(email, codeToken);
 
     if (!user) {
-      return res.status(400).json({ message: errorMessages.invalidToken });
+      return res
+        .status(400)
+        .json({ message: UserMessageErrors.invalidTokenError, body: {} });
     }
 
     const fieldVerify = await GetConfirmationFieldByTokenUserId(user.id);
 
     if (!fieldVerify) {
-      return res.status(200).json({ message: "Usuário já foi validado" });
+      return res.status(200).json({
+        message: UserMessageErrors.errorUserHasAlreadyBeenValidated,
+        body: {},
+      });
     }
 
     const userCreatedAtUnix = dayjs(user.createdAt).unix();
     const isAfterCurrentTime = await afterDate(user.createdAt);
 
     if (isAfterCurrentTime) {
-      return res.status(400).json({ message: errorMessages.tokenExpired });
+      return res
+        .status(400)
+        .json({ message: UserMessageErrors.tokenExpiredError, body: {} });
     }
 
-    const response = await UpdateVerifiedField(user.id, currentTime, true);
+    const data = await UpdateVerifiedField(user.id, currentTime, true);
     const accessToken = await CreateAccessToken(user);
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessages.successUpdateUser,
-      body: { response, accessToken },
+      message: UserMessageSuccess.successInVerifyingToken,
+      body: { data, accessToken },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: UserMessageErrors.tokenVerificationError,
       body: {},
     });
   }
