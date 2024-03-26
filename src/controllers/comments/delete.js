@@ -1,6 +1,6 @@
+const CommentMessageErrors = require("../../constants/Comments/errors");
+const CommentMessageSuccess = require("../../constants/Comments/successes");
 const prisma = require("../../database/prisma");
-const sucessMessagesComments = require("../../constants/codeMessages/commentsSucessMessages");
-const errorMessages = require("../../constants/codeMessages/errorMessages");
 const { GetCommentById } = require("../../models/Comment");
 
 const deleteComments = async (req, res) => {
@@ -12,7 +12,7 @@ const deleteComments = async (req, res) => {
     if (!findComment) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: CommentMessageErrors.errorWhenDeletingComment,
         body: {},
       });
     }
@@ -35,13 +35,13 @@ const deleteComments = async (req, res) => {
 
     return res.status(204).json({
       statusCode: 204,
-      message: sucessMessagesComments.deletedComments,
+      message: CommentMessageSuccess.successfulDeletingComment,
       body: {},
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: CommentMessageErrors.errorWhenDeletingComment,
       body: {},
     });
   }

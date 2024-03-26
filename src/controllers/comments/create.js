@@ -1,5 +1,5 @@
-const sucessMessagesComments = require("../../constants/codeMessages/commentsSucessMessages");
-const errorMessages = require("../../constants/codeMessages/errorMessages");
+const CommentMessageErrors = require("../../constants/Comments/errors");
+const CommentMessageSuccess = require("../../constants/Comments/successes");
 const { CreateComment } = require("../../models/Comment");
 const { GetUserByMail } = require("../../models/User");
 
@@ -8,17 +8,17 @@ const createComments = async (req, res) => {
 
   try {
     const user = await GetUserByMail(email);
-    const create = await CreateComment(user.id, comments, videoId, roadmapId);
+    const data = await CreateComment(user.id, comments, videoId, roadmapId);
 
     return res.status(201).json({
       statusCode: 201,
-      message: sucessMessagesComments.successfullyRegisteredComments,
-      body: { create },
+      message: CommentMessageSuccess.successfulInRegisteringComment,
+      body: { data },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: CommentMessageErrors.errorRegisteringComment,
       body: {},
     });
   }
