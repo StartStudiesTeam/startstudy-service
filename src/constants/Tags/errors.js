@@ -3,3 +3,5 @@ const tagsErrors = {
   errorUpdatingTag: "Erro, não foi possível atualizar a tag!",
   errorDeletingTag: "Erro, não foi possível deletar a tag!",
 };
+
+module.exports = tagsErrors;

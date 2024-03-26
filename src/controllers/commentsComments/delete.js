@@ -1,5 +1,5 @@
-const sucessMessagesComments = require("../../constants/codeMessages/commentsSucessMessages");
-const errorMessages = require("../../constants/codeMessages/errorMessages");
+const CommentMessageErrors = require("../../constants/CommentsComments/errors");
+const CommentMessageSuccess = require("../../constants/CommentsComments/successes");
 const { currentTime } = require("../../utils/date/date");
 const {
   GetCommentCommentById,
@@ -15,7 +15,7 @@ const deleteCommentsComments = async (req, res) => {
     if (!findComment) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: CommentMessageErrors.errorWhenDeletingCommentComment,
         body: {},
       });
     }
@@ -24,13 +24,13 @@ const deleteCommentsComments = async (req, res) => {
 
     return res.status(204).json({
       statusCode: 204,
-      message: sucessMessagesComments.deletedComments,
+      message: CommentMessageSuccess.successfulDeletingCommentComment,
       body: {},
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: CommentMessageErrors.errorWhenDeletingCommentComment,
       body: {},
     });
   }

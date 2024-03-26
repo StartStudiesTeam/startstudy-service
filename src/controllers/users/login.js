@@ -1,6 +1,5 @@
-const bcrypt = require("bcrypt");
-const errorMessages = require("../../constants/codeMessages/errorMessages.js");
-const sucessMessages = require("../../constants/codeMessages/sucessMessages.js");
+const UserMessageErrors = require("../../constants/Users/errors");
+const UserMessageSuccesseses = require("../../constants/Users/successes");
 const { CreateRefresh } = require("../../models/Refresh.js");
 const {
   GetUserByMail,
@@ -22,13 +21,15 @@ const loginUser = async (req, res) => {
     if (!user) {
       return res
         .status(401)
-        .json({ message: errorMessages.invalidCredentials });
+        .json({ message: UserMessageErrors.invalidUserError, body: {} });
     }
 
     const fieldDeleted = await GetFieldDeletedByUser(user.id);
 
     if (!fieldDeleted) {
-      return res.status(400).json({ message: errorMessages.invalidUser });
+      return res
+        .status(400)
+        .json({ message: UserMessageErrors.invalidUserError, body: {} });
     }
 
     const correctPass = await bcrypt.compare(password, user.password);
@@ -36,23 +37,23 @@ const loginUser = async (req, res) => {
     if (!correctPass) {
       return res
         .status(401)
-        .json({ message: errorMessages.invalidCredentials });
+        .json({ message: UserMessageErrors.errorInvalidCredentials, body: {} });
     }
 
     const accessToken = await CreateAccessToken(user.id);
     const refreshToken = await CreateRefresh(user.id);
 
-    const { password: _, ...response } = user;
+    const { password: _, ...data } = user;
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessages.userAcessLogin,
-      body: { response, accessToken, refreshToken },
+      message: UserMessageSuccesseses.successfulUserLogin,
+      body: { data, accessToken, refreshToken },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: UserMessageErrors.userLoginError,
       body: {},
     });
   }

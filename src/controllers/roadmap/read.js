@@ -1,6 +1,6 @@
 const prisma = require("../../database/prisma");
-const sucessMessages = require("../../constants/codeMessages/sucessMessages");
-const errorMessages = require("../../constants/codeMessages/errorMessages");
+const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
+const RoadmapMessageSuccesses = require("../../constants/Roadmaps/successes");
 const { GetRoadmapById } = require("../../models/Roadmap");
 
 const readRoadmap = async (req, res) => {
@@ -12,7 +12,7 @@ const readRoadmap = async (req, res) => {
     if (!findRoadmap) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: RoadmapMessageErrors.errorReadRoadmap,
         body: {},
       });
     }
@@ -55,14 +55,14 @@ const readRoadmap = async (req, res) => {
 
       return res.status(200).json({
         statusCode: 200,
-        message: sucessMessages.readRoadmap,
+        message: RoadmapMessageSuccesses.successReadRoadmap,
         body: { video, comment, commentsComments, likes, bookmark },
       });
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: RoadmapMessageErrors.errorReadRoadmap,
       body: {},
     });
   }

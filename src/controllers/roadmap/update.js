@@ -1,5 +1,5 @@
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
+const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
+const RoadmapMessageSuccesses = require("../../constants/Roadmaps/successes");
 const { currentTime } = require("../..//utils/date/date");
 const { GetRoadmapById, UpdateRoadmap } = require("../../models/Roadmap");
 
@@ -12,21 +12,21 @@ const updateRoadmap = async (req, res) => {
     if (!findRoadmap) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: RoadmapMessageErrors.errorUpdatingRoadmap,
         body: {},
       });
     }
-    const roadmap = await UpdateRoadmap(id, title, description, currentTime);
+    const data = await UpdateRoadmap(id, title, description, currentTime);
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessagesRoadmap.successUpdateRoadmap,
-      body: { roadmap },
+      message: RoadmapMessageSuccesses.successUpdatingRoadmap,
+      body: { data },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: RoadmapMessageErrors.errorUpdatingRoadmap,
       body: {},
     });
   }

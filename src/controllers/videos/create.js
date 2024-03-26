@@ -1,6 +1,7 @@
 const prisma = require("../../database/prisma");
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
+const VideoMessageErrors = require("../../constants/Videos/errors");
+const VideoMessageSuccess = require("../../constants/Videos/successes");
+const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
 const { GetRoadmapById } = require("../../models/Roadmap");
 const { GetUserByMail } = require("../../models/User");
 
@@ -13,14 +14,14 @@ const createVideos = async (req, res) => {
     if (!findRoadmap) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: RoadmapMessageErrors.errorReadRoadmap,
         body: {},
       });
     }
 
     const user = await GetUserByMail(email);
 
-    const videos = await prisma.$transaction(async () => {
+    const data = await prisma.$transaction(async () => {
       const videos = await prisma.videos.create({
         data: {
           Users: {
@@ -48,15 +49,15 @@ const createVideos = async (req, res) => {
       return response;
     });
 
-    return res.status(200).json({
-      statusCode: 200,
-      message: sucessMessagesRoadmap.successUpdateRoadmap,
-      body: { videos },
+    return res.status(201).json({
+      statusCode: 201,
+      message: VideoMessageSuccess.successfulInRegisteringVideo,
+      body: { data },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: VideoMessageErrors.errorRegisteringVideo,
       body: {},
     });
   }

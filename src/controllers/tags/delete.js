@@ -1,5 +1,5 @@
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
+const TagMessageErrors = require("../../constants/Tags/errors");
+const TagMessageSuccess = require("../../constants/Tags/successes");
 const { DeleteTag, GetTagById } = require("../../models/Tags");
 const { currentTime } = require("../../utils/date/date");
 
@@ -12,7 +12,7 @@ const deleteTag = async (req, res) => {
     if (!isTagDeleted) {
       return res.status(400).json({
         statusCode: 400,
-        message: errorMessages.errorProcessingThisRequest,
+        message: TagMessageErrors.errorDeletingTag,
         body: {},
       });
     }
@@ -21,13 +21,13 @@ const deleteTag = async (req, res) => {
 
     return res.status(204).json({
       statusCode: 204,
-      message: sucessMessagesRoadmap.successUpdateRoadmap,
+      message: TagMessageSuccess.successfulDeletingTag,
       body: {},
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: TagMessageErrors.errorDeletingTag,
       body: {},
     });
   }

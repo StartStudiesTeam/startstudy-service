@@ -1,5 +1,6 @@
-const errorMessages = require("../../constants/codeMessages/errorMessages");
-const sucessMessagesRoadmap = require("../../constants/codeMessages/roadmapSucessMessages");
+const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
+const RoadmapMessageSuccesses = require("../../constants/Roadmaps/successes");
+const UserMessageErrors = require("../../constants/Users/errors");
 const { CreateRoadmap } = require("../../models/Roadmap");
 const {
   GetUserByMail,
@@ -12,9 +13,11 @@ const createdRoadmap = async (req, res) => {
   const user = await GetUserByMail(email);
 
   if (!user) {
-    return res
-      .status(404)
-      .json({ statusCode: 404, message: errorMessages.invalidUser, body: {} });
+    return res.status(404).json({
+      statusCode: 404,
+      message: UserMessageErrors.invalidUserError,
+      body: {},
+    });
   }
 
   const isVerifiedAndActive = await GetUserByIdWithDeletedField(user.id);
@@ -22,23 +25,23 @@ const createdRoadmap = async (req, res) => {
   if (!isVerifiedAndActive) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: UserMessageErrors.errorEmailNotValidated,
       body: {},
     });
   }
 
   try {
-    const create = await CreateRoadmap(user.id, title, description);
+    const data = await CreateRoadmap(user.id, title, description);
 
     return res.status(201).json({
       statusCode: 201,
-      message: sucessMessagesRoadmap.successfullyRegisteredRoadmap,
-      body: { create },
+      message: RoadmapMessageSuccesses.successfulInRegisteringRoadmap,
+      body: { data },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: RoadmapMessageErrors.errorRegisteringRoadmap,
       body: {},
     });
   }

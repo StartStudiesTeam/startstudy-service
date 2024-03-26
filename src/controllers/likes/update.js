@@ -1,7 +1,7 @@
-const errorMessages = require("../../constants/codeMessages/errorMessages");
+const LikeMessageErrors = require("../../constants/Likes/errors");
+const LikeMessageSuccess = require("../../constants/Likes/successes");
 const { currentTime } = require("../../utils/date/date");
 const { UpgradeLike, GetLikeById } = require("../../models/Like");
-const sucessMessagesLikes = require("../../constants/codeMessages/sucessMessagesLikes");
 
 const updateLike = async (req, res) => {
   const { id, userId } = req.body;
@@ -12,21 +12,21 @@ const updateLike = async (req, res) => {
     if (!findLike) {
       return res.status(404).json({
         statusCode: 404,
-        message: errorMessages.errorProcessingThisRequest,
+        message: LikeMessageErrors.errorUpdatingLike,
         body: {},
       });
     }
-    const likes = await UpgradeLike(id, userId, currentTime);
+    const data = await UpgradeLike(id, userId, currentTime);
 
     return res.status(200).json({
       statusCode: 200,
-      message: sucessMessagesLikes.updateLike,
-      body: { likes },
+      message: LikeMessageSuccess.successUpdatingLike,
+      body: { data },
     });
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
-      message: errorMessages.errorProcessingThisRequest,
+      message: LikeMessageErrors.errorUpdatingLike,
       body: {},
     });
   }
