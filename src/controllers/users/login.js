@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const UserMessageErrors = require("../../constants/Users/errors");
 const UserMessageSuccesseses = require("../../constants/Users/successes");
 const { CreateRefresh } = require("../../models/Refresh.js");
@@ -51,6 +52,7 @@ const loginUser = async (req, res) => {
       body: { data, accessToken, refreshToken },
     });
   } catch (error) {
+    console.log(error);
     return res.status(400).json({
       statusCode: 400,
       message: UserMessageErrors.userLoginError,
