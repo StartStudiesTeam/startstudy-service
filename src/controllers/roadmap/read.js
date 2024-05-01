@@ -1,7 +1,9 @@
-const prisma = require("../../database/prisma");
 const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
 const RoadmapMessageSuccesses = require("../../constants/Roadmaps/successes");
-const { GetRoadmapById } = require("../../models/Roadmap");
+const {
+  GetRoadmapById,
+  GetContentRoadmapById,
+} = require("../../models/Roadmap");
 
 const readRoadmap = async (req, res) => {
   const { roadmapId } = req.body;
@@ -17,47 +19,12 @@ const readRoadmap = async (req, res) => {
       });
     }
 
-    const request = await prisma.$transaction(async () => {
-      const video = await prisma.videosRoadmap.findFirst({
-        where: {
-          roadmapId,
-          deletedAt: null,
-        },
-      });
+    const data = await GetContentRoadmapById(roadmapId);
 
-      const comment = await prisma.comments.findMany({
-        where: {
-          roadmapId,
-          deletedAt: null,
-        },
-      });
-
-      const commentsComments = await prisma.commentsComments.findMany({
-        where: {
-          commentsId: comment.id,
-          deletedAt: null,
-        },
-      });
-
-      const likes = await prisma.likes.count({
-        where: {
-          roadmapId,
-          deletedAt: null,
-        },
-      });
-
-      const bookmark = await prisma.bookmarks.findMany({
-        where: {
-          roadmapId,
-          deletedAt: null,
-        },
-      });
-
-      return res.status(200).json({
-        statusCode: 200,
-        message: RoadmapMessageSuccesses.successReadRoadmap,
-        body: { video, comment, commentsComments, likes, bookmark },
-      });
+    return res.status(200).json({
+      statusCode: 200,
+      message: RoadmapMessageSuccesses.successReadRoadmap,
+      body: { data },
     });
   } catch (error) {
     return res.status(400).json({
