@@ -1,10 +1,18 @@
 const joi = require("joi");
 
+const regexMail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
 const schemaRoadmap = joi.object({
   id: joi.string().empty().min(10).messages({
     "string.empty": "O campo id não pode está vazio!",
     "string.base": "O campo id precisa ser do tipo String!",
     "string.min": "O campo id precisa ter no mínimo 10 caracteres.",
+  }),
+
+  roadmapId: joi.string().empty().min(10).messages({
+    "string.empty": "O campo Roadmap Id não pode está vazio!",
+    "string.base": "O campo Roadmap Id precisa ser do tipo String!",
+    "string.min": "O campo Roadmap Id precisa ter no mínimo 10 caracteres.",
   }),
 
   title: joi.string().empty().min(3).required().messages({
@@ -17,6 +25,14 @@ const schemaRoadmap = joi.object({
   description: joi.string().empty().messages({
     "string.empty": "O campo description não pode está vazio!",
     "string.base": "O campo description precisa ser do tipo String!",
+  }),
+
+  email: joi.string().email().regex(regexMail).required().messages({
+    "any.required": "O campo email é obrigatório!",
+    "string.empty": "O campo email não pode está vazio!",
+    "string.email": "O campo email precisa está em um formato válido!",
+    "string.base": "O campo email precisa ser do tipo String!",
+    "string.pattern.base": "O campo email precisa ser minúsculas",
   }),
 });
 
