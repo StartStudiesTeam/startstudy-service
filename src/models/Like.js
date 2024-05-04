@@ -66,22 +66,10 @@ const DeleteLike = async (id, time) => {
   return like;
 };
 
-const CountLike = async (videoId, roadmapId) => {
-  const where = {};
-  if (videoId) where.videoId = videoId;
-  if (roadmapId) where.roadmapId = roadmapId;
-
-  const like = await prisma.likes.count({
-    where,
-  });
-  return like;
-};
-
 module.exports = {
   GetLikeById,
   CheckUserAndVideoLikeFields,
   CreateLike,
   UpgradeLike,
   DeleteLike,
-  CountLike,
 };
