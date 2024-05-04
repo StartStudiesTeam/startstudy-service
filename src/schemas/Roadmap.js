@@ -27,12 +27,11 @@ const schemaRoadmap = joi.object({
     "string.base": "O campo description precisa ser do tipo String!",
   }),
 
-  email: joi.string().email().regex(regexMail).required().messages({
-    "any.required": "O campo email é obrigatório!",
-    "string.empty": "O campo email não pode está vazio!",
-    "string.email": "O campo email precisa está em um formato válido!",
-    "string.base": "O campo email precisa ser do tipo String!",
-    "string.pattern.base": "O campo email precisa ser minúsculas",
+  email: joi.string().email().regex(regexMail).messages({
+    "string.empty": "O email não pode está vazio!",
+    "string.email": "O email precisa está em um formato válido!",
+    "string.base": "O email precisa ser do tipo String!",
+    "string.pattern.base": "O email precisa ser letras minúsculas",
   }),
 });
 
