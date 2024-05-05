@@ -14,6 +14,7 @@ const Comment = require("../schemas/Comments");
 const Like = require("../schemas/Likes");
 const Video = require("../schemas/Videos");
 const Tag = require("../schemas/Tags");
+const Refresh = require("../schemas/Refresh");
 
 const registerUser = require("../controllers/users/register");
 const loginUser = require("../controllers/users/login");
@@ -58,7 +59,7 @@ route.post("/signin", middlewareSchema(Login), loginUser);
 route.post("/mailcheck", middlewareSchema(MailCheck), mailCheck);
 
 route.patch("/codetoken", middlewareSchema(CodeToken), checkTokenValidity);
-route.post("/refreshtoken", refreshTokenUser);
+route.post("/refreshtoken", middlewareSchema(Refresh), refreshTokenUser);
 
 route.use(authenticationUser);
 
