@@ -2,27 +2,27 @@ const joi = require("joi");
 
 const schemaVideos = joi.object({
   id: joi.string().empty().min(10).messages({
-    "string.empty": "O campo id não pode está vazio!",
-    "string.base": "O campo id precisa ser do tipo String!",
-    "string.min": "O campo id precisa ter no mínimo 10 caracteres.",
+    "string.empty": "O id não pode está vazio!",
+    "string.base": "O id precisa ser do tipo String!",
+    "string.min": "O id precisa ter no mínimo 10 caracteres.",
   }),
 
-  title: joi.string().empty().min(3).required().messages({
-    "any.required": "O campo title é obrigatório!",
-    "string.empty": "O campo title não pode está vazio!",
-    "string.base": "O campo title precisa ser do tipo String!",
-    "string.min": "O campo title precisa ter no mínimo 3 caracteres.",
+  title: joi.string().empty().min(4).required().messages({
+    "any.required": "O título é obrigatório!",
+    "string.empty": "O título não pode está vazio!",
+    "string.base": "O título precisa ser do tipo String!",
+    "string.min": "O título precisa ter no mínimo 4 caracteres.",
   }),
 
   video: joi.string().empty().required().messages({
-    "any.required": "O campo video é obrigatório!",
-    "string.empty": "O campo video não pode está vazio!",
-    "string.base": "O campo video precisa ser do tipo String!",
+    "any.required": "O video é obrigatório!",
+    "string.empty": "O video não pode está vazio!",
+    "string.base": "O video precisa ser do tipo String!",
   }),
 
   description: joi.string().empty().messages({
-    "string.empty": "O campo description não pode está vazio!",
-    "string.base": "O campo description precisa ser do tipo String!",
+    "string.empty": "A descrição não pode está vazia!",
+    "string.base": "A descrição precisa ser do tipo String!",
   }),
 });
 
