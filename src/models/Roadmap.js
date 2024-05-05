@@ -30,6 +30,9 @@ const GetContentRoadmapById = async (roadmapId) => {
         },
       },
       VideosRoadmap: {
+        where: {
+          deletedAt: null,
+        },
         select: {
           id: true,
           roadmapId: true,
