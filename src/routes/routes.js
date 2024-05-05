@@ -8,6 +8,12 @@ const Login = require("../schemas/Login");
 const MailCheck = require("../schemas/Mail");
 const NewPassword = require("../schemas/NewPassword");
 const CodeToken = require("../schemas/Token");
+const Roadmap = require("../schemas/Roadmap");
+const Bookmark = require("../schemas/Bookmark");
+const Comment = require("../schemas/Comments");
+const Like = require("../schemas/Likes");
+const Video = require("../schemas/Videos");
+const Tag = require("../schemas/Tags");
 
 const registerUser = require("../controllers/users/register");
 const loginUser = require("../controllers/users/login");
@@ -57,33 +63,33 @@ route.post("/refreshtoken", refreshTokenUser);
 route.use(authenticationUser);
 
 route.put("/updateuser", updateUser);
-route.delete("/deleteuser", deleteUser);
+route.delete("/deleteuser", middlewareSchema(Auth), deleteUser);
 route.patch("/newpassword", middlewareSchema(NewPassword), newPassword);
 
-route.get("/roadmap", readRoadmap);
-route.post("/roadmap", createdRoadmap);
-route.put("/roadmap", updateRoadmap);
-route.delete("/roadmap", deleteRoadmap);
+route.get("/roadmap", middlewareSchema(Roadmap), readRoadmap);
+route.post("/roadmap", middlewareSchema(Roadmap), createdRoadmap);
+route.put("/roadmap", middlewareSchema(Roadmap), updateRoadmap);
+route.delete("/roadmap", middlewareSchema(Roadmap), deleteRoadmap);
 
-route.post("/tags", createTag);
-route.put("/tags", updateTag);
-route.delete("/tags", deleteTag);
+route.post("/tags", middlewareSchema(Tag), createTag);
+route.put("/tags", middlewareSchema(Tag), updateTag);
+route.delete("/tags", middlewareSchema(Tag), deleteTag);
 
-route.get("/videos", readVideo);
-route.post("/videos", createVideos);
-route.put("/videos", updateVideos);
-route.delete("/videos", deleteVideo);
+route.get("/videos", middlewareSchema(Video), readVideo);
+route.post("/videos", middlewareSchema(Video), createVideos);
+route.put("/videos", middlewareSchema(Video), updateVideos);
+route.delete("/videos", middlewareSchema(Video), deleteVideo);
 
-route.post("/likes", createLike);
-route.put("/likes", updateLike);
-route.delete("/likes", deleteLike);
+route.post("/likes", middlewareSchema(Like), createLike);
+route.put("/likes", middlewareSchema(Like), updateLike);
+route.delete("/likes", middlewareSchema(Like), deleteLike);
 
-route.post("/bookmarks", createBookmark);
-route.put("/bookmarks", updateBookmark);
-route.delete("/bookmarks", deleteBookmark);
+route.post("/bookmarks", middlewareSchema(Bookmark), createBookmark);
+route.put("/bookmarks", middlewareSchema(Bookmark), updateBookmark);
+route.delete("/bookmarks", middlewareSchema(Bookmark), deleteBookmark);
 
-route.post("/comments", createComments);
-route.put("/comments", updateComments);
-route.delete("/comments", deleteComments);
+route.post("/comments", middlewareSchema(Comment), createComments);
+route.put("/comments", middlewareSchema(Comment), updateComments);
+route.delete("/comments", middlewareSchema(Comment), deleteComments);
 
 module.exports = route;
