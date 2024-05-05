@@ -1,7 +1,6 @@
-const prisma = require("../../database/prisma");
 const VideoMessageErrors = require("../../constants/Videos/errors");
 const VideoMessageSuccess = require("../../constants/Videos/successes");
-const { GetVideoById } = require("../../models/Video");
+const { GetVideoById, DeleteVideo } = require("../../models/Video");
 const { currentTime } = require("../../utils/date/date");
 
 const deleteVideo = async (req, res) => {
@@ -18,27 +17,7 @@ const deleteVideo = async (req, res) => {
       });
     }
 
-    const video = await prisma.$transaction(async () => {
-      const request = await prisma.videosRoadmap.updateMany({
-        where: {
-          videoId: id,
-        },
-        data: {
-          deletedAt: currentTime,
-        },
-      });
-
-      await prisma.videos.update({
-        where: {
-          id,
-        },
-        data: {
-          deletedAt: currentTime,
-        },
-      });
-
-      return request;
-    });
+    const video = await DeleteVideo(id, currentTime);
 
     return res.status(204).json({
       statusCode: 204,

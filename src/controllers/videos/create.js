@@ -1,12 +1,11 @@
-const prisma = require("../../database/prisma");
 const VideoMessageErrors = require("../../constants/Videos/errors");
 const VideoMessageSuccess = require("../../constants/Videos/successes");
 const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
 const { GetRoadmapById } = require("../../models/Roadmap");
-const { GetUserByMail } = require("../../models/User");
+const { CreateVideo } = require("../../models/Video");
 
 const createVideos = async (req, res) => {
-  const { roadmapId, email, title, description, video, amountLike } = req.body;
+  const { roadmapId, title, description, video } = req.body;
 
   try {
     const findRoadmap = await GetRoadmapById(roadmapId);
@@ -19,35 +18,13 @@ const createVideos = async (req, res) => {
       });
     }
 
-    const user = await GetUserByMail(email);
-
-    const data = await prisma.$transaction(async () => {
-      const videos = await prisma.videos.create({
-        data: {
-          Users: {
-            connect: {
-              id: user.id,
-            },
-          },
-          title,
-          description,
-          video,
-          amountLike,
-        },
-      });
-
-      const videoId = videos.id;
-
-      await prisma.videosRoadmap.create({
-        data: {
-          roadmapId,
-          videoId,
-        },
-      });
-
-      const { updatedAt, deletedAt: _, ...response } = videos;
-      return response;
-    });
+    const data = await CreateVideo(
+      findRoadmap.userId,
+      title,
+      description,
+      video,
+      findRoadmap.id
+    );
 
     return res.status(201).json({
       statusCode: 201,
