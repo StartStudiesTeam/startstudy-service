@@ -15,7 +15,7 @@ const schemaRoadmap = joi.object({
     "string.min": "O campo Roadmap Id precisa ter no mínimo 10 caracteres.",
   }),
 
-  title: joi.string().empty().min(3).required().messages({
+  title: joi.string().empty().min(3).messages({
     "any.required": "O campo title é obrigatório!",
     "string.empty": "O campo title não pode está vazio!",
     "string.base": "O campo title precisa ser do tipo String!",
