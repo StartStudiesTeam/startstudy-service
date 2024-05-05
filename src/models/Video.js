@@ -10,6 +10,33 @@ const GetVideoById = async (id) => {
   return response;
 };
 
+const CreateVideo = async (id, title, description, video, roadmapId) => {
+  const videos = await prisma.videos.create({
+    data: {
+      Users: {
+        connect: {
+          id,
+        },
+      },
+      title,
+      description,
+      video,
+    },
+  });
+
+  const videoId = videos.id;
+
+  await prisma.videosRoadmap.create({
+    data: {
+      roadmapId,
+      videoId,
+    },
+  });
+
+  const { updatedAt, deletedAt, amount_like: _, ...response } = videos;
+  return response;
+};
+
 const GetContentRelatedVideo = async (videoId) => {
   const video = await prisma.videos.findFirst({
     where: {
@@ -60,7 +87,7 @@ const UpdateFieldVideosRoadmap = async (id, time) => {
   return response;
 };
 
-const UpdateAllVideoData = async (id, title, desc, midia, amountLike, time) => {
+const UpdateAllVideoData = async (id, title, desc, midia, time) => {
   const request = await prisma.videos.update({
     where: {
       id,
@@ -69,7 +96,6 @@ const UpdateAllVideoData = async (id, title, desc, midia, amountLike, time) => {
       title,
       description: desc,
       video: midia,
-      amountLike,
       updatedAt: time,
     },
   });
@@ -78,9 +104,33 @@ const UpdateAllVideoData = async (id, title, desc, midia, amountLike, time) => {
   return response;
 };
 
+const DeleteVideo = async (id, time) => {
+  const request = await prisma.videosRoadmap.updateMany({
+    where: {
+      videoId: id,
+    },
+    data: {
+      deletedAt: time,
+    },
+  });
+
+  await prisma.videos.update({
+    where: {
+      id,
+    },
+    data: {
+      deletedAt: time,
+    },
+  });
+
+  return request;
+};
+
 module.exports = {
   GetVideoById,
+  CreateVideo,
   GetContentRelatedVideo,
   UpdateFieldVideosRoadmap,
   UpdateAllVideoData,
+  DeleteVideo,
 };
