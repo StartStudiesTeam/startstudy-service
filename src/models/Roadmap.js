@@ -72,8 +72,16 @@ const GetContentRoadmapById = async (roadmapId) => {
       },
       _count: {
         select: {
-          Comments: true,
-          Likes: true,
+          Likes: {
+            where: {
+              likes: true,
+            },
+          },
+          Comments: {
+            where: {
+              deletedAt: null,
+            },
+          },
         },
       },
     },
