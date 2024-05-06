@@ -8,7 +8,7 @@ const {
 } = require("../../models/Video");
 
 const updateVideos = async (req, res) => {
-  const { id, title, description, video, amountLike } = req.body;
+  const { id, title, description, video } = req.body;
 
   try {
     const findVideo = await GetVideoById(id);
@@ -27,7 +27,6 @@ const updateVideos = async (req, res) => {
       title,
       description,
       video,
-      amountLike,
       currentTime
     );
 

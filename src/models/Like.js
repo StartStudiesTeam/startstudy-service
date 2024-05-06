@@ -10,20 +10,24 @@ const GetLikeById = async (id) => {
   return like;
 };
 
-const CreateLike = async (
-  userId,
-  videoId,
-  roadmapId,
-  commentsId,
-  commentsCommentsId
-) => {
+const CheckUserAndVideoLikeFields = async (userId, videoId, roadmapId) => {
+  const request = await prisma.likes.findFirst({
+    where: {
+      userId: userId,
+      videoId,
+      roadmapId,
+    },
+  });
+
+  return request;
+};
+
+const CreateLike = async (userId, videoId, roadmapId) => {
   const like = await prisma.likes.create({
     data: {
       userId,
       videoId,
       roadmapId,
-      commentsId,
-      commentsCommentsId,
       likes: true,
     },
   });
@@ -48,6 +52,19 @@ const UpgradeLike = async (id, userId, time) => {
   return response;
 };
 
+const LikeAgain = async (likeId, time, status) => {
+  const like = await prisma.likes.update({
+    where: {
+      id: likeId,
+    },
+    data: {
+      updatedAt: time,
+      likes: status,
+    },
+  });
+  return like;
+};
+
 const DeleteLike = async (id, time) => {
   const like = await prisma.likes.update({
     where: {
@@ -61,27 +78,11 @@ const DeleteLike = async (id, time) => {
   return like;
 };
 
-const CountLike = async (
-  videoId,
-  roadmapId,
-  commentsId,
-  commentsCommentsId
-) => {
-  const where = {};
-  if (videoId) where.videoId = videoId;
-  if (roadmapId) where.roadmapId = roadmapId;
-  if (commentsId) where.commentsId = commentsId;
-  if (commentsCommentsId) where.commentsCommentsId = commentsCommentsId;
-  const like = await prisma.likes.count({
-    where,
-  });
-  return like;
-};
-
 module.exports = {
   GetLikeById,
+  CheckUserAndVideoLikeFields,
   CreateLike,
   UpgradeLike,
+  LikeAgain,
   DeleteLike,
-  CountLike,
 };

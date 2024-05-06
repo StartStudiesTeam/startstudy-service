@@ -1,19 +1,30 @@
 const LikeMessageErrors = require("../../constants/Likes/errors");
 const LikeMessageSuccess = require("../../constants/Likes/successes");
-const { CreateLike } = require("../../models/Like");
+const {
+  CreateLike,
+  CheckUserAndVideoLikeFields,
+  LikeAgain,
+} = require("../../models/Like");
+const { currentTime } = require("../../utils/date/date");
 
 const createLike = async (req, res) => {
-  const { userId, videoId, roadmapId, commentsId, commentsCommentsId } =
-    req.body;
+  const { userId, videoId, roadmapId } = req.body;
 
   try {
-    const data = await CreateLike(
+    const alreadyLiked = await CheckUserAndVideoLikeFields(
       userId,
       videoId,
-      roadmapId,
-      commentsId,
-      commentsCommentsId
+      roadmapId
     );
+
+    if (alreadyLiked) {
+      const newLikeValue = !alreadyLiked.likes;
+      await LikeAgain(alreadyLiked.id, currentTime, newLikeValue);
+
+      return res.status(204).send();
+    }
+
+    const data = await CreateLike(userId, videoId, roadmapId);
 
     return res.status(201).json({
       statusCode: 201,

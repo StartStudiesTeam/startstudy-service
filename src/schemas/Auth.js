@@ -4,6 +4,11 @@ const regexMail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 const regexSpace = /^\S+$/;
 
 const schemaAuth = joi.object({
+  id: joi.string().empty().min(10).messages({
+    "string.empty": "O campo id não pode está vazio!",
+    "string.base": "O campo id precisa ser do tipo String!",
+    "string.min": "O campo id precisa ter no mínimo 10 caracteres.",
+  }),
   name: joi.string().empty().min(2).required().messages({
     "any.required": "O campo nome é obrigatório!",
     "string.empty": "O campo nome não pode está vazio!",
