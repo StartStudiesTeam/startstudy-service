@@ -16,7 +16,6 @@ const CheckUserAndVideoLikeFields = async (userId, videoId, roadmapId) => {
       userId: userId,
       videoId,
       roadmapId,
-      likes: true,
     },
   });
 
@@ -53,6 +52,19 @@ const UpgradeLike = async (id, userId, time) => {
   return response;
 };
 
+const LikeAgain = async (likeId, time, status) => {
+  const like = await prisma.likes.update({
+    where: {
+      id: likeId,
+    },
+    data: {
+      updatedAt: time,
+      likes: status,
+    },
+  });
+  return like;
+};
+
 const DeleteLike = async (id, time) => {
   const like = await prisma.likes.update({
     where: {
@@ -71,5 +83,6 @@ module.exports = {
   CheckUserAndVideoLikeFields,
   CreateLike,
   UpgradeLike,
+  LikeAgain,
   DeleteLike,
 };
