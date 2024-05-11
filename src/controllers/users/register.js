@@ -1,12 +1,16 @@
 const bcrypt = require("bcrypt");
-const prisma = require("../../database/prisma");
-const UserMessageSuccesses = require("../../constants/Users/successes");
-const UserMessageErrors = require("../../constants/Users/errors");
+const MessageSuccesses = require("../../constants/Users/successes");
+const MessageErrors = require("../../constants/Users/errors");
 const CodeToken = require("../../utils/user/token");
 const SendRegisteredUserEmail = require("../../service/mail/Mails");
-const { GetUserByMail, GetUserByNick } = require("../../models/User");
+const {
+  GetUserByMail,
+  GetUserByNick,
+  CreateUser,
+} = require("../../models/User");
 const { CreateAccessToken } = require("../../utils/authenticate/AccessToken");
 const { CreateRefresh } = require("../../models/Refresh");
+const errorMiddleware = require("../../utils/error/apiError");
 
 const registerUser = async (req, res) => {
   const { name, nick_name, email, password, phone_number } = req.body;
@@ -14,61 +18,46 @@ const registerUser = async (req, res) => {
   try {
     const passEncrypted = await bcrypt.hash(password, 10);
 
-    if (await GetUserByMail(email)) {
-      return res.status(400).json({
-        message: UserMessageErrors.existingUserError,
-        body: {},
-      });
-    }
+    const isValidMail = await GetUserByMail(email);
 
-    if (await GetUserByNick(nick_name)) {
-      return res
-        .status(400)
-        .json({ message: UserMessageErrors.invalidNicknameError, body: {} });
-    }
+    const errorMail = errorMiddleware(
+      isValidMail,
+      MessageErrors.existingUserError,
+      400
+    );
 
-    const user = await prisma.$transaction(async () => {
-      const user = await prisma.users.create({
-        data: {
-          name,
-          email,
-          password: passEncrypted,
-          nickName: nick_name,
-          phoneNumber: phone_number,
-        },
-      });
+    const isValidNickName = await GetUserByNick(nick_name);
 
-      const userId = user.id;
+    const errorNickName = errorMiddleware(
+      isValidNickName,
+      MessageErrors.invalidNicknameError,
+      400
+    );
 
-      await prisma.codeToken.create({
-        data: {
-          Users: {
-            connect: {
-              id: userId,
-            },
-          },
-          codeToken: CodeToken.code_token,
-        },
-      });
+    const user = {
+      name,
+      email,
+      passEncrypted,
+      nick_name,
+      phone_number,
+    };
 
-      const { updatedAt, deletedAt, password: _, ...response } = user;
-      return response;
-    });
+    const data = await CreateUser(user, CodeToken.code_token);
 
     SendRegisteredUserEmail(name, email, CodeToken.code_token);
 
-    const accessToken = await CreateAccessToken(user.id);
-    const refreshToken = await CreateRefresh(user.id);
+    const accessToken = await CreateAccessToken(data.id);
+    const refreshToken = await CreateRefresh(data.id);
 
     return res.status(201).json({
       statusCode: 201,
-      message: UserMessageSuccesses.successInRegisteringUser,
-      body: { user, accessToken, refreshToken },
+      message: MessageSuccesses.successInRegisteringUser,
+      body: { data, accessToken, refreshToken },
     });
   } catch (error) {
-    return res.status(400).json({
-      statusCode: 400,
-      message: UserMessageErrors.errorWhenRegisteringUser,
+    return res.status(error.statusCode).json({
+      statusCode: error.statusCode,
+      message: error.message,
       body: {},
     });
   }

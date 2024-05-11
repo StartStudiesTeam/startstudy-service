@@ -40,6 +40,36 @@ const GetFieldDeletedByUser = async (id) => {
   return find;
 };
 
+const CreateUser = async (userData, codeToken) => {
+  const user = await prisma.$transaction(async () => {
+    const createdUser = await prisma.users.create({
+      data: {
+        name: userData.name,
+        email: userData.email,
+        password: userData.passEncrypted,
+        nickName: userData.nick_name,
+        phoneNumber: userData.phone_number,
+      },
+    });
+
+    const userId = createdUser.id;
+
+    await prisma.codeToken.create({
+      data: {
+        Users: {
+          connect: {
+            id: userId,
+          },
+        },
+        codeToken,
+      },
+    });
+    const { updatedAt, deletedAt, password: _, ...response } = createdUser;
+    return response;
+  });
+  return user;
+};
+
 const UpdateMainUserData = async (id, name, email, phoneNumber, time) => {
   const request = await prisma.users.update({
     where: {
@@ -88,6 +118,7 @@ module.exports = {
   GetUserByNick,
   GetUserByIdWithDeletedField,
   GetFieldDeletedByUser,
+  CreateUser,
   UpdateMainUserData,
   UpdateNewPassword,
   DeleteUserById,
