@@ -51,6 +51,7 @@ const deleteBookmark = require("../controllers/bookmarks/delete");
 const createTag = require("../controllers/tags/create");
 const updateTag = require("../controllers/tags/update");
 const deleteTag = require("../controllers/tags/delete");
+const getAllRoadmaps = require("../controllers/roadmap/getAllRoadmaps");
 
 const route = express();
 
@@ -68,6 +69,7 @@ route.delete("/deleteuser", middlewareSchema(Auth), deleteUser);
 route.patch("/newpassword", middlewareSchema(NewPassword), newPassword);
 
 route.get("/roadmap", middlewareSchema(Roadmap), readRoadmap);
+route.get("/roadmaps", getAllRoadmaps);
 route.post("/roadmap", middlewareSchema(Roadmap), createdRoadmap);
 route.put("/roadmap", middlewareSchema(Roadmap), updateRoadmap);
 route.delete("/roadmap", middlewareSchema(Roadmap), deleteRoadmap);
