@@ -10,6 +10,108 @@ const GetRoadmapById = async (id) => {
   return roadmap;
 };
 
+const GetAllRoadmaps = async () => {
+  const roadmaps = await prisma.roadmap.findMany({
+    where: {
+      deletedAt: null,
+    },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      createdAt: true,
+      Users: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          nickName: true,
+        },
+      },
+      VideosRoadmap: {
+        where: {
+          deletedAt: null,
+        },
+        select: {
+          id: true,
+          roadmapId: true,
+          Videos: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              createdAt: true,
+              video: true,
+            },
+          },
+        },
+      },
+      Tags: {
+        select: {
+          id: true,
+          tag: true,
+        },
+      },
+      Comments: {
+        select: {
+          id: true,
+          comments: true,
+          Users: {
+            select: {
+              nickName: true,
+              name: true,
+            },
+          },
+        },
+      },
+      Bookmarks: {
+        select: {
+          id: true,
+        },
+      },
+      _count: {
+        select: {
+          Likes: {
+            where: {
+              likes: true,
+            },
+          },
+          Comments: {
+            where: {
+              deletedAt: null,
+            },
+          },
+        },
+      },
+    },
+  });
+  return roadmaps;
+};
+
+const GetRoadmapByFilter = async ({ title, description, name, nickname }) => {
+  const roadmap = await prisma.roadmap.findMany({
+    where: {
+      ...(title && { title: { contains: title, mode: "insensitive" } }),
+      ...(description && {
+        description: { contains: description, mode: "insensitive" },
+      }),
+      ...((name || nickname) && {
+        Users: {
+          ...(name && { name: { contains: name, mode: "insensitive" } }),
+          ...(nickname && {
+            nickName: { contains: nickname, mode: "insensitive" },
+          }),
+        },
+      }),
+    },
+    include: {
+      Users: true,
+    },
+  });
+
+  return roadmap;
+};
+
 const GetContentRoadmapById = async (roadmapId) => {
   const roadmap = await prisma.roadmap.findFirst({
     where: {
@@ -135,6 +237,8 @@ const DeletedRoadmapById = async (id, time) => {
 
 module.exports = {
   GetRoadmapById,
+  GetAllRoadmaps,
+  GetRoadmapByFilter,
   GetContentRoadmapById,
   CreateRoadmap,
   UpdateRoadmap,
