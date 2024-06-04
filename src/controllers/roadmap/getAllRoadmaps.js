@@ -1,51 +1,33 @@
 const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
 const RoadmapMessageSuccesses = require("../../constants/Roadmaps/successes");
-
 const { GetAllRoadmaps, GetRoadmapByFilter } = require("../../models/Roadmap");
+const filterSearchParams = require("../../utils/roadmap/filterSearchParams");
 
 const getAllRoadmaps = async (req, res) => {
-  const { title, description, name, nickname } = req.query;
-
   try {
-    const searchParams = { title, description, name, nickname };
-    const hasSearchParams = Object.values(searchParams).some(
-      (el) => el !== undefined
-    );
+    const searchParams = filterSearchParams({
+      title: req.query.title,
+      description: req.query.description,
+      name: req.query.name,
+      nickname: req.query.nickname,
+    });
 
-    if (hasSearchParams) {
-      const filters = Object.fromEntries(
-        Object.entries(searchParams).filter(([_, value]) => value !== undefined)
-      );
+    const roadmaps = await GetRoadmapByFilter(searchParams);
 
-      const getRoadmapByFilter = await GetRoadmapByFilter(filters);
-
-      if (getRoadmapByFilter.length > 0) {
-        const roadmapsWithoutSensitiveData = getRoadmapByFilter.map(
-          (roadmap) => ({
-            ...roadmap,
-            Users: {
-              id: roadmap.Users.id,
-              name: roadmap.Users.name,
-              email: roadmap.Users.email,
-              nickName: roadmap.Users.nickName,
-              createdAt: roadmap.Users.createdAt,
-            },
-          })
-        );
-
-        return res.status(200).json({
-          statusCode: 200,
-          message: RoadmapMessageSuccesses.successReadRoadmap,
-          body: { data: roadmapsWithoutSensitiveData },
-        });
-      }
+    if (roadmaps.length > 0) {
+      return res.status(200).json({
+        statusCode: 200,
+        message: RoadmapMessageSuccesses.successReadRoadmap,
+        body: { data: roadmaps },
+      });
     }
-    const data = await GetAllRoadmaps();
+
+    const allRoadmaps = await GetAllRoadmaps();
 
     return res.status(200).json({
       statusCode: 200,
       message: RoadmapMessageSuccesses.successReadRoadmap,
-      body: { data },
+      body: { data: allRoadmaps },
     });
   } catch (error) {
     return res.status(400).json({
