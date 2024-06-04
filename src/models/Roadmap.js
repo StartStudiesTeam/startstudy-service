@@ -95,17 +95,31 @@ const GetRoadmapByFilter = async ({ title, description, name, nickname }) => {
       ...(description && {
         description: { contains: description, mode: "insensitive" },
       }),
-      ...((name || nickname) && {
-        Users: {
-          ...(name && { name: { contains: name, mode: "insensitive" } }),
-          ...(nickname && {
-            nickName: { contains: nickname, mode: "insensitive" },
-          }),
-        },
-      }),
+      ...(name || nickname
+        ? {
+            Users: {
+              ...(name && { name: { contains: name, mode: "insensitive" } }),
+              ...(nickname && {
+                nickName: { contains: nickname, mode: "insensitive" },
+              }),
+            },
+          }
+        : {}),
     },
-    include: {
-      Users: true,
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      createdAt: true,
+      Users: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          nickName: true,
+          createdAt: true,
+        },
+      },
     },
   });
 
