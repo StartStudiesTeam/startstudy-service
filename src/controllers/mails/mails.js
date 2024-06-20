@@ -33,14 +33,6 @@ const mailCheck = async (req, res) => {
       updatedCodeToken.codeToken
     );
 
-    if (responseMail !== 201) {
-      return res.status(400).json({
-        statusCode: 400,
-        message: "Não foi possível enviar o email, tente novamente mais tarde.",
-        body: {},
-      });
-    }
-
     return res.status(201).json({
       statusCode: responseMail,
       message: UserMessageSuccesses.successfulSendingEmail,
