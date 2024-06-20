@@ -1,4 +1,3 @@
-const brevo = require("@getbrevo/brevo");
 const compileHtml = require("../../utils/mail/compile");
 
 const SendRegisteredUserEmail = async (name, email, codeToken) => {
@@ -7,35 +6,52 @@ const SendRegisteredUserEmail = async (name, email, codeToken) => {
     codeToken,
   });
 
-  let apiInstanceMail = new brevo.TransactionalEmailsApi();
+  const brevoApiEndpoint = "https://api.brevo.com/v3/smtp/email";
+  const brevoApiKey = process.env.API_KEY;
 
-  let apiKey = apiInstanceMail.authentications["apiKey"];
-  apiKey.apiKey = process.env.EMAIL_PASS;
-
-  let sendSmtpEmail = new brevo.SendSmtpEmail();
-
-  sendSmtpEmail.subject = "Bem vindo(a) ao StartStudies!";
-  sendSmtpEmail.htmlContent = html;
-  sendSmtpEmail.sender = {
-    name: process.env.EMAIL_NAME,
-    email: process.env.EMAIL_FROM,
-  };
-
-  sendSmtpEmail.to = [{ email: email, name: name }];
-  sendSmtpEmail.replyTo = {
-    email: process.env.EMAIL_FROM,
-    name: process.env.EMAIL_NAME,
-  };
-
-  const responseSendMail = apiInstanceMail.sendTransacEmail(sendSmtpEmail).then(
-    function (data) {
-      return data.response.statusCode;
+  const emailData = {
+    sender: {
+      name: process.env.EMAIL_NAME,
+      email: process.env.EMAIL_FROM,
     },
-    function (error) {
-      return error;
+    to: [
+      {
+        email: email,
+      },
+    ],
+    subject: "Bem vindo(a) ao StartStudies!",
+    htmlContent: html,
+  };
+
+  if (brevoApiKey) {
+    try {
+      const response = await fetch(brevoApiEndpoint, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "api-key": brevoApiKey,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(emailData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message:
+          "Error sending email: " +
+          (error instanceof Error ? error.message : String(error)),
+      };
     }
-  );
-  return responseSendMail;
+  } else {
+    return {
+      success: false,
+      message: "No Brevo API key found",
+    };
+  }
 };
 
 module.exports = SendRegisteredUserEmail;
