@@ -14,12 +14,8 @@ const SendRegisteredUserEmail = async (name, email, codeToken) => {
       name: process.env.EMAIL_NAME,
       email: process.env.EMAIL_FROM,
     },
-    to: [
-      {
-        email: email,
-      },
-    ],
-    subject: "Bem vindo(a) ao StartStudies!",
+    to: [{ email: email }],
+    subject: process.env.EMAIL_SUBJECT_START,
     htmlContent: html,
   };
 
@@ -36,21 +32,11 @@ const SendRegisteredUserEmail = async (name, email, codeToken) => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error();
       }
     } catch (error) {
-      return {
-        success: false,
-        message:
-          "Error sending email: " +
-          (error instanceof Error ? error.message : String(error)),
-      };
+      return error;
     }
-  } else {
-    return {
-      success: false,
-      message: "No Brevo API key found",
-    };
   }
 };
 
