@@ -5,7 +5,7 @@ const userSuccesses = {
   successInDeletingUser: "Usuário deletado com sucesso!",
   successfulPasswordReset: "Senha redefinida com sucesso!",
   successfulSendingEmail:
-    "Email enviado, verifique sua caixa de entrada ou spam!",
+    "Email enviado! Verifique sua caixa de entrada ou spam!",
   successInVerifyingToken: "Sucesso ao verificar o token!",
 };
 
