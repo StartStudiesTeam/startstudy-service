@@ -13,8 +13,8 @@ const createdRoadmap = async (req, res) => {
   const user = await GetUserByMail(email);
 
   if (!user) {
-    return res.status(404).json({
-      statusCode: 404,
+    return res.status(401).json({
+      statusCode: 401,
       message: UserMessageErrors.invalidUserError,
       body: {},
     });
@@ -23,8 +23,8 @@ const createdRoadmap = async (req, res) => {
   const isVerifiedAndActive = await GetUserByIdWithDeletedField(user.id);
 
   if (!isVerifiedAndActive) {
-    return res.status(400).json({
-      statusCode: 400,
+    return res.status(401).json({
+      statusCode: 401,
       message: UserMessageErrors.errorEmailNotValidated,
       body: {},
     });

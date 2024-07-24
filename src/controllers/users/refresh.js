@@ -10,13 +10,16 @@ const { afterDate } = require("../../utils/date/date");
 
 const refreshTokenUser = async (req, res) => {
   const { refresh_token } = req.body;
+
   try {
     const validateRefresh = await GetRefresh(refresh_token);
 
     if (!validateRefresh) {
-      return res
-        .status(400)
-        .json({ message: UserMessageErrors.invalidRefreshTokeError, body: {} });
+      return res.status(401).json({
+        statusCode: 401,
+        message: UserMessageErrors.invalidRefreshTokeError,
+        body: {},
+      });
     }
 
     const verifyDateAccess = await afterDate(validateRefresh.expiresIn);
