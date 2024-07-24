@@ -20,17 +20,21 @@ const loginUser = async (req, res) => {
       : await GetUserByNick(nick_name);
 
     if (!user) {
-      return res
-        .status(401)
-        .json({ message: UserMessageErrors.invalidUserError, body: {} });
+      return res.status(401).json({
+        statusCode: 401,
+        message: UserMessageErrors.invalidUserError,
+        body: {},
+      });
     }
 
     const fieldDeleted = await GetFieldDeletedByUser(user.id);
 
     if (!fieldDeleted) {
-      return res
-        .status(400)
-        .json({ message: UserMessageErrors.invalidUserError, body: {} });
+      return res.status(400).json({
+        statusCode: 400,
+        message: UserMessageErrors.invalidUserError,
+        body: {},
+      });
     }
 
     const correctPass = await bcrypt.compare(password, user.password);
@@ -38,7 +42,11 @@ const loginUser = async (req, res) => {
     if (!correctPass) {
       return res
         .status(401)
-        .json({ message: UserMessageErrors.errorInvalidCredentials, body: {} });
+        .json({
+          statusCode: 401,
+          message: UserMessageErrors.errorInvalidCredentials,
+          body: {},
+        });
     }
 
     const accessToken = await CreateAccessToken(user.id);
@@ -52,7 +60,6 @@ const loginUser = async (req, res) => {
       body: { data, accessToken, refreshToken },
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({
       statusCode: 400,
       message: UserMessageErrors.userLoginError,

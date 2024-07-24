@@ -14,7 +14,9 @@ const mailCheck = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({
+        statusCode: 404,
         message: UserMessageErrors.invalidEmailError,
+        body: {},
       });
     }
 
