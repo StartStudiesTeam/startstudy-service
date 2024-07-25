@@ -127,7 +127,7 @@ const GetRoadmapByFilter = async ({ title, description, name, nickname }) => {
 };
 
 const GetContentRoadmapById = async (roadmapId) => {
-  const roadmap = await prisma.roadmap.findFirst({
+  const roadmap = await prisma.roadmap.findUnique({
     where: {
       id: roadmapId,
       deletedAt: null,
