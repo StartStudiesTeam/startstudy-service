@@ -16,9 +16,11 @@ const newPassword = async (req, res) => {
     const isVerifiedAndActive = await GetUserByIdWithDeletedField(user.id);
 
     if (!isVerifiedAndActive) {
-      return res
-        .status(400)
-        .json({ message: UserMessageErrors.errorEmailNotValidated, body: {} });
+      return res.status(401).json({
+        statusCode: 401,
+        message: UserMessageErrors.errorEmailNotValidated,
+        body: {},
+      });
     }
 
     const passEncrypted = await bcrypt.hash(password, 10);

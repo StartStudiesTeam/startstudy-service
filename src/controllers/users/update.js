@@ -32,7 +32,11 @@ const updateUser = async (req, res) => {
     if (isInvalidMailUser || isInvalidNickNameUser) {
       return res
         .status(400)
-        .json({ message: UserMessageErrors.existingUserError, body: {} });
+        .json({
+          statusCode: 400,
+          message: UserMessageErrors.existingUserError,
+          body: {},
+        });
     }
 
     const data = await UpdateMainUserData(

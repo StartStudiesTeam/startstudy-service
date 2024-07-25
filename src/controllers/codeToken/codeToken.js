@@ -16,15 +16,18 @@ const checkTokenValidity = async (req, res) => {
     const user = await GetTheMailAndCode(email, codeToken);
 
     if (!user) {
-      return res
-        .status(400)
-        .json({ message: UserMessageErrors.invalidTokenError, body: {} });
+      return res.status(401).json({
+        statusCode: 401,
+        message: UserMessageErrors.invalidTokenError,
+        body: {},
+      });
     }
 
     const fieldVerify = await GetConfirmationFieldByTokenUserId(user.id);
 
     if (!fieldVerify) {
       return res.status(200).json({
+        statusCode: 200,
         message: UserMessageErrors.errorUserHasAlreadyBeenValidated,
         body: {},
       });
@@ -34,9 +37,11 @@ const checkTokenValidity = async (req, res) => {
     const isAfterCurrentTime = await afterDate(user.createdAt);
 
     if (isAfterCurrentTime) {
-      return res
-        .status(400)
-        .json({ message: UserMessageErrors.tokenExpiredError, body: {} });
+      return res.status(400).json({
+        statusCode: 400,
+        message: UserMessageErrors.tokenExpiredError,
+        body: {},
+      });
     }
 
     const data = await UpdateVerifiedField(user.id, currentTime, true);

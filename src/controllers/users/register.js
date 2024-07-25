@@ -16,6 +16,7 @@ const registerUser = async (req, res) => {
 
     if (await GetUserByMail(email)) {
       return res.status(400).json({
+        statusCode: 400,
         message: UserMessageErrors.existingUserError,
         body: {},
       });
@@ -24,7 +25,11 @@ const registerUser = async (req, res) => {
     if (await GetUserByNick(nick_name)) {
       return res
         .status(400)
-        .json({ message: UserMessageErrors.invalidNicknameError, body: {} });
+        .json({
+          statusCode: 400,
+          message: UserMessageErrors.invalidNicknameError,
+          body: {},
+        });
     }
 
     const user = await prisma.$transaction(async () => {
