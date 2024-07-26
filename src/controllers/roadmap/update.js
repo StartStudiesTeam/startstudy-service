@@ -4,10 +4,10 @@ const { currentTime } = require("../..//utils/date/date");
 const { GetRoadmapById, UpdateRoadmap } = require("../../models/Roadmap");
 
 const updateRoadmap = async (req, res) => {
-  const { id, title, description } = req.body;
+  const { roadmapId, title, description } = req.body;
 
   try {
-    const findRoadmap = await GetRoadmapById(id);
+    const findRoadmap = await GetRoadmapById(roadmapId);
 
     if (!findRoadmap) {
       return res.status(404).json({
@@ -17,7 +17,12 @@ const updateRoadmap = async (req, res) => {
       });
     }
 
-    const data = await UpdateRoadmap(id, title, description, currentTime);
+    const data = await UpdateRoadmap(
+      roadmapId,
+      title,
+      description,
+      currentTime
+    );
 
     return res.status(200).json({
       statusCode: 200,
