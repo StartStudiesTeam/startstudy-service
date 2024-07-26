@@ -40,13 +40,11 @@ const loginUser = async (req, res) => {
     const correctPass = await bcrypt.compare(password, user.password);
 
     if (!correctPass) {
-      return res
-        .status(401)
-        .json({
-          statusCode: 401,
-          message: UserMessageErrors.errorInvalidCredentials,
-          body: {},
-        });
+      return res.status(401).json({
+        statusCode: 401,
+        message: UserMessageErrors.errorInvalidCredentials,
+        body: {},
+      });
     }
 
     const accessToken = await CreateAccessToken(user.id);
