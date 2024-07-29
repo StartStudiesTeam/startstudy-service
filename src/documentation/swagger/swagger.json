@@ -158,6 +158,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -185,6 +188,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -354,7 +360,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "email": {
+                "userId": {
                   "example": "any"
                 },
                 "title": {
@@ -376,9 +382,6 @@
           },
           "401": {
             "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       },
@@ -396,7 +399,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id": {
+                "roadmapId": {
                   "example": "any"
                 },
                 "title": {
@@ -438,7 +441,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id": {
+                "roadmapId": {
                   "example": "any"
                 }
               }
@@ -504,7 +507,7 @@
         }
       }
     },
-    "/tags": {
+    "/tag": {
       "post": {
         "description": "",
         "parameters": [
@@ -620,7 +623,7 @@
         }
       }
     },
-    "/videos": {
+    "/video": {
       "get": {
         "description": "",
         "parameters": [
@@ -772,7 +775,7 @@
         }
       }
     },
-    "/likes": {
+    "/like": {
       "post": {
         "description": "",
         "parameters": [
@@ -891,7 +894,7 @@
         }
       }
     },
-    "/bookmarks": {
+    "/bookmark": {
       "post": {
         "description": "",
         "parameters": [
@@ -1004,7 +1007,7 @@
         }
       }
     },
-    "/comments": {
+    "/comment": {
       "post": {
         "description": "",
         "parameters": [

@@ -4,10 +4,10 @@ const { GetRoadmapById, DeletedRoadmapById } = require("../../models/Roadmap");
 const { currentTime } = require("../../utils/date/date");
 
 const deleteRoadmap = async (req, res) => {
-  const { id } = req.body;
+  const { roadmapId } = req.body;
 
   try {
-    const findRoadmap = await GetRoadmapById(id);
+    const findRoadmap = await GetRoadmapById(roadmapId);
 
     if (!findRoadmap) {
       return res.status(404).json({
@@ -17,7 +17,7 @@ const deleteRoadmap = async (req, res) => {
       });
     }
 
-    const data = await DeletedRoadmapById(id, currentTime);
+    const data = await DeletedRoadmapById(roadmapId, currentTime);
 
     return res.status(204).json({
       statusCode: 204,

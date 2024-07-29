@@ -74,25 +74,25 @@ route.post("/roadmap", middlewareSchema(Roadmap), createdRoadmap);
 route.put("/roadmap", middlewareSchema(Roadmap), updateRoadmap);
 route.delete("/roadmap", middlewareSchema(Roadmap), deleteRoadmap);
 
-route.post("/tags", middlewareSchema(Tag), createTag);
-route.put("/tags", middlewareSchema(Tag), updateTag);
-route.delete("/tags", middlewareSchema(Tag), deleteTag);
+route.post("/tag", middlewareSchema(Tag), createTag);
+route.put("/tag", middlewareSchema(Tag), updateTag);
+route.delete("/tag", middlewareSchema(Tag), deleteTag);
 
-route.get("/videos", middlewareSchema(Video), readVideo);
-route.post("/videos", middlewareSchema(Video), createVideos);
-route.put("/videos", middlewareSchema(Video), updateVideos);
-route.delete("/videos", middlewareSchema(Video), deleteVideo);
+route.get("/video", middlewareSchema(Video), readVideo);
+route.post("/video", middlewareSchema(Video), createVideos);
+route.put("/video", middlewareSchema(Video), updateVideos);
+route.delete("/video", middlewareSchema(Video), deleteVideo);
 
-route.post("/likes", middlewareSchema(Like), createLike);
-route.put("/likes", middlewareSchema(Like), updateLike);
-route.delete("/likes", middlewareSchema(Like), deleteLike);
+route.post("/like", middlewareSchema(Like), createLike);
+route.put("/like", middlewareSchema(Like), updateLike);
+route.delete("/like", middlewareSchema(Like), deleteLike);
 
-route.post("/bookmarks", middlewareSchema(Bookmark), createBookmark);
-route.put("/bookmarks", middlewareSchema(Bookmark), updateBookmark);
-route.delete("/bookmarks", middlewareSchema(Bookmark), deleteBookmark);
+route.post("/bookmark", middlewareSchema(Bookmark), createBookmark);
+route.put("/bookmark", middlewareSchema(Bookmark), updateBookmark);
+route.delete("/bookmark", middlewareSchema(Bookmark), deleteBookmark);
 
-route.post("/comments", middlewareSchema(Comment), createComments);
-route.put("/comments", middlewareSchema(Comment), updateComments);
-route.delete("/comments", middlewareSchema(Comment), deleteComments);
+route.post("/comment", middlewareSchema(Comment), createComments);
+route.put("/comment", middlewareSchema(Comment), updateComments);
+route.delete("/comment", middlewareSchema(Comment), deleteComments);
 
 module.exports = route;

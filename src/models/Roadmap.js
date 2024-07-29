@@ -206,18 +206,15 @@ const GetContentRoadmapById = async (roadmapId) => {
   return roadmap;
 };
 
-const CreateRoadmap = async (id, title, description) => {
+const CreateRoadmap = async (userId, title, description) => {
   const roadmap = await prisma.roadmap.create({
     data: {
-      Users: {
-        connect: {
-          id,
-        },
-      },
+      userId,
       title,
       description,
     },
   });
+
   const { updatedAt, deletedAt: _, ...response } = roadmap;
   return response;
 };
