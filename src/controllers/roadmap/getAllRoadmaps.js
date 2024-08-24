@@ -1,34 +1,24 @@
 const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
 const RoadmapMessageSuccesses = require("../../constants/Roadmaps/successes");
 const { GetAllRoadmaps, GetRoadmapByFilter } = require("../../models/Roadmap");
-const filterSearchParams = require("../../utils/roadmap/filterSearchParams");
 
 const getAllRoadmaps = async (req, res) => {
+  const { nick_name } = req.body;
+
   try {
-    const searchParams = filterSearchParams({
-      title: req.query.title,
-      description: req.query.description,
-      name: req.query.name,
-      nickname: req.query.nickname,
-    });
-
-    const roadmaps = await GetRoadmapByFilter(searchParams);
-
-    if (roadmaps.length > 0) {
-      return res.status(200).json({
-        statusCode: 200,
-        message: RoadmapMessageSuccesses.successReadRoadmap,
-        body: { data: roadmaps },
-      });
-    }
-
+    const roadmaps = nick_name ? await GetRoadmapByFilter(nick_name) : [];
     const allRoadmaps = await GetAllRoadmaps();
+    const hasRoadmaps = roadmaps.length > 0;
 
-    return res.status(200).json({
+    const response = {
       statusCode: 200,
-      message: RoadmapMessageSuccesses.successReadRoadmap,
-      body: { data: allRoadmaps },
-    });
+      message: hasRoadmaps
+        ? RoadmapMessageSuccesses.successReadFilterRoadmap
+        : RoadmapMessageSuccesses.successReadAllRoadmap,
+      body: { data: hasRoadmaps ? roadmaps : allRoadmaps },
+    };
+
+    return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json({
       statusCode: 400,
