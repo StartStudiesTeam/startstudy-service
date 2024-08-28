@@ -88,23 +88,12 @@ const GetAllRoadmaps = async () => {
   return roadmaps;
 };
 
-const GetRoadmapByFilter = async ({ title, description, name, nickname }) => {
+const GetRoadmapByFilter = async (nickName) => {
   const roadmap = await prisma.roadmap.findMany({
     where: {
-      ...(title && { title: { contains: title, mode: "insensitive" } }),
-      ...(description && {
-        description: { contains: description, mode: "insensitive" },
-      }),
-      ...(name || nickname
-        ? {
-            Users: {
-              ...(name && { name: { contains: name, mode: "insensitive" } }),
-              ...(nickname && {
-                nickName: { contains: nickname, mode: "insensitive" },
-              }),
-            },
-          }
-        : {}),
+      Users: {
+        nickName,
+      },
     },
     select: {
       id: true,
