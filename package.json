@@ -1,23 +1,18 @@
 {
   "name": "startstudy-service",
+  "main": "index.js",
   "version": "1.0.0",
+  "author": "Érico dos Santos Bispos, Ruan de Jesus Brito <ruan.desenvolvedor@gmail.com>",
+  "license": "ISC",
   "engines": {
     "node": ">=16.0.0"
   },
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "nodemon ./src/app.js",
     "start": "node ./src/app.js",
     "doc": "node ./src/swagger.js",
     "test": "jest --passWithNoTests"
   },
-  "keywords": [
-    "backend",
-    "api"
-  ],
-  "author": "Érico dos Santos Bispos, Ruan de Jesus Brito",
-  "license": "ISC",
   "dependencies": {
     "@getbrevo/brevo": "^1.0.1",
     "@prisma/client": "^5.17.0",
