@@ -1,4 +1,4 @@
-const prisma = require("../database/prisma");
+const prisma = require("../../database/prisma");
 
 const GetTheMailAndCode = async (email, code) => {
   const request = await prisma.codeToken.findFirst({

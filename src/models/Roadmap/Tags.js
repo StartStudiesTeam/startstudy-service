@@ -1,4 +1,4 @@
-const prisma = require("../../src/database/prisma");
+const prisma = require("../../database/prisma");
 
 const GetTagById = async (id) => {
   const request = await prisma.tags.findFirst({

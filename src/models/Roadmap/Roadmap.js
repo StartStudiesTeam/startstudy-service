@@ -1,4 +1,4 @@
-const prisma = require("../database/prisma");
+const prisma = require("../../database/prisma");
 
 const GetRoadmapById = async (id) => {
   const roadmap = await prisma.roadmap.findFirst({

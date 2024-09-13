@@ -1,4 +1,4 @@
-const prisma = require("../database/prisma");
+const prisma = require("../../database/prisma");
 
 const GetBookmarkById = async (id) => {
   const request = await prisma.bookmarks.findFirst({
