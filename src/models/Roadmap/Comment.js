@@ -1,4 +1,4 @@
-const prisma = require("../database/prisma");
+const prisma = require("../../database/prisma");
 
 const GetCommentById = async (id) => {
   const comment = await prisma.comments.findFirst({

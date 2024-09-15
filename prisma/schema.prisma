@@ -8,24 +8,23 @@ datasource db {
 }
 
 model Users {
-  id               String             @id @default(uuid())
-  name             String
-  email            String             @unique
-  password         String
-  nickName         String             @unique @map("nick_name")
-  phoneNumber      String?            @map("phone_number")
-  createdAt        DateTime           @default(now()) @map("created_at")
-  updatedAt        DateTime?          @map("updated_at") @db.Timestamp(6)
-  deletedAt        DateTime?          @map("deleted_at") @db.Timestamp(6)
-  verifyMail       Boolean            @default(false) @map("verify_mail")
-  Bookmarks        Bookmarks[]
-  CodeToken        CodeToken[]
-  Comments         Comments[]
-  CommentsComments CommentsComments[]
-  Likes            Likes[]
-  RefreshToken     RefreshToken[]
-  Roadmap          Roadmap[]
-  Videos           Videos[]
+  id           String         @id @default(uuid())
+  name         String
+  email        String         @unique
+  password     String
+  nickName     String         @unique @map("nick_name")
+  phoneNumber  String?        @map("phone_number")
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime?      @map("updated_at") @db.Timestamp(6)
+  deletedAt    DateTime?      @map("deleted_at") @db.Timestamp(6)
+  verifyMail   Boolean        @default(false) @map("verify_mail")
+  Bookmarks    Bookmarks[]
+  CodeToken    CodeToken[]
+  Comments     Comments[]
+  Likes        Likes[]
+  RefreshToken RefreshToken[]
+  Roadmap      Roadmap[]
+  Videos       Videos[]
 
   @@map("users")
 }
@@ -102,54 +101,33 @@ model VideosRoadmap {
 }
 
 model Comments {
-  id               String             @id @default(uuid())
-  userId           String             @map("user_id")
-  videoId          String?            @map("video_id")
-  roadmapId        String?            @map("roadmap_id")
-  createdAt        DateTime           @default(now()) @map("created_at")
-  updatedAt        DateTime?          @map("updated_at") @db.Timestamp(6)
-  deletedAt        DateTime?          @map("deleted_at") @db.Timestamp(6)
-  comments         String             @map("comments")
-  Roadmap          Roadmap?           @relation(fields: [roadmapId], references: [id])
-  Users            Users              @relation(fields: [userId], references: [id])
-  Videos           Videos?            @relation(fields: [videoId], references: [id])
-  CommentsComments CommentsComments[]
-  Likes            Likes[]
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  videoId   String?   @map("video_id")
+  roadmapId String?   @map("roadmap_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at") @db.Timestamp(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
+  comments  String    @map("comments")
+  Roadmap   Roadmap?  @relation(fields: [roadmapId], references: [id])
+  Users     Users     @relation(fields: [userId], references: [id])
+  Videos    Videos?   @relation(fields: [videoId], references: [id])
 
   @@map("comments")
 }
 
-model CommentsComments {
-  id               String    @id @default(uuid())
-  userId           String    @map("user_id")
-  commentsId       String    @map("comments_id")
-  commentsComments String    @map("comments_comments")
-  createdAt        DateTime  @default(now()) @map("created_at")
-  updatedAt        DateTime? @map("updated_at") @db.Timestamp(6)
-  deletedAt        DateTime? @map("deleted_at") @db.Timestamp(6)
-  Comments         Comments  @relation(fields: [commentsId], references: [id])
-  Users            Users     @relation(fields: [userId], references: [id])
-  Likes            Likes[]
-
-  @@map("comments_comments")
-}
-
 model Likes {
-  id                 String            @id @default(uuid())
-  userId             String            @map("user_id")
-  videoId            String?           @map("video_id")
-  roadmapId          String?           @map("roadmap_id")
-  commentsId         String?           @map("comments_id")
-  commentsCommentsId String?           @map("comments_comments_id")
-  createdAt          DateTime          @default(now()) @map("created_at")
-  updatedAt          DateTime?         @map("updated_at") @db.Timestamp(6)
-  deletedAt          DateTime?         @map("deleted_at") @db.Timestamp(6)
-  likes              Boolean           @default(false) @map("likes")
-  CommentsComments   CommentsComments? @relation(fields: [commentsCommentsId], references: [id])
-  Comments           Comments?         @relation(fields: [commentsId], references: [id])
-  Roadmap            Roadmap?          @relation(fields: [roadmapId], references: [id])
-  Users              Users             @relation(fields: [userId], references: [id])
-  Videos             Videos?           @relation(fields: [videoId], references: [id])
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  videoId   String?   @map("video_id")
+  roadmapId String?   @map("roadmap_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at") @db.Timestamp(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
+  likes     Boolean   @default(false) @map("likes")
+  Roadmap   Roadmap?  @relation(fields: [roadmapId], references: [id])
+  Users     Users     @relation(fields: [userId], references: [id])
+  Videos    Videos?   @relation(fields: [videoId], references: [id])
 
   @@map("likes")
 }
@@ -161,6 +139,7 @@ model Bookmarks {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at") @db.Timestamp(6)
   deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
+  bookmarks Boolean   @default(false) @map("bookmarks")
   Roadmap   Roadmap   @relation(fields: [roadmapId], references: [id])
   Users     Users     @relation(fields: [userId], references: [id])
 

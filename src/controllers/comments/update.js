@@ -1,7 +1,10 @@
 const CommentMessageErrors = require("../../constants/Comments/errors");
 const CommentMessageSuccess = require("../../constants/Comments/successes");
 const { currentTime } = require("../../utils/date/date");
-const { UpgradeComment, GetCommentById } = require("../../models/Comment");
+const {
+  UpdateComment,
+  GetCommentById,
+} = require("../../models/Roadmap/Comment");
 
 const updateComments = async (req, res) => {
   const { id, comments } = req.body;
@@ -17,7 +20,7 @@ const updateComments = async (req, res) => {
       });
     }
 
-    const data = await UpgradeComment(id, comments, currentTime);
+    const data = await UpdateComment(id, comments, currentTime);
 
     return res.status(200).json({
       statusCode: 200,

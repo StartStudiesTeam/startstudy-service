@@ -1,4 +1,4 @@
-const prisma = require("../database/prisma");
+const prisma = require("../../database/prisma");
 
 const GetUserByMail = async (email) => {
   const request = await prisma.users.findFirst({

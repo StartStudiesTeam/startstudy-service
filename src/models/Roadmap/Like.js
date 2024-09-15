@@ -1,4 +1,4 @@
-const prisma = require("../database/prisma");
+const prisma = require("../../database/prisma");
 
 const GetLikeById = async (id) => {
   const like = await prisma.likes.findFirst({

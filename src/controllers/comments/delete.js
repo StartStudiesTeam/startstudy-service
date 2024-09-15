@@ -1,7 +1,9 @@
 const CommentMessageErrors = require("../../constants/Comments/errors");
 const CommentMessageSuccess = require("../../constants/Comments/successes");
-const prisma = require("../../database/prisma");
-const { GetCommentById } = require("../../models/Comment");
+const {
+  GetCommentById,
+  DeleteComment,
+} = require("../../models/Roadmap/Comment");
 
 const deleteComments = async (req, res) => {
   const { id } = req.body;
@@ -17,21 +19,7 @@ const deleteComments = async (req, res) => {
       });
     }
 
-    const exclude = await prisma.$transaction(async () => {
-      const exclude = await prisma.commentsComments.deleteMany({
-        where: {
-          commentsId: id,
-        },
-      });
-
-      await prisma.comments.delete({
-        where: {
-          id,
-        },
-      });
-
-      return exclude;
-    });
+    const exclude = await DeleteComment(id);
 
     return res.status(204).json({
       statusCode: 204,

@@ -1,5 +1,5 @@
 const dayjs = require("dayjs");
-const prisma = require("../database/prisma");
+const prisma = require("../../database/prisma");
 
 const CreateRefresh = async (usersId) => {
   const expiresIn = dayjs().add(15, "second").unix();

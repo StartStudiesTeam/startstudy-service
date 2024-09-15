@@ -1,17 +1,22 @@
 const BookmarkMessageErrors = require("../../constants/Bookmarks/errors");
 const BookmarkMessageSuccesses = require("../../constants/Bookmarks/successes");
 const { currentTime } = require("../../utils/date/date");
-const { UpdateBookmark, GetBookmarkById } = require("../../models/Bookmark");
-const { GetRoadmapById } = require("../../models/Roadmap");
+const {
+  UpdateBookmark,
+  GetBookmarkById,
+} = require("../../models/Roadmap/Bookmark");
+const { GetRoadmapById } = require("../../models/Roadmap/Roadmap");
 
 const updateBookmark = async (req, res) => {
   const { id, roadmapId } = req.body;
 
   try {
-    const findbookmark = await GetBookmarkById(id);
-    const findRoadmap = await GetRoadmapById(roadmapId);
+    const [findBookmark, findRoadmap] = await Promise.all([
+      GetBookmarkById(id),
+      GetRoadmapById(roadmapId),
+    ]);
 
-    if (!findbookmark || !findRoadmap) {
+    if (!findBookmark || !findRoadmap) {
       return res.status(404).json({
         statusCode: 404,
         message: BookmarkMessageErrors.errorBookmarkDeletedOrNotFound,

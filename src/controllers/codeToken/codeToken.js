@@ -7,7 +7,7 @@ const {
   GetTheMailAndCode,
   UpdateVerifiedField,
   GetConfirmationFieldByTokenUserId,
-} = require("../../models/Code");
+} = require("../../models/User/Code");
 
 const checkTokenValidity = async (req, res) => {
   const { email, codeToken } = req.body;

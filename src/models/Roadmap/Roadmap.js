@@ -1,4 +1,4 @@
-const prisma = require("../database/prisma");
+const prisma = require("../../database/prisma");
 
 const GetRoadmapById = async (id) => {
   const roadmap = await prisma.roadmap.findFirst({
@@ -172,7 +172,7 @@ const GetContentRoadmapById = async (roadmapId) => {
       },
       Bookmarks: {
         select: {
-          id: true,
+          userId: true,
         },
       },
       _count: {
@@ -183,6 +183,11 @@ const GetContentRoadmapById = async (roadmapId) => {
             },
           },
           Comments: {
+            where: {
+              deletedAt: null,
+            },
+          },
+          Bookmarks: {
             where: {
               deletedAt: null,
             },
