@@ -3,10 +3,10 @@ const RoadmapMessageSuccesses = require("../../constants/Roadmaps/successes");
 const {
   GetRoadmapById,
   GetContentRoadmapById,
-} = require("../../models/Roadmap");
+} = require("../../models/Roadmap/Roadmap");
 
 const readRoadmap = async (req, res) => {
-  const { roadmapId } = req.body;
+  const { roadmapId } = req.query;
 
   try {
     const findRoadmap = await GetRoadmapById(roadmapId);

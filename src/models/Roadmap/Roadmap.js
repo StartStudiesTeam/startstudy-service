@@ -172,7 +172,7 @@ const GetContentRoadmapById = async (roadmapId) => {
       },
       Bookmarks: {
         select: {
-          id: true,
+          userId: true,
         },
       },
       _count: {
@@ -183,6 +183,11 @@ const GetContentRoadmapById = async (roadmapId) => {
             },
           },
           Comments: {
+            where: {
+              deletedAt: null,
+            },
+          },
+          Bookmarks: {
             where: {
               deletedAt: null,
             },
