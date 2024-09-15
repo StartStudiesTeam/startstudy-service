@@ -1,7 +1,10 @@
 const BookmarkMessageErrors = require("../../constants/Bookmarks/errors");
 const BookmarkMessageSuccesses = require("../../constants/Bookmarks/successes");
 const { currentTime } = require("../../utils/date/date");
-const { DeleteBookmark, GetBookmarkById } = require("../../models/Bookmark");
+const {
+  DeleteBookmark,
+  GetBookmarkById,
+} = require("../../models/Roadmap/Bookmark");
 
 const deleteBookmark = async (req, res) => {
   const { id } = req.body;
