@@ -112,25 +112,22 @@ model Comments {
   Roadmap   Roadmap?  @relation(fields: [roadmapId], references: [id])
   Users     Users     @relation(fields: [userId], references: [id])
   Videos    Videos?   @relation(fields: [videoId], references: [id])
-  Likes     Likes[]
 
   @@map("comments")
 }
 
 model Likes {
-  id         String    @id @default(uuid())
-  userId     String    @map("user_id")
-  videoId    String?   @map("video_id")
-  roadmapId  String?   @map("roadmap_id")
-  commentsId String?   @map("comments_id")
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @map("updated_at") @db.Timestamp(6)
-  deletedAt  DateTime? @map("deleted_at") @db.Timestamp(6)
-  likes      Boolean   @default(false) @map("likes")
-  Comments   Comments? @relation(fields: [commentsId], references: [id])
-  Roadmap    Roadmap?  @relation(fields: [roadmapId], references: [id])
-  Users      Users     @relation(fields: [userId], references: [id])
-  Videos     Videos?   @relation(fields: [videoId], references: [id])
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  videoId   String?   @map("video_id")
+  roadmapId String?   @map("roadmap_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at") @db.Timestamp(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
+  likes     Boolean   @default(false) @map("likes")
+  Roadmap   Roadmap?  @relation(fields: [roadmapId], references: [id])
+  Users     Users     @relation(fields: [userId], references: [id])
+  Videos    Videos?   @relation(fields: [videoId], references: [id])
 
   @@map("likes")
 }
