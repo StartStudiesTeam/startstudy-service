@@ -1,9 +1,14 @@
 const {
   UserSignUp,
   UserSingIn,
-  UserMailCheck,
+  UserRefreshToken,
   UserConfirmationToken,
   UserPasswordForget,
+  UserMailCheck,
+  CreateComments,
+  UpdateComments,
+  CreateRoadmap,
+  UpdateRoadmap,
 } = require("../src/documentation/exampleDocs/data");
 
 module.exports = {
@@ -28,8 +33,13 @@ module.exports = {
   definitions: {
     UserSignUp,
     UserSingIn,
+    UserRefreshToken,
     UserConfirmationToken,
     UserMailCheck,
     UserPasswordForget,
+    CreateComments,
+    UpdateComments,
+    CreateRoadmap,
+    UpdateRoadmap,
   },
 };
