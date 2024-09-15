@@ -142,6 +142,7 @@ model Bookmarks {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at") @db.Timestamp(6)
   deletedAt DateTime? @map("deleted_at") @db.Timestamp(6)
+  bookmarks Boolean   @default(false) @map("bookmarks")
   Roadmap   Roadmap   @relation(fields: [roadmapId], references: [id])
   Users     Users     @relation(fields: [userId], references: [id])
 
