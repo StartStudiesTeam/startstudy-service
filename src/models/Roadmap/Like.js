@@ -16,6 +16,7 @@ const CheckUserAndVideoLikeFields = async (userId, videoId, roadmapId) => {
       userId: userId,
       videoId,
       roadmapId,
+      deletedAt: null,
     },
   });
 
@@ -36,7 +37,7 @@ const CreateLike = async (userId, videoId, roadmapId) => {
   return response;
 };
 
-const UpgradeLike = async (id, userId, time) => {
+const UpdateLike = async (id, userId, time) => {
   const like = await prisma.likes.update({
     where: {
       id,
@@ -52,7 +53,7 @@ const UpgradeLike = async (id, userId, time) => {
   return response;
 };
 
-const LikeAgain = async (likeId, time, status) => {
+const DeletingLike = async (likeId, time, status) => {
   const like = await prisma.likes.update({
     where: {
       id: likeId,
@@ -71,7 +72,9 @@ const DeleteLike = async (id, time) => {
       id,
     },
     data: {
+      updatedAt: time,
       deletedAt: time,
+      likes: false,
     },
   });
 
@@ -82,7 +85,7 @@ module.exports = {
   GetLikeById,
   CheckUserAndVideoLikeFields,
   CreateLike,
-  UpgradeLike,
-  LikeAgain,
+  UpdateLike,
+  DeletingLike,
   DeleteLike,
 };
