@@ -3,25 +3,36 @@ const BookmarkMessageSuccesses = require("../../constants/Bookmarks/successes");
 const {
   CreateBookmark,
   CheckUserAndRoadmapBookmarkFields,
+  DeletingMarked,
 } = require("../../models/Roadmap/Bookmark");
 const { GetRoadmapById } = require("../../models/Roadmap/Roadmap");
 const { GetFieldDeletedByUser } = require("../../models/User/User");
+const { currentTime } = require("../../utils/date/date");
 
 const createBookmark = async (req, res) => {
   const { userId, roadmapId } = req.body;
 
   try {
-    const [user, roadmap] = await Promise.all([
-      GetFieldDeletedByUser(userId),
-      GetRoadmapById(roadmapId),
-    ]);
-
     const alreadySaved = await CheckUserAndRoadmapBookmarkFields(
       userId,
       roadmapId
     );
 
-    if (!user || !roadmap || alreadySaved) {
+    if (alreadySaved) {
+      await DeletingMarked(
+        alreadySaved.id,
+        currentTime,
+        !alreadySaved.bookmarks
+      );
+      return res.status(204).send();
+    }
+
+    const [user, roadmap] = await Promise.all([
+      GetFieldDeletedByUser(userId),
+      GetRoadmapById(roadmapId),
+    ]);
+
+    if (!user || !roadmap) {
       return res.status(400).json({
         statusCode: 400,
         message: BookmarkMessageErrors.errorRegisteringBookmark,
