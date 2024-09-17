@@ -2,8 +2,8 @@ const CodeToken = require("../../utils/user/token");
 const UserMessageErrors = require("../../constants/Users/errors");
 const UserMessageSuccesses = require("../../constants/Users/successes");
 const { currentTime } = require("../../utils/date/date");
-const { GetUserByMail } = require("../../models/User");
-const { GetTheUserId, UpdateCodeTokenById } = require("../../models/Code");
+const { GetUserByMail } = require("../../models/User/User");
+const { GetTheUserId, UpdateCodeTokenById } = require("../../models/User/Code");
 const SendRegisteredUserEmail = require("../../service/mail/Mails");
 
 const mailCheck = async (req, res) => {
