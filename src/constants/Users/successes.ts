@@ -1,4 +1,4 @@
-const userSuccesses = {
+export const userSuccesses = {
   successfulUserLogin: "Usuário logado com sucesso!",
   successInRegisteringUser: "Usuário registrado com sucesso!",
   successfulUpdatingUser: "Usuário atualizado com sucesso!",
@@ -9,4 +9,3 @@ const userSuccesses = {
   successInVerifyingToken: "Sucesso ao verificar o token!",
 };
 
-module.exports = userSuccesses;

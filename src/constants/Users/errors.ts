@@ -1,4 +1,4 @@
-const userErros = {
+export const userErros = {
   userLoginError: "Erro, não foi possível fazer login!",
   tokenVerificationError: "Erro, não foi possível verificar o token",
   userRefreshError: "Erro, não foi possível criar o refresh token",
@@ -21,4 +21,3 @@ const userErros = {
   errorUserHasAlreadyBeenValidated: "Erro, o usuário já está validado.",
 };
 
-module.exports = userErros;
