@@ -329,6 +329,11 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "roadmapId",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -903,6 +908,9 @@
           "201": {
             "description": "Created"
           },
+          "204": {
+            "description": "No Content"
+          },
           "400": {
             "description": "Bad Request"
           },
@@ -1002,7 +1010,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "email": {
+                "id": {
                   "example": "any"
                 },
                 "comments": {
@@ -1117,19 +1125,19 @@
         },
         "name": {
           "type": "string",
-          "example": "Username"
+          "example": "Ruan Brito"
         },
         "nick_name": {
           "type": "string",
-          "example": "username"
+          "example": "ruanbrito"
         },
         "email": {
           "type": "string",
-          "example": "user@email.com"
+          "example": "ruanbrito@email.com"
         },
         "phone_number": {
           "type": "string",
-          "example": "XXXXXXXXXXX"
+          "example": "11912345678"
         },
         "password": {
           "type": "string",
@@ -1142,11 +1150,20 @@
       "properties": {
         "email": {
           "type": "string",
-          "example": "user@email.com"
+          "example": "ruanbrito@email.com"
         },
         "password": {
           "type": "string",
           "example": "user@k-vbgauR@$#"
+        }
+      }
+    },
+    "UserRefreshToken": {
+      "type": "object",
+      "properties": {
+        "refresh_token": {
+          "type": "string",
+          "example": "9fede3d3-eeb4-48f0-9db0-93ea6157fde6"
         }
       }
     },
@@ -1155,7 +1172,7 @@
       "properties": {
         "email": {
           "type": "string",
-          "example": "user@email.com"
+          "example": "ruanbrito@email.com"
         },
         "codeToken": {
           "type": "string",
@@ -1168,7 +1185,7 @@
       "properties": {
         "email": {
           "type": "string",
-          "example": "user@email.com"
+          "example": "ruanbrito@email.com"
         }
       }
     },
@@ -1177,11 +1194,75 @@
       "properties": {
         "email": {
           "type": "string",
-          "example": "user@email.com"
+          "example": "ruanbrito@email.com"
         },
         "newPassword": {
           "type": "string",
           "example": "@lfvkjkj92847"
+        }
+      }
+    },
+    "CreateComments": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "example": "1"
+        },
+        "comments": {
+          "type": "string",
+          "example": "Amazing! nice rutorial."
+        },
+        "roadmapId": {
+          "type": "string",
+          "example": "ecd4811c-84c1-4c3f-aefa-9a2fdde2ea1d"
+        }
+      }
+    },
+    "UpdateComments": {
+      "type": "object",
+      "properties": {
+        "commentId": {
+          "type": "string",
+          "example": "1"
+        },
+        "comments": {
+          "type": "string",
+          "example": "Amazing! Nice tutorial."
+        }
+      }
+    },
+    "CreateRoadmap": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "example": "1"
+        },
+        "title": {
+          "type": "string",
+          "example": "Learn JavaScript"
+        },
+        "description": {
+          "type": "string",
+          "example": "The best tutorial to learn to JavaScript"
+        }
+      }
+    },
+    "UpdateRoadmap": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "example": "1"
+        },
+        "title": {
+          "type": "string",
+          "example": "Learn Java"
+        },
+        "description": {
+          "type": "string",
+          "example": "The best tutorial to learn to Java"
         }
       }
     }
