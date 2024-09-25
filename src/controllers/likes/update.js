@@ -1,7 +1,7 @@
 const LikeMessageErrors = require("../../constants/Likes/errors");
 const LikeMessageSuccess = require("../../constants/Likes/successes");
 const { currentTime } = require("../../utils/date/date");
-const { UpgradeLike, GetLikeById } = require("../../models/Like");
+const { UpgradeLike, GetLikeById } = require("../../models/Roadmap/Like");
 
 const updateLike = async (req, res) => {
   const { id, userId } = req.body;

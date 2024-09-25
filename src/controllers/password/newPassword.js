@@ -6,7 +6,7 @@ const {
   UpdateNewPassword,
   GetUserByMail,
   GetUserByIdWithDeletedField,
-} = require("../../models/User");
+} = require("../../models/User/User");
 
 const newPassword = async (req, res) => {
   const { email, password } = req.body;

@@ -1,6 +1,9 @@
 const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
 const RoadmapMessageSuccesses = require("../../constants/Roadmaps/successes");
-const { GetAllRoadmaps, GetRoadmapByFilter } = require("../../models/Roadmap");
+const {
+  GetAllRoadmaps,
+  GetRoadmapByFilter,
+} = require("../../models/Roadmap/Roadmap");
 
 const getAllRoadmaps = async (req, res) => {
   const { nick_name } = req.body;

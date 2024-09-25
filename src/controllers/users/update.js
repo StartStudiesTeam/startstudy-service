@@ -6,7 +6,7 @@ const {
   GetUserByNick,
   UpdateMainUserData,
   GetUserByIdWithDeletedField,
-} = require("../../models/User");
+} = require("../../models/User/User");
 const { currentTime } = require("../../utils/date/date");
 const { CreateAccessToken } = require("../../utils/authenticate/AccessToken");
 

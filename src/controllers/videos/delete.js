@@ -1,6 +1,6 @@
 const VideoMessageErrors = require("../../constants/Videos/errors");
 const VideoMessageSuccess = require("../../constants/Videos/successes");
-const { GetVideoById, DeleteVideo } = require("../../models/Video");
+const { GetVideoById, DeleteVideo } = require("../../models/Roadmap/Video");
 const { currentTime } = require("../../utils/date/date");
 
 const deleteVideo = async (req, res) => {

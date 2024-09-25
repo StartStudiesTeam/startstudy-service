@@ -1,6 +1,6 @@
 const TagMessageErrors = require("../../constants/Tags/errors");
 const TagMessageSuccess = require("../../constants/Tags/successes");
-const { DeleteTag, GetTagById } = require("../../models/Tags");
+const { DeleteTag, GetTagById } = require("../../models/Roadmap/Tags");
 const { currentTime } = require("../../utils/date/date");
 
 const deleteTag = async (req, res) => {

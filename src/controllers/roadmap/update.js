@@ -1,7 +1,10 @@
 const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
 const RoadmapMessageSuccesses = require("../../constants/Roadmaps/successes");
 const { currentTime } = require("../..//utils/date/date");
-const { GetRoadmapById, UpdateRoadmap } = require("../../models/Roadmap");
+const {
+  GetRoadmapById,
+  UpdateRoadmap,
+} = require("../../models/Roadmap/Roadmap");
 
 const updateRoadmap = async (req, res) => {
   const { roadmapId, title, description } = req.body;

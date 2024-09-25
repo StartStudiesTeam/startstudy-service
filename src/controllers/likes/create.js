@@ -4,7 +4,7 @@ const {
   CreateLike,
   CheckUserAndVideoLikeFields,
   LikeAgain,
-} = require("../../models/Like");
+} = require("../../models/Roadmap/Like");
 const { currentTime } = require("../../utils/date/date");
 
 const createLike = async (req, res) => {

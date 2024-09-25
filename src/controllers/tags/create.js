@@ -1,8 +1,8 @@
 const TagMessageErrors = require("../../constants/Tags/errors");
 const TagMessageSuccess = require("../../constants/Tags/successes");
 const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
-const { GetRoadmapById } = require("../../models/Roadmap");
-const { CreateTag } = require("../../models/Tags");
+const { GetRoadmapById } = require("../../models/Roadmap/Roadmap");
+const { CreateTag } = require("../../models/Roadmap/Tags");
 
 const createTag = async (req, res) => {
   const { roadmapId, tag } = req.body;

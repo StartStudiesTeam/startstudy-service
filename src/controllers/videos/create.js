@@ -1,8 +1,8 @@
 const VideoMessageErrors = require("../../constants/Videos/errors");
 const VideoMessageSuccess = require("../../constants/Videos/successes");
 const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
-const { GetRoadmapById } = require("../../models/Roadmap");
-const { CreateVideo } = require("../../models/Video");
+const { GetRoadmapById } = require("../../models/Roadmap/Roadmap");
+const { CreateVideo } = require("../../models/Roadmap/Video");
 
 const createVideos = async (req, res) => {
   const { roadmapId, title, description, video } = req.body;

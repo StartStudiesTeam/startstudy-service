@@ -4,7 +4,7 @@ const {
   CreateRefresh,
   GetRefresh,
   DeleteRefresh,
-} = require("../../models/Refresh");
+} = require("../../models/User/Refresh");
 const { CreateAccessToken } = require("../../utils/authenticate/AccessToken");
 const { afterDate } = require("../../utils/date/date");
 

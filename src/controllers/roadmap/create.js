@@ -1,8 +1,8 @@
 const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
 const RoadmapMessageSuccesses = require("../../constants/Roadmaps/successes");
 const UserMessageErrors = require("../../constants/Users/errors");
-const { CreateRoadmap } = require("../../models/Roadmap");
-const { GetUserByIdWithDeletedField } = require("../../models/User");
+const { CreateRoadmap } = require("../../models/Roadmap/Roadmap");
+const { GetUserByIdWithDeletedField } = require("../../models/User/User");
 
 const createdRoadmap = async (req, res) => {
   const { userId, title, description } = req.body;

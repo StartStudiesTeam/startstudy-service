@@ -5,7 +5,7 @@ const {
   UpdateFieldVideosRoadmap,
   UpdateAllVideoData,
   GetVideoById,
-} = require("../../models/Video");
+} = require("../../models/Roadmap/Video");
 
 const updateVideos = async (req, res) => {
   const { id, title, description, video } = req.body;

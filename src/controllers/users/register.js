@@ -4,9 +4,9 @@ const UserMessageSuccesses = require("../../constants/Users/successes");
 const UserMessageErrors = require("../../constants/Users/errors");
 const CodeToken = require("../../utils/user/token");
 const SendRegisteredUserEmail = require("../../service/mail/Mails");
-const { GetUserByMail, GetUserByNick } = require("../../models/User");
+const { GetUserByMail, GetUserByNick } = require("../../models/User/User");
 const { CreateAccessToken } = require("../../utils/authenticate/AccessToken");
-const { CreateRefresh } = require("../../models/Refresh");
+const { CreateRefresh } = require("../../models/User/Refresh");
 
 const registerUser = async (req, res) => {
   const { name, nick_name, email, password, phone_number } = req.body;

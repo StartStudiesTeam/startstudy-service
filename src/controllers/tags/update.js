@@ -1,7 +1,7 @@
 const TagMessageErrors = require("../../constants/Tags/errors");
 const TagMessageSuccess = require("../../constants/Tags/successes");
-const { GetRoadmapById } = require("../../models/Roadmap");
-const { UpdateTag, GetTagById } = require("../../models/Tags");
+const { GetRoadmapById } = require("../../models/Roadmap/Roadmap");
+const { UpdateTag, GetTagById } = require("../../models/Roadmap/Tags");
 const { currentTime } = require("../../utils/date/date");
 
 const updateTag = async (req, res) => {

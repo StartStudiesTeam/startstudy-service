@@ -1,6 +1,6 @@
 const LikeMessageErrors = require("../../constants/Likes/errors");
 const LikeMessageSuccess = require("../../constants/Likes/successes");
-const { GetLikeById, DeleteLike } = require("../../models/Like");
+const { GetLikeById, DeleteLike } = require("../../models/Roadmap/Like");
 const { currentTime } = require("../../utils/date/date");
 
 const deleteLike = async (req, res) => {

@@ -4,7 +4,7 @@ const { currentTime } = require("../../utils/date/date");
 const {
   DeleteUserById,
   GetUserByIdWithDeletedField,
-} = require("../../models/User");
+} = require("../../models/User/User");
 
 const deleteUser = async (req, res) => {
   const { id } = req.body;

@@ -1,6 +1,9 @@
 const RoadmapMessageErrors = require("../../constants/Roadmaps/errors");
 const RoadmapMessageSuccesses = require("../../constants/Roadmaps/successes");
-const { GetRoadmapById, DeletedRoadmapById } = require("../../models/Roadmap");
+const {
+  GetRoadmapById,
+  DeletedRoadmapById,
+} = require("../../models/Roadmap/Roadmap");
 const { currentTime } = require("../../utils/date/date");
 
 const deleteRoadmap = async (req, res) => {

@@ -1,15 +1,13 @@
 const bcrypt = require("bcrypt");
 const UserMessageErrors = require("../../constants/Users/errors");
 const UserMessageSuccesseses = require("../../constants/Users/successes");
-const { CreateRefresh } = require("../../models/Refresh.js");
+const { CreateRefresh } = require("../../models/User/Refresh");
 const {
   GetUserByMail,
   GetUserByNick,
   GetFieldDeletedByUser,
-} = require("../../models/User.js");
-const {
-  CreateAccessToken,
-} = require("../../utils/authenticate/AccessToken.js");
+} = require("../../models/User/User");
+const { CreateAccessToken } = require("../../utils/authenticate/AccessToken");
 
 const loginUser = async (req, res) => {
   const { nick_name, email, password } = req.body;

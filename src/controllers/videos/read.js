@@ -1,6 +1,9 @@
 const VideoMessageErrors = require("../../constants/Videos/errors");
 const VideoMessageSuccess = require("../../constants/Videos/successes");
-const { GetVideoById, GetContentRelatedVideo } = require("../../models/Video");
+const {
+  GetVideoById,
+  GetContentRelatedVideo,
+} = require("../../models/Roadmap/Video");
 
 const readVideo = async (req, res) => {
   const { videoId } = req.body;
