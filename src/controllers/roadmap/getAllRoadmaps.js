@@ -6,11 +6,15 @@ const {
 } = require("../../models/Roadmap/Roadmap");
 
 const getAllRoadmaps = async (req, res) => {
-  const { nick_name } = req.body;
+  const { nick_name, skip, take } = req.query;
 
   try {
-    const roadmaps = nick_name ? await GetRoadmapByFilter(nick_name) : [];
-    const allRoadmaps = await GetAllRoadmaps();
+    const roadmaps = nick_name
+      ? await GetRoadmapByFilter(nick_name, skip, take)
+      : [];
+
+    const allRoadmaps = await GetAllRoadmaps(skip, take);
+
     const hasRoadmaps = roadmaps.length > 0;
 
     const response = {
