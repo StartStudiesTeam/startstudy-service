@@ -1,6 +1,6 @@
-const prisma = require("../../database/prisma");
+import { prisma } from "../../database/prisma";
 
-const GetUserByMail = async (email) => {
+export const GetUserByMail = async (email: string) => {
   const request = await prisma.users.findFirst({
     where: {
       email,
@@ -9,7 +9,7 @@ const GetUserByMail = async (email) => {
   return request;
 };
 
-const GetUserByNick = async (nick) => {
+export const GetUserByNick = async (nick: string) => {
   const request = await prisma.users.findFirst({
     where: {
       nickName: nick,
@@ -18,7 +18,7 @@ const GetUserByNick = async (nick) => {
   return request;
 };
 
-const GetUserByIdWithDeletedField = async (id) => {
+export const GetUserByIdWithDeletedField = async (id: string) => {
   const request = await prisma.users.findFirst({
     where: {
       id,
@@ -30,7 +30,7 @@ const GetUserByIdWithDeletedField = async (id) => {
   return request;
 };
 
-const GetFieldDeletedByUser = async (id) => {
+export const GetFieldDeletedByUser = async (id: string) => {
   const find = await prisma.users.findFirst({
     where: {
       id,
@@ -40,7 +40,13 @@ const GetFieldDeletedByUser = async (id) => {
   return find;
 };
 
-const UpdateMainUserData = async (id, name, email, phoneNumber, time) => {
+export const UpdateMainUserData = async (
+  id: string,
+  name: string,
+  email: string,
+  phoneNumber: string,
+  time: Date
+) => {
   const request = await prisma.users.update({
     where: {
       id,
@@ -57,7 +63,11 @@ const UpdateMainUserData = async (id, name, email, phoneNumber, time) => {
   return response;
 };
 
-const UpdateNewPassword = async (email, password, date) => {
+export const UpdateNewPassword = async (
+  email: string,
+  password: string,
+  date: Date
+) => {
   const update = prisma.users.update({
     where: {
       email,
@@ -71,7 +81,7 @@ const UpdateNewPassword = async (email, password, date) => {
   return update;
 };
 
-const DeleteUserById = async (id, time) => {
+export const DeleteUserById = async (id: string, time: Date) => {
   const response = await prisma.users.update({
     where: {
       id,
@@ -81,14 +91,4 @@ const DeleteUserById = async (id, time) => {
     },
   });
   return response;
-};
-
-module.exports = {
-  GetUserByMail,
-  GetUserByNick,
-  GetUserByIdWithDeletedField,
-  GetFieldDeletedByUser,
-  UpdateMainUserData,
-  UpdateNewPassword,
-  DeleteUserById,
 };
