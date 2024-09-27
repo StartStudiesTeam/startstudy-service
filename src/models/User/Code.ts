@@ -1,6 +1,6 @@
-const prisma = require("../../database/prisma");
+import { prisma } from "../../database/prisma";
 
-const GetTheMailAndCode = async (email, code) => {
+const GetTheMailAndCode = async (email: string, code: string) => {
   const request = await prisma.codeToken.findFirst({
     where: {
       codeToken: code,
@@ -13,7 +13,7 @@ const GetTheMailAndCode = async (email, code) => {
   return request;
 };
 
-const GetTheUserId = async (id) => {
+export const GetTheUserId = async (id: string) => {
   const request = await prisma.codeToken.findFirst({
     where: {
       userId: id,
@@ -22,7 +22,7 @@ const GetTheUserId = async (id) => {
   return request;
 };
 
-const GetConfirmationFieldByTokenUserId = async (id) => {
+export const GetConfirmationFieldByTokenUserId = async (id: string) => {
   const request = await prisma.codeToken.findFirst({
     where: {
       id,
@@ -32,7 +32,12 @@ const GetConfirmationFieldByTokenUserId = async (id) => {
   return request;
 };
 
-const UpdateCodeTokenById = async (id, code, date, value) => {
+export const UpdateCodeTokenById = async (
+  id: string,
+  code: string,
+  date: Date,
+  value: Date
+) => {
   const request = await prisma.codeToken.update({
     where: {
       id,
@@ -46,7 +51,11 @@ const UpdateCodeTokenById = async (id, code, date, value) => {
   return request;
 };
 
-const UpdateVerifiedField = async (id, time, verify) => {
+export const UpdateVerifiedField = async (
+  id: string,
+  time: Date,
+  verify: boolean
+) => {
   const request = await prisma.codeToken.update({
     where: {
       id,
@@ -63,12 +72,4 @@ const UpdateVerifiedField = async (id, time, verify) => {
   });
   const { deletedAt: _, ...response } = request;
   return response;
-};
-
-module.exports = {
-  GetTheMailAndCode,
-  GetTheUserId,
-  GetConfirmationFieldByTokenUserId,
-  UpdateCodeTokenById,
-  UpdateVerifiedField,
 };
