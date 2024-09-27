@@ -1,6 +1,6 @@
 import { prisma } from "../../database/prisma";
 
-const GetTheMailAndCode = async (email: string, code: string) => {
+export const GetTheMailAndCode = async (email: string, code: string) => {
   const request = await prisma.codeToken.findFirst({
     where: {
       codeToken: code,
