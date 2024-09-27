@@ -10,7 +10,10 @@ const GetRoadmapById = async (id) => {
   return roadmap;
 };
 
-const GetAllRoadmaps = async () => {
+const GetAllRoadmaps = async (skip, take) => {
+  const skipValue = parseInt(skip, 10) || 0;
+  const takeValue = parseInt(take, 10) || 10;
+
   const roadmaps = await prisma.roadmap.findMany({
     where: {
       deletedAt: null,
@@ -84,11 +87,16 @@ const GetAllRoadmaps = async () => {
         },
       },
     },
+    skip: skipValue,
+    take: takeValue,
   });
   return roadmaps;
 };
 
-const GetRoadmapByFilter = async (nickName) => {
+const GetRoadmapByFilter = async (nickName, skip, take) => {
+  const skipValue = parseInt(skip, 10) || 0;
+  const takeValue = parseInt(take, 10) || 10;
+
   const roadmap = await prisma.roadmap.findMany({
     where: {
       Users: {
@@ -110,6 +118,8 @@ const GetRoadmapByFilter = async (nickName) => {
         },
       },
     },
+    skip: skipValue,
+    take: takeValue,
   });
 
   return roadmap;
