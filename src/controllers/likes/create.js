@@ -3,7 +3,7 @@ const LikeMessageSuccess = require("../../constants/Likes/successes");
 const {
   CreateLike,
   CheckUserAndVideoLikeFields,
-  LikeAgain,
+  DeletingLike,
 } = require("../../models/Roadmap/Like");
 const { currentTime } = require("../../utils/date/date");
 
@@ -19,7 +19,7 @@ const createLike = async (req, res) => {
 
     if (alreadyLiked) {
       const newLikeValue = !alreadyLiked.likes;
-      await LikeAgain(alreadyLiked.id, currentTime, newLikeValue);
+      await DeletingLike(alreadyLiked.id, currentTime, newLikeValue);
 
       return res.status(204).send();
     }
