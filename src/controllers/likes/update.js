@@ -1,7 +1,7 @@
 const LikeMessageErrors = require("../../constants/Likes/errors");
 const LikeMessageSuccess = require("../../constants/Likes/successes");
 const { currentTime } = require("../../utils/date/date");
-const { UpgradeLike, GetLikeById } = require("../../models/Roadmap/Like");
+const { UpdateLike, GetLikeById } = require("../../models/Roadmap/Like");
 
 const updateLike = async (req, res) => {
   const { id, userId } = req.body;
@@ -16,7 +16,7 @@ const updateLike = async (req, res) => {
         body: {},
       });
     }
-    const data = await UpgradeLike(id, userId, currentTime);
+    const data = await UpdateLike(id, userId, currentTime);
 
     return res.status(200).json({
       statusCode: 200,
