@@ -24,7 +24,7 @@ const CreateComment = async (userId, comments, videoId, roadmapId) => {
   return response;
 };
 
-const UpgradeComment = async (id, comments, time) => {
+const UpdateComment = async (id, comments, time) => {
   const comment = await prisma.comments.update({
     where: {
       id,
@@ -39,8 +39,19 @@ const UpgradeComment = async (id, comments, time) => {
   return response;
 };
 
+const DeleteComment = async (id) => {
+  const comment = await prisma.comments.update({
+    where: {
+      id,
+    },
+  });
+
+  return comment;
+};
+
 module.exports = {
   GetCommentById,
   CreateComment,
-  UpgradeComment,
+  UpdateComment,
+  DeleteComment,
 };
